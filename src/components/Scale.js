@@ -2,7 +2,7 @@ import React from 'react';
 
 function Scale(props) {
 
-  const {max, zeroColor, minColor, maxColor, colorScale} = props;
+  const {max, zeroColor, colorScale} = props;
 
   const logmidpoints = (min, max, steps) => {
       const points = [];
