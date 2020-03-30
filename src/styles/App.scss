@@ -1,0 +1,17 @@
+
+@import './main-panel.scss';
+@import './left-sidebar.scss';
+
+@import './breakpoints.scss';
+@import './colors.scss';
+@import './typography.scss';
+
+* {
+    box-sizing: border-box;
+}
+html, body, #root, .MuiGrid-root{
+    height: 100%;
+}
+
+
+
