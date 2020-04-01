@@ -11,6 +11,33 @@
         }
     }
 
+    .focused-state{
+        border:2px solid blue;
+        //stroke: #810000;
+        stroke: white;
+        stroke-width:2px;
+        //stroke-dasharray:10;
+        animation: throb 1s ease-in-out;
+        //animation: dash 5s linear, throb 1s ease-in-out;
+        animation-iteration-count: infinite;
+    }
+    @keyframes dash {
+        to {
+            stroke-dashoffset: 100;
+        }
+    }
+    @keyframes throb {
+        0% {
+            opacity:1;
+        }
+        50% {
+            opacity:.8;
+        }
+        100% {
+            opacity:1;
+        }
+    }
+
     .scale-diagram{
         div{
             display: inline-block;

@@ -8,7 +8,6 @@ const ChartTooltip = (props) => {
 
   return (
     <div className={"chart-tooltip"}>
-      { console.log(point.data.pos) }
       <strong>{ moment(point.data.time).format("MMMM Do") }</strong><br />
       <span style={{color: colors.confirmed}}>
         Confirmed: <b>{ data.confirmed[point.data.pos] }</b>

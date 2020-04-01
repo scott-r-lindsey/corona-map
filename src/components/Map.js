@@ -11,14 +11,27 @@ const zeroColor = '#BBD0E6';
 const minColor = '#E2C065';
 const maxColor = '#CC0000';
 
+let focusedStatePath;
+
 const MapChart = (props) => {
   const { axis, data } = props;
 
   const history = useHistory();
   const params = useParams();
+  const {location} = params;
 
-  const handleStateClick = geography => () => {
-    history.push(updateUrl(params, {location: geography.name.toLowerCase()}));
+  function focusState(geo, path){
+    if (focusedStatePath) {
+      focusedStatePath.style='';
+    }
+    path.style='stroke:#660000';
+    focusedStatePath = path;
+  }
+
+  function handleStateClick(e, geography){
+    const path = e.currentTarget;
+    //focusState(geography, path);
+    history.push(updateUrl(params, {location: geography.properties.name.toLowerCase()}));
   }
 
   const days = data ?
@@ -43,9 +56,11 @@ const MapChart = (props) => {
 
                 geographies.map(geo => {
                   const cur = data.states ? data.states[geo.id] : {}
+                  console.log(cur);
                   return (
                     <Geography
-                      onClick={handleStateClick(geo.properties)}
+                      onClick={(e) => handleStateClick(e, geo)}
+                      className={cur.name.toLowerCase() === location ? 'focused-state' : ''}
                       key={geo.rsmKey}
                       geography={geo}
                       fill={
