@@ -21,8 +21,12 @@ const MapChart = (props) => {
     history.push(updateUrl(params, {location: geography.name.toLowerCase()}));
   }
 
+  const days = data ?
+    data.dates.length :
+    0;
+
   const max = data ?
-    Math.max(...Object.entries(data.states).map(o => o[1][axis]), 0) : 0;
+    Math.max(...Object.entries(data.states).map(o => o[1][axis][days-1]), 0) : 0;
 
   const colorScale = scaleLog()
     .domain([1, max])
@@ -44,7 +48,11 @@ const MapChart = (props) => {
                       onClick={handleStateClick(geo.properties)}
                       key={geo.rsmKey}
                       geography={geo}
-                      fill={( cur[axis] === 0) ? zeroColor : colorScale(cur[axis])}
+                      fill={
+                        ( cur[axis][days-1] === 0) ?
+                          zeroColor :
+                          colorScale(cur[axis][days-1])
+                        }
                     />
                   );
                 })

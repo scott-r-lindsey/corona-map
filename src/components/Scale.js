@@ -1,18 +1,10 @@
 import React from 'react';
 
+import logmidpoints from '../lib/logmidpoints.js';
+
 function Scale(props) {
 
   const {max, zeroColor, colorScale} = props;
-
-  const logmidpoints = (min, max, steps) => {
-      const points = [];
-      const logmax = Math.log(max);
-      const logmin = Math.log(min);
-      for (let v = logmin; v <= logmax; v += (logmax-logmin) / steps) {
-          points.push(Math.exp(v));
-      }
-      return points;
-  }
 
   const points = logmidpoints(1, max, 5);
   const r = points.map((val) => { return Math.round(val) });

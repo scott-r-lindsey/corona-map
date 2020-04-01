@@ -3,7 +3,7 @@
 const d3 = require('d3');
 const fs = require('fs');
 
-const { states, statesByName } = require('./states');
+const { states, statesByAbbrev, statesByName } = require('./states');
 
 const inputPath = '../working/COVID-19/csse_covid_19_data/csse_covid_19_daily_reports/';
 const outputPath = '../public/data/';

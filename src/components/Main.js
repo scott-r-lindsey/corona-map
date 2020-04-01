@@ -9,6 +9,7 @@ import { useParams, useHistory } from "react-router-dom";
 import LeftPanel from './LeftPanel.js';
 
 const fetch = require('node-fetch');
+const dataUrl = '/data/latestfull.json';
 
 function Main() {
 
@@ -33,7 +34,7 @@ function Main() {
 
   useEffect(() => {
     async function fetchData() {
-      await fetch('/data/latest.json', {method: 'GET'})
+      await fetch(dataUrl, {method: 'GET'})
         .then(res => res.json())
         .then((data) => { setData(data, []) })
     }
@@ -46,7 +47,12 @@ function Main() {
 
     <Grid container className="the-grid">
       <Grid key="left-sidebar" className={"left-sidebar"} item xs={4}>
-        <LeftPanel location={location} data={data}/>
+        { data ?
+          location !== 'us' ?
+            <LeftPanel location={location} data={data}/> :
+            <div>click a state</div> :
+          <div>Loading...</div>
+        }
       </Grid>
       <Grid key="main-panel" className={"main-panel"} item xs={8}>
 
