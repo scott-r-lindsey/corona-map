@@ -7,6 +7,8 @@ import Tab from '@material-ui/core/Tab';
 import updateUrl from '../lib/mapUrl.js';
 import { useParams, useHistory } from "react-router-dom";
 import LeftPanel from './LeftPanel.js';
+import MapSlider from './MapSlider.js';
+
 
 const fetch = require('node-fetch');
 const dataUrl = '/data/latestfull.json';
@@ -24,7 +26,7 @@ function Main() {
 
   const history = useHistory();
   const params = useParams();
-  const { axis, location } = params;
+  const { when, axis, location } = params;
 
   const handleChange = (event, newValue) => {
     history.push(updateUrl(params, {axis: axes[newValue]}));
@@ -55,6 +57,25 @@ function Main() {
         }
       </Grid>
       <Grid key="main-panel" className={"main-panel"} item xs={8}>
+        { data ?
+          <Map when={when} axis={axis} data={data} /> :
+          <div>Loading...</div>
+        }
+        { data ?
+          <div className={'map-slider'}>
+            <MapSlider data={data} />
+          </div> :
+          <div></div>
+        }
+      </Grid>
+    </Grid>
+  );
+}
+
+export default Main;
+
+
+/*
 
         <AppBar position="static">
           <Tabs value={axesByName[axis]} aria-label="Data Type" onChange={handleChange} >
@@ -67,12 +88,4 @@ function Main() {
             }
           </Tabs>
         </AppBar>
-
-        <Map axis={axis} data={data} />
-      </Grid>
-    </Grid>
-  );
-}
-
-export default Main;
-
+*/

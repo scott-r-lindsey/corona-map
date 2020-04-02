@@ -1,6 +1,10 @@
 
 .main-panel{
-    background-color: white;
+    position:relative;
+background-image: linear-gradient(135deg, #BBD2D5 21.43%, #ffffff 21.43%, #ffffff 50%, #BBD2D5 50%, #BBD2D5 71.43%, #ffffff 71.43%, #ffffff 100%);
+background-size: 9.90px 9.90px;
+
+    height:100%;
 
     .rsm-geography{
         &{
@@ -13,12 +17,9 @@
 
     .focused-state{
         border:2px solid blue;
-        //stroke: #810000;
         stroke: white;
         stroke-width:2px;
-        //stroke-dasharray:10;
         animation: throb 1s ease-in-out;
-        //animation: dash 5s linear, throb 1s ease-in-out;
         animation-iteration-count: infinite;
     }
     @keyframes dash {
@@ -46,6 +47,47 @@
             text-align: center;
             font-weight:normal;
             font-size:12px;
+        }
+    }
+
+    .map-scale{
+        position:absolute;
+        right: 20px;
+        top: 20px;
+    }
+    .map-slider{
+        position: absolute;
+        bottom: 20px;
+        left: 10%;
+        width: 80%;
+        height: 30px;
+        padding: 0 20px;
+        border-radius: 20px;
+        text-align: center;
+        background-color: rgba(255,255,255,.8);
+
+        .MuiSlider-thumb{
+            &{
+                height:16px;
+                width:16px;
+                .date-indicator{
+                    position:absolute;
+                    background-color:white;
+                    width:100px;
+                    top:-40px;
+                    left: -50px;
+                    opacity:0;
+                }
+            }
+            &.MuiSlider-active{
+                .date-indicator{
+                    opacity:1;
+                }
+
+            }
+        }
+        .MuiSlider-rail, .MuiSlider-track{
+            height:6px;
         }
     }
 }

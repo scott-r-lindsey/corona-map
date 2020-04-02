@@ -30,6 +30,7 @@ for (var stateId in stateData.states) {
   const csvs = files.filter(item => item.match(/\.csv$/));
   //const csvs = ['03-27-2020.csv','03-28-2020.csv'];
   //const csvs = ['02-04-2020.csv'];
+  //const csvs = ['03-09-2020.csv'];
 
   let i=0;
   for (let filename of csvs) {
@@ -61,6 +62,7 @@ for (var stateId in stateData.states) {
       else{
         if ('US' == d['Country/Region']){
 
+
           if (statesByName[d['Province/State']]) {
             stateData.states[statesByName[d['Province/State']]].confirmed[i] += Math.trunc(d.Confirmed);
             stateData.states[statesByName[d['Province/State']]].deaths[i] += Math.trunc(d.Deaths);
@@ -69,7 +71,9 @@ for (var stateId in stateData.states) {
           }
 
           else if (d['Province/State'] && d['Province/State'].match(/.*, \w\w$/)){
-            const abbrev = d['Province/State'].substring(-2,2);
+            const abbrev = d['Province/State'].substr(-2,2);
+            console.log(d['Province/State']);
+            console.log(abbrev);
             if (statesByAbbrev[abbrev]){
               stateData.states[statesByAbbrev[abbrev]].confirmed[i] += Math.trunc(d.Confirmed);
               stateData.states[statesByAbbrev[abbrev]].deaths[i] += Math.trunc(d.Deaths);

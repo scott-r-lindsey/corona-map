@@ -9,9 +9,60 @@
 * {
     box-sizing: border-box;
 }
-html, body, #root, .MuiGrid-root{
+html, body, #root{
     height: 100%;
 }
+.main-toolbar{
+    img{
+        height:30px;
+        width:30px;
+        margin-right: 5px;
+        animation: rotation 40s infinite linear, logo-throb 1s infinite linear;
+    }
+    .logo{
+        font-size:20px;
+        font-style:italic;
+        font-weight:bold;
+        text-shadow: 2px 2px 3px #f36f48;
+    }
+}
+.the-grid{
+    height:calc(100% - 138px);
 
+    .main-panel{
+        overflow:hidden;
+    }
+}
+.main-footer{
+    position:absolute;
+    bottom:0px;
+    height:90px;
+    width:100%;
+    background-color:blue;
+    .bottom-ad{
+        width:728px;
+        height:90px;
+        background-color:orange;
+        float:right;
+    }
+}
 
-
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+@keyframes logo-throb {
+    0%{
+        filter: saturate(1.2);
+    }
+    50%{
+        filter: saturate(.2);
+    }
+    100%{
+        filter: saturate(1.2);
+    }
+}
