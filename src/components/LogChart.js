@@ -3,14 +3,12 @@ import { ResponsiveLine } from '@nivo/line'
 import ChartTooltip from './ChartTooltip.js';
 import moment from 'moment-es6';
 import logmidpoints from '../lib/logmidpoints.js';
+import {getStateDataByName} from '../lib/getMapValue.js';
+import {confirmedColor, deathColor, logColor, logLabelColor} from '../lib/colors.js';
 
 const LogChart = (props) => {
   const { location, data } = props;
-  const confirmedColor = '#DD9850';
-  const deathColor= '#D12715';
   const chartDateFormat = 'MM/DD/YYYY';
-  const logColor = '#DDDDDD';
-  const logLabelColor = '#888888';
 
   const calcLog = (x, y, factor) => {
     let max = 1;
@@ -44,10 +42,7 @@ const LogChart = (props) => {
     };
   }
 
-  const rawStateData =
-    Object.entries(data.states).filter(
-      item => item[1].name.toLowerCase() === location
-    )[0][1];
+  const rawStateData = getStateDataByName(data, location);
 
   let chartMax = 0;
   let minDate = 100000000000000;
@@ -139,6 +134,7 @@ const LogChart = (props) => {
           />
       ))
   }
+
   const logIdent = ({series, lineGenerator, xScale, yScale }) => {
 
     const onePos = series[0].data[series[0].data.length -1].position;
@@ -146,71 +142,65 @@ const LogChart = (props) => {
     const threePos = series[2].data[series[2].data.length -1].position;
 
     return (
-
       <>
         <text x={onePos.x -10} y={onePos.y+5} fill={logLabelColor}>1x</text>
         <text x={twoPos.x -10} y={twoPos.y+5} fill={logLabelColor}>2x</text>
         <text x={threePos.x -10} y={threePos.y+5} fill={logLabelColor}>3x</text>
       </>
     );
-
   }
 
   return(
     <>
       <div>
-        { location === 'us' ?
-          <div>this is us</div> :
+        <div style={{height:'400px'}}>
 
-          <div style={{border: '1px solid blue', height:'400px'}}>
+          <ResponsiveLine
+            data={stateData}
+            enableGridX={true}
+            enableArea={false}
+            areaOpacity={1}
 
-            <ResponsiveLine
-              data={stateData}
-              enableGridX={true}
-              enableArea={false}
-              areaOpacity={1}
+            tooltip={({point}) => (
+              <ChartTooltip
+                point={point}
+                data={rawStateData}
+                colors={{confirmed: confirmedColor, deaths: deathColor}}
+              />
+            )}
 
-              tooltip={({point}) => (
-                <ChartTooltip
-                  point={point}
-                  data={rawStateData}
-                  colors={{confirmed: confirmedColor, deaths: deathColor}}
-                />
-              )}
+            layers={['grid', 'markers', 'axes', 'areas', CustomLine, logIdent, 'points', 'slices', 'mesh', 'legends']}
+            colors={[ logColor, logColor, logColor, confirmedColor, deathColor ]}
 
-              layers={['grid', 'markers', 'axes', 'areas', CustomLine, logIdent, 'points', 'slices', 'mesh', 'legends']}
-              colors={[ logColor, logColor, logColor, confirmedColor, deathColor ]}
+            margin={{ top: 50, right: 40, bottom: 50, left: 60 }}
+            xScale={{ type: 'point' }}
+            yScale={{ type: 'log', min: 1, max: chartMax}}
+            axisTop={null}
+            axisRight={null}
+            axisBottom={{
+              orient: 'bottom',
+              tickCount: 2,
+              tickSize: 5,
+              tickPadding: 10,
+              tickRotation: 0,
+              legendOffset: 36,
+              legendPosition: 'middle',
+              tickValues: [minDate, maxDate],
+            }}
+            axisLeft={{
+              tickValues: [0,10,100,1000,10000,100000], // react-dom.development.js:1297 Error: <g> attribute transform: Trailing garbage, "translate(0,NaN)"
+              orient: 'left',
+              tickSize: 9,
+              tickPadding: 4,
+              legend: 'count',
+              legendOffset: -40,
+              legendPosition: 'middle'
+            }}
+            pointSize={0}
+            useMesh={true}
+          />
 
-              margin={{ top: 50, right: 40, bottom: 50, left: 60 }}
-              xScale={{ type: 'point' }}
-              yScale={{ type: 'log', min: 1, max: chartMax}}
-              axisTop={null}
-              axisRight={null}
-              axisBottom={{
-                orient: 'bottom',
-                tickCount: 2,
-                tickSize: 5,
-                tickPadding: 10,
-                tickRotation: 0,
-                legendOffset: 36,
-                legendPosition: 'middle',
-                tickValues: [minDate, maxDate],
-              }}
-              axisLeft={{
-                tickValues: [0,10,100,1000,10000,100000], // react-dom.development.js:1297 Error: <g> attribute transform: Trailing garbage, "translate(0,NaN)"
-                orient: 'left',
-                tickSize: 9,
-                tickPadding: 4,
-                legend: 'count',
-                legendOffset: -40,
-                legendPosition: 'middle'
-              }}
-              pointSize={0}
-              useMesh={true}
-            />
-
-          </div>
-        }
+        </div>
       </div>
     </>
   )

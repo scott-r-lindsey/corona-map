@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Slider from '@material-ui/core/Slider';
 import updateUrl from '../lib/mapUrl.js';
 import { useParams, useHistory } from "react-router-dom";
@@ -20,7 +20,6 @@ const MapSlider  = (props) => {
   }
 
   function SliderThumbComponent(props) {
-    console.log(props);
     return (
       <span {...props}>
         <span style={{position:'relative'}}>
@@ -41,7 +40,7 @@ const MapSlider  = (props) => {
     timeoutId = setTimeout(() => handleUrlUpdate(when), 150);
   }
 
-  const [sliderDefault, setSliderDefault] = useState(
+  const [sliderDefault] = useState(
     data.dates.length - -(when === 'now' ? 0: when )
   );
 

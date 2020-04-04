@@ -4,18 +4,16 @@ import React, { useState, useLayoutEffect } from "react";
 import { ComposableMap, Geographies, Geography, ZoomableGroup } from "react-simple-maps";
 import { scaleLog } from "d3-scale";
 import Scale from './Scale.js';
+import AxisPicker from './AxisPicker.js';
 import updateUrl from '../lib/mapUrl.js';
 import { useParams, useHistory } from "react-router-dom";
+import {zeroColor, minColor, maxColor} from '../lib/colors.js';
 
 const geoUrl = '/states-map.json';
-const zeroColor = '#AAA67A';
-const minColor = '#E2C065';
-const maxColor = '#CC0000';
 
 const MapChart = (props) => {
   const { when, axis, data } = props;
   const [position, setPosition] = useState({coordinates: [0,0], zoom:1 });
-
   const [mapDims, setMapDims] = useState({x: 800, y: 800, scale: 1000});
 
   const history = useHistory();
@@ -54,6 +52,9 @@ const MapChart = (props) => {
   function handleStateClick(e, geography){
     history.push(updateUrl(params, {location: geography.properties.name.toLowerCase()}));
   }
+  function handleMouseEnter(e, geography){
+    console.log('sup');
+  }
 
   function handleMoveEnd(position) {
     setPosition(position);
@@ -69,10 +70,9 @@ const MapChart = (props) => {
     .range([ minColor, maxColor ]);
 
   return (
-    <div ref={zoomableRef} style={{height:'100%',width:'100%'}}>
-      <div className={"map-scale"}>
-        <Scale {...{max, zeroColor, minColor, maxColor, colorScale}} />
-      </div>
+    <div ref={zoomableRef} style={{height:'100%',width:'100%'}} className={"map-panel"}>
+      <Scale {...{max, zeroColor, minColor, maxColor, colorScale}} />
+      <AxisPicker />
       <ComposableMap
         projectionConfig={{
           scale: mapDims.scale,
@@ -95,6 +95,7 @@ const MapChart = (props) => {
                 return (
                   <Geography
                     onClick={(e) => handleStateClick(e, geo)}
+                    onMouseEnter={(e) => handleMouseEnter(e, geo)}
                     className={cur.name.toLowerCase() === location ? 'focused-state' : ''}
                     key={geo.rsmKey}
                     geography={geo}
@@ -116,4 +117,3 @@ const MapChart = (props) => {
 };
 
 export default MapChart;
-          //<Scale {...{max, zeroColor, minColor, maxColor, colorScale}} />

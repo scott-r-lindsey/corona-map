@@ -1,10 +1,11 @@
 
-@import './main-panel.scss';
-@import './left-sidebar.scss';
-
 @import './breakpoints.scss';
 @import './colors.scss';
 @import './typography.scss';
+
+@import './main-panel.scss';
+@import './left-sidebar.scss';
+
 
 * {
     box-sizing: border-box;
@@ -13,31 +14,55 @@ html, body, #root{
     height: 100%;
 }
 .main-toolbar{
+    a{
+        text-decoration:none;
+        color:white;
+    }
     img{
+        float:left;
         height:30px;
         width:30px;
         margin-right: 5px;
-        animation: rotation 40s infinite linear, logo-throb 1s infinite linear;
+        animation: rotation 40s infinite linear, image-throb 1s infinite linear;
     }
     .logo{
-        font-size:20px;
-        font-style:italic;
-        font-weight:bold;
-        text-shadow: 2px 2px 3px #f36f48;
-    }
-}
-.the-grid{
-    height:calc(100% - 138px);
+        &{
+            float:left;
+            display:inline-block;
+            font-size:25px;
+            font-style:italic;
+            font-weight:bold;
+            line-height:31px;
+            text-shadow: 2px 2px 3px #661700;
+        }
+        &:hover{
+            //animation: text-throb 1s infinite linear;
+            filter: saturate(3.2);
+            text-shadow: 2px 2px 4px #ec3600;
 
-    .main-panel{
-        overflow:hidden;
+        }
     }
 }
-.main-footer{
+
+.d-left-column{
     position:absolute;
+    top:48px;
+    width: calc(100% - 728px);
+    bottom:0;
+}
+.d-main-panel{
+    position:absolute;
+    top:48px;
+    right:0;
+    bottom:90px;
+    width: 728px;
+}
+.d-main-footer{
+    position:absolute;
+    right:0;
     bottom:0px;
     height:90px;
-    width:100%;
+    width:728px;
     background-color:blue;
     .bottom-ad{
         width:728px;
@@ -47,6 +72,7 @@ html, body, #root{
     }
 }
 
+
 @keyframes rotation {
   from {
     transform: rotate(0deg);
@@ -55,7 +81,7 @@ html, body, #root{
     transform: rotate(359deg);
   }
 }
-@keyframes logo-throb {
+@keyframes image-throb {
     0%{
         filter: saturate(1.2);
     }
@@ -64,5 +90,18 @@ html, body, #root{
     }
     100%{
         filter: saturate(1.2);
+    }
+
+
+}
+@keyframes text-throb {
+    0%{
+        text-shadow: 2px 2px 3px #f36f48;
+    }
+    50%{
+        text-shadow: 2px 2px 3px red;
+    }
+    100%{
+        text-shadow: 2px 2px 3px #f36f48;
     }
 }

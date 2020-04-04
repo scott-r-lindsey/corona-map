@@ -10,7 +10,7 @@ function Scale(props) {
   const r = points.map((val) => { return Math.round(val) });
 
   return(
-    <div className={"scale-diagram"}>
+    <div className={"map-scale"}>
       <div style={{backgroundColor: zeroColor}}>0</div>
       <div style={{backgroundColor: colorScale(r[1])}}>{r[1]}</div>
       <div style={{backgroundColor: colorScale(r[2])}}>{r[2]}</div>
@@ -19,7 +19,6 @@ function Scale(props) {
       <div style={{backgroundColor: colorScale(max)}}>{max}</div>
     </div>
   );
-
 }
 
 export default Scale;

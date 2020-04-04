@@ -1,7 +1,67 @@
 
-.left-sidebar {
+.d-left-column {
 
-    height:100%;
+    background-color:#bbb;
+
+    .info-panel{
+        position:relative;
+        background-color:white;
+        margin:10px;
+        padding: 10px;
+        border: 1px solid #999;
+        border-radius:4px;
+
+        h1{
+            margin:0;
+            display:inline;
+        }
+        em{
+            text-transform:uppercase;
+            margin-left:10px;
+            font-size:12px;
+        }
+        table{
+            width: 100%;
+            margin-top:10px;
+
+            thead{
+                font-size:25px;
+            }
+            td{
+                text-align:center;
+                &.confirmed{
+                    color: $confirmedColor;
+                    font-weight:bold;
+                }
+                &.deaths{
+                    color: $deathColor;
+                    font-weight:bold;
+                }
+            }
+
+        }
+
+        a.back-to-us{
+            position:absolute;
+            background-color: #fcda9c;
+            top:10px;
+            right:10px;
+            height:40px;
+            width:50px;
+            border:1px solid #555;
+            border-radius:2px;
+            img{
+                margin:0 5px;
+                height:40px;
+                width: 40px;
+            }
+            &:hover{
+                border-color:red;
+            }
+        }
+
+
+    }
 
     .chart-tooltip{
         background-color:white;

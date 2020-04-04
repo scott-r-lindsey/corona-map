@@ -1,5 +1,6 @@
 
 const states = {
+  "00": { name: "United States", abbrev: "US"},
   "01": { name: "Alabama", abbrev: "AL"},
   "02": { name: "Alaska", abbrev: "AK"},
   "04": { name: "Arizona", abbrev: "AZ"},
@@ -55,7 +56,7 @@ const states = {
   "66": { name: "Guam", abbrev: "GU"},
   "69": { name: "Commonwealth of the Northern Mariana Islands", abbrev: "MP"},
   "72": { name: "Puerto Rico", abbrev: "PR"},
-  "78": { name: "United States Virgin Islands", abbrev: "VI"}
+  "78": { name: "United States Virgin Islands", abbrev: "VI"},
 };
 
 const statesByName = { }
