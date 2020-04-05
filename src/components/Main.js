@@ -1,47 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Map from './Map.js';
 import { useParams } from "react-router-dom";
 import LeftPanel from './LeftPanel.js';
 import MapSlider from './MapSlider.js';
 import BottomAd from './BottomAd.js';
+import AxisPicker from './AxisPicker.js';
+import { scaleLog } from "d3-scale";
+import Scale from './Scale.js';
+import { zeroColor, minColor, maxColor} from '../lib/colors.js';
+import { getMaxValueForAxis } from '../lib/getMapValue.js';
 
-const fetch = require('node-fetch');
-const dataUrl = '/data/latestfull.json';
-
-function Main() {
+function Main(props) {
 
   const params = useParams();
   const { when, axis, location } = params;
+  const { data } = props;
 
-  const [data, setData] = useState(null);
+  const max = getMaxValueForAxis(data, axis);
 
-  useEffect(() => {
-    async function fetchData() {
-      await fetch(dataUrl, {method: 'GET'})
-        .then(res => res.json())
-        .then((data) => { setData(data, []) })
-    }
-    fetchData();
-
-  }, []);
-
+  const colorScale = scaleLog()
+    .domain([1, max])
+    .range([ minColor, maxColor ]);
 
   return (
     <>
       <div className={"d-left-column"}>
-        { data ?
-          <LeftPanel location={location} data={data}/> :
-          <div>Loading...</div>
-        }
+        <LeftPanel location={location} data={data}/> :
       </div>
       <div className={"d-main-panel"}>
-        { data ?
-          <>
-            <Map when={when} axis={axis} data={data} />
-            <MapSlider data={data} />
-          </> :
-          <div></div>
-        }
+        <Scale {...{max, zeroColor, minColor, maxColor, colorScale}} />
+        <AxisPicker />
+        <Map when={when} axis={axis} data={data} colorScale={colorScale} />
+        <MapSlider data={data} />
       </div>
       <div className={'d-main-footer'}>
         <BottomAd />

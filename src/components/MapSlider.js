@@ -46,16 +46,18 @@ const MapSlider  = (props) => {
 
   return (
 
-    <Slider
-      ThumbComponent={SliderThumbComponent}
-      min={1}
-      color={'secondary'}
-      max={data.dates.length}
-      steps={null}
-      aria-label="Date Displayed"
-      onChange={updateDate}
-      defaultValue={sliderDefault}
-    />
+    <div className={"map-slider"}>
+      <Slider
+        ThumbComponent={SliderThumbComponent}
+        min={1}
+        color={'secondary'}
+        max={data.dates.length}
+        steps={null}
+        aria-label="Date Displayed"
+        onChange={updateDate}
+        defaultValue={sliderDefault}
+      />
+    </div>
 
   );
 }

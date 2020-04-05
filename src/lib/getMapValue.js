@@ -19,4 +19,30 @@ export const getDate = (data, when) => {
 export const getFormattedDate = (data, when, format) => {
   return moment(getDate(data, when)).format(format);
 }
+export const getMaxValueForAxis = (data, axis) => {
+
+  const days = data.dates.length;
+
+  return Math.max(
+    ...Object.entries(data.states)
+    .filter(o => !o[1].rollup)
+    .map(
+      o => o[1][axis][days-1]
+    ), 0);
+}
+export const getLocationDataForDay = (data, when, location) => {
+
+  const stateData = getStateDataByName(data, location);
+
+  return {
+    location: location,
+    date: getDate(data, when),
+    axis: {
+      confirmed: getDataValue(data, when, location, 'confirmed'),
+      deaths: getDataValue(data, when, location, 'deaths'),
+      recovered: getDataValue(data, when, location, 'recovered'),
+      active: getDataValue(data, when, location, 'active'),
+    }
+  };
+}
 

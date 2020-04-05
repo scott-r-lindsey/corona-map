@@ -1,6 +1,6 @@
 
 const states = {
-  "00": { name: "United States", abbrev: "US"},
+  "00": { name: "United States", abbrev: "US", rollup: true},
   "01": { name: "Alabama", abbrev: "AL"},
   "02": { name: "Alaska", abbrev: "AK"},
   "04": { name: "Arizona", abbrev: "AZ"},
