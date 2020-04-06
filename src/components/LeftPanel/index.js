@@ -2,7 +2,7 @@ import React from "react";
 import LogChart from './LogChart.js';
 import updateUrl from '../../lib/mapUrl.js'
 import { useParams, useHistory } from "react-router-dom";
-import {getFormattedDate} from '../../lib/getMapValue.js';
+import {getFormattedDate, capitalizeLocation} from '../../lib/getMapValue.js';
 import Logo from '../Logo.js';
 import Info from './Info.js';
 import Text from './Text.js';
@@ -23,9 +23,7 @@ const LeftPanel = (props) => {
     event.preventDefault();
   };
 
-  const locationCaps = location.split(' ')
-    .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
-    .join(' ') + (location === 'united states' ? ' of America' : '');
+  const locationCaps = capitalizeLocation(location);
 
   let hasData = false;
 

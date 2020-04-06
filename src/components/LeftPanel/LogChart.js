@@ -185,12 +185,10 @@ const LogChart = (props) => {
               tickValues: [minDate, maxDate],
             }}
             axisLeft={{
-              tickValues: [0,10,100,1000,10000,100000,1000000], // react-dom.development.js:1297 Error: <g> attribute transform: Trailing garbage, "translate(0,NaN)"
+              tickValues: [1,10,100,1000,10000,100000,1000000],
               orient: 'left',
               tickSize: 9,
               tickPadding: 4,
-              legendOffset: -40,
-              legendPosition: 'middle'
             }}
             theme={{
               textColor: '#eee',

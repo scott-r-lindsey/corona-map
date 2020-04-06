@@ -10,7 +10,7 @@ const MapSlider  = (props) => {
   const params = useParams();
   const {when} = params;
   const history = useHistory();
-  const chartDateFormat = 'MM/DD/YYYY';
+  const chartDateFormat = 'MMM Do';
 
   let timeoutId = null;
 

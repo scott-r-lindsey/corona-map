@@ -80,3 +80,8 @@ export const parseWhen = (when) => {
   // x-x/getMaxValueForAxis
 
 }
+export const capitalizeLocation = (location) => {
+  return location.split(' ')
+    .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+    .join(' ') + (location === 'united states' ? ' of America' : '');
+}
