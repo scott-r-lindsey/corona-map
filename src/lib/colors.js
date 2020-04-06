@@ -9,6 +9,6 @@ export const confirmedColor = '#DD9850';
 export const deathColor= '#D12715';
 
 // log chart
-export const logColor = '#DDDDDD';
-export const logLabelColor = '#888888';
+export const logColor = '#222222';
+export const logLabelColor = '#aaaaaa';
 

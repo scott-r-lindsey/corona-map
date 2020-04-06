@@ -17,25 +17,27 @@ const stateData = {
 for (var stateId in stateData.states) {
   stateData.states[stateId] = {
     ...stateData.states[stateId],
-    confirmed: [],
-    deaths: [],
-    recovered: [],
-    active:[],
+    series: {
+      confirmed: [],
+      deaths: [],
+      recovered: [],
+      active:[],
+    },
   };
 }
 
 const appendStateData = (i, statedId, d) => {
-  stateData.states[statedId].confirmed[i] += Math.trunc(d.Confirmed);
-  stateData.states[statedId].deaths[i] += Math.trunc(d.Deaths);
-  stateData.states[statedId].recovered[i] += Math.trunc(d.Recovered);
-  stateData.states[statedId].active[i] += Math.trunc(d.Active);
+  stateData.states[statedId].series.confirmed[i] += Math.trunc(d.Confirmed);
+  stateData.states[statedId].series.deaths[i] += Math.trunc(d.Deaths);
+  stateData.states[statedId].series.recovered[i] += Math.trunc(d.Recovered);
+  stateData.states[statedId].series.active[i] += Math.trunc(d.Active);
 }
 const appendZeros = () => {
   for (var stateId in stateData.states) {
-    stateData.states[stateId].confirmed.push(0);
-    stateData.states[stateId].deaths.push(0);
-    stateData.states[stateId].recovered.push(0);
-    stateData.states[stateId].active.push(0);
+    stateData.states[stateId].series.confirmed.push(0);
+    stateData.states[stateId].series.deaths.push(0);
+    stateData.states[stateId].series.recovered.push(0);
+    stateData.states[stateId].series.active.push(0);
   };
 }
 
@@ -104,6 +106,7 @@ const appendZeros = () => {
     i++;
 
   }
+
 
   fs.writeFileSync(outputPath + 'latestfull.json', JSON.stringify(stateData));
 

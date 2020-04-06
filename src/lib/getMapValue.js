@@ -1,19 +1,23 @@
 
 import moment from 'moment-es6';
 
+export const deepClone = (parent) => {
+  return JSON.parse(JSON.stringify(parent))
+}
 export const getStateDataByName = (data, location) => {
   return Object.entries(data.states).filter(
     item => item[1].name.toLowerCase() === location
   )[0][1];
 }
-export const getDataValue = (data, when, location, axis) => {
-  const offset = data.dates.length - -(when === 'now' ? -1: when );
+export const getDataValue = (data, when, location, axis, addl = 0) => {
+  const offset = (data.dates.length +addl) - -(when === 'now' ? -1: when );
   const stateData = getStateDataByName(data, location);
 
-  return stateData[axis][offset];
+  return stateData.series[axis][offset];
 }
 export const getDate = (data, when) => {
-  const offset = data.dates.length - -(when === 'now' ? -1: when );
+  const offset = (data.dates.length-1) - -(when === 'now' ? 0: when );
+
   return data.dates[offset];
 }
 export const getFormattedDate = (data, when, format) => {
@@ -27,12 +31,10 @@ export const getMaxValueForAxis = (data, axis) => {
     ...Object.entries(data.states)
     .filter(o => !o[1].rollup)
     .map(
-      o => o[1][axis][days-1]
+      o => o[1].series[axis][days-1]
     ), 0);
 }
 export const getLocationDataForDay = (data, when, location) => {
-
-  const stateData = getStateDataByName(data, location);
 
   return {
     location: location,
@@ -45,4 +47,36 @@ export const getLocationDataForDay = (data, when, location) => {
     }
   };
 }
+export const getTrimmedData = (data, when) => {
 
+  const max = (data.dates.length-1) - -(when === 'now' ? 0: when );
+  const min = 0;
+
+  const trimArray = (item, index) => {
+    return  ((index > min) && (index <= max))
+  }
+
+  const trimmed = deepClone(data);
+  trimmed.dates = data.dates.filter(trimArray);
+
+  // eslint-disable-next-line no-unused-vars
+  for (let [id, state] of Object.entries(trimmed.states)){
+    for (let [axis, values] of Object.entries(state.series)){
+      state.series[axis] = values.filter(trimArray);
+    }
+  }
+
+  trimmed.raw = data;
+
+  return trimmed;
+
+ // console.log(ret);
+
+}
+
+export const parseWhen = (when) => {
+  // now
+  // all
+  // x-x/getMaxValueForAxis
+
+}

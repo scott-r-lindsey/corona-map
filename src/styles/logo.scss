@@ -1,0 +1,65 @@
+.logo{
+    height:30px;
+    a{
+        text-decoration:none;
+        color:white;
+    }
+    img{
+        float:left;
+        height:30px;
+        width:30px;
+        margin-right: 5px;
+        animation: rotation 40s infinite linear, image-throb 1s infinite linear;
+    }
+    .logo-text{
+        &{
+            color:#EA2127;
+            float:left;
+            display:inline-block;
+            font-size:25px;
+            font-style:italic;
+            font-weight:bold;
+            line-height:31px;
+            text-shadow: 2px 2px 3px #661700;
+        }
+        &:hover{
+            //animation: text-throb 1s infinite linear;
+            filter: saturate(3.2);
+            text-shadow: 2px 2px 4px #ec3600;
+
+        }
+    }
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+@keyframes image-throb {
+    0%{
+        filter: saturate(2.2);
+    }
+    50%{
+        filter: saturate(.9);
+    }
+    100%{
+        filter: saturate(2.2);
+    }
+
+
+}
+@keyframes text-throb {
+    0%{
+        text-shadow: 2px 2px 3px #f36f48;
+    }
+    50%{
+        text-shadow: 2px 2px 3px red;
+    }
+    100%{
+        text-shadow: 2px 2px 3px #f36f48;
+    }
+}

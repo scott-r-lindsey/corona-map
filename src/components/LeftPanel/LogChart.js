@@ -2,12 +2,11 @@ import React from "react";
 import { ResponsiveLine } from '@nivo/line'
 import ChartTooltip from './ChartTooltip.js';
 import moment from 'moment-es6';
-import logmidpoints from '../lib/logmidpoints.js';
-import {getStateDataByName} from '../lib/getMapValue.js';
-import {confirmedColor, deathColor, logColor, logLabelColor} from '../lib/colors.js';
+import logmidpoints from '../../lib/logmidpoints.js';
+import {confirmedColor, deathColor, logColor, logLabelColor} from '../../lib/colors.js';
 
 const LogChart = (props) => {
-  const { location, data } = props;
+  const { data, stateData } = props;
   const chartDateFormat = 'MM/DD/YYYY';
 
   const calcLog = (x, y, factor) => {
@@ -42,17 +41,15 @@ const LogChart = (props) => {
     };
   }
 
-  const rawStateData = getStateDataByName(data, location);
-
   let chartMax = 0;
   let minDate = 100000000000000;
   let maxDate = 0;
 
-  const stateData = [
+  const preppedStateData = [
     {
       id: 'Confirmed',
       color: confirmedColor,
-      data: rawStateData.confirmed.map((count, index) => {
+      data: stateData.series.confirmed.map((count, index) => {
         chartMax = Math.max(chartMax, count);
         if (count > 0){
           minDate = Math.min(minDate, data.dates[index]);
@@ -69,7 +66,7 @@ const LogChart = (props) => {
     {
       id: 'Deaths',
       color: deathColor,
-      data: rawStateData.deaths.map((count, index) => {
+      data: stateData.series.deaths.map((count, index) => {
         chartMax = Math.max(chartMax, count);
         if (count > 0){
           minDate = Math.min(minDate, data.dates[index]);
@@ -90,13 +87,13 @@ const LogChart = (props) => {
 
   const notShown = data.dates.length - datesDisplayed.length;
 
-  stateData.unshift(
+  preppedStateData.unshift(
     generateLogLine(datesDisplayed, chartMax, 3, 'three', notShown)
   );
-  stateData.unshift(
+  preppedStateData.unshift(
     generateLogLine(datesDisplayed, chartMax, 2, 'two', notShown)
   );
-  stateData.unshift(
+  preppedStateData.unshift(
     generateLogLine(datesDisplayed, chartMax, 1, 'one', notShown)
   );
 
@@ -152,19 +149,19 @@ const LogChart = (props) => {
 
   return(
     <>
-      <div>
-        <div style={{height:'400px'}}>
+        <div style={{height:'400px'}} className={"log-chart"}>
 
           <ResponsiveLine
-            data={stateData}
+            data={preppedStateData}
             enableGridX={true}
+            enableGridY={false}
             enableArea={false}
             areaOpacity={1}
 
             tooltip={({point}) => (
               <ChartTooltip
                 point={point}
-                data={rawStateData}
+                data={stateData}
                 colors={{confirmed: confirmedColor, deaths: deathColor}}
               />
             )}
@@ -172,7 +169,7 @@ const LogChart = (props) => {
             layers={['grid', 'markers', 'axes', 'areas', CustomLine, logIdent, 'points', 'slices', 'mesh', 'legends']}
             colors={[ logColor, logColor, logColor, confirmedColor, deathColor ]}
 
-            margin={{ top: 50, right: 40, bottom: 50, left: 60 }}
+            margin={{ top: 20, right: 40, bottom: 50, left: 60 }}
             xScale={{ type: 'point' }}
             yScale={{ type: 'log', min: 1, max: chartMax}}
             axisTop={null}
@@ -188,20 +185,22 @@ const LogChart = (props) => {
               tickValues: [minDate, maxDate],
             }}
             axisLeft={{
-              tickValues: [0,10,100,1000,10000,100000], // react-dom.development.js:1297 Error: <g> attribute transform: Trailing garbage, "translate(0,NaN)"
+              tickValues: [0,10,100,1000,10000,100000,1000000], // react-dom.development.js:1297 Error: <g> attribute transform: Trailing garbage, "translate(0,NaN)"
               orient: 'left',
               tickSize: 9,
               tickPadding: 4,
-              legend: 'count',
               legendOffset: -40,
               legendPosition: 'middle'
+            }}
+            theme={{
+              textColor: '#eee',
+              tickColor: '#eee',
             }}
             pointSize={0}
             useMesh={true}
           />
 
         </div>
-      </div>
     </>
   )
 }

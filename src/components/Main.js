@@ -1,14 +1,14 @@
 import React from 'react';
 import Map from './Map.js';
 import { useParams } from "react-router-dom";
-import LeftPanel from './LeftPanel.js';
+import LeftPanel from './LeftPanel/';
 import MapSlider from './MapSlider.js';
 import BottomAd from './BottomAd.js';
 import AxisPicker from './AxisPicker.js';
 import { scaleLog } from "d3-scale";
 import Scale from './Scale.js';
 import { zeroColor, minColor, maxColor} from '../lib/colors.js';
-import { getMaxValueForAxis } from '../lib/getMapValue.js';
+import { getMaxValueForAxis, getTrimmedData } from '../lib/getMapValue.js';
 
 function Main(props) {
 
@@ -22,10 +22,12 @@ function Main(props) {
     .domain([1, max])
     .range([ minColor, maxColor ]);
 
+  const trimmedData = getTrimmedData(data, when);
+
   return (
     <>
       <div className={"d-left-column"}>
-        <LeftPanel location={location} data={data}/> :
+        <LeftPanel location={location} data={trimmedData}/> :
       </div>
       <div className={"d-main-panel"}>
         <Scale {...{max, zeroColor, minColor, maxColor, colorScale}} />

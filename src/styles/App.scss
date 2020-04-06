@@ -3,8 +3,10 @@
 @import './colors.scss';
 @import './typography.scss';
 
+@import './logo.scss';
 @import './main-panel.scss';
 @import './left-sidebar.scss';
+@import './logchart.scss';
 
 
 * {
@@ -13,49 +15,20 @@
 html, body, #root{
     height: 100%;
 }
-.main-toolbar{
-    a{
-        text-decoration:none;
-        color:white;
-    }
-    img{
-        float:left;
-        height:30px;
-        width:30px;
-        margin-right: 5px;
-        animation: rotation 40s infinite linear, image-throb 1s infinite linear;
-    }
-    .logo{
-        &{
-            float:left;
-            display:inline-block;
-            font-size:25px;
-            font-style:italic;
-            font-weight:bold;
-            line-height:31px;
-            text-shadow: 2px 2px 3px #661700;
-        }
-        &:hover{
-            //animation: text-throb 1s infinite linear;
-            filter: saturate(3.2);
-            text-shadow: 2px 2px 4px #ec3600;
-
-        }
-    }
-}
 
 .d-left-column{
     position:absolute;
-    top:48px;
+    top:0;
     width: calc(100% - 728px);
     bottom:0;
 }
 .d-main-panel{
     position:absolute;
-    top:48px;
+    top:0;
     right:0;
     bottom:90px;
     width: 728px;
+    overflow:hidden;
 }
 .d-main-footer{
     position:absolute;
@@ -73,35 +46,3 @@ html, body, #root{
 }
 
 
-@keyframes rotation {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(359deg);
-  }
-}
-@keyframes image-throb {
-    0%{
-        filter: saturate(1.2);
-    }
-    50%{
-        filter: saturate(.2);
-    }
-    100%{
-        filter: saturate(1.2);
-    }
-
-
-}
-@keyframes text-throb {
-    0%{
-        text-shadow: 2px 2px 3px #f36f48;
-    }
-    50%{
-        text-shadow: 2px 2px 3px red;
-    }
-    100%{
-        text-shadow: 2px 2px 3px #f36f48;
-    }
-}

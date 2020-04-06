@@ -126,9 +126,9 @@ const MapChart = (props) => {
                       key={geo.rsmKey}
                       geography={geo}
                       fill={
-                        ( cur[axis][days + offset] === 0) ?
+                        ( cur.series[axis][days + offset] === 0) ?
                           zeroColor :
-                          colorScale(cur[axis][days + offset])
+                          colorScale(cur.series[axis][days + offset])
                         }
                     />
                   );
@@ -144,24 +144,3 @@ const MapChart = (props) => {
 };
 
 export default MapChart;
-
-
-/*
-
-
-      <Popper id={'id'} open={true} anchorEl={tooltip.anchorEl}>
-        <div className={'some-class'}>The content of the Popper.</div>
-      </Popper>
-
-    //console.log(zoomableRef.current.getBoundingClientRect());
-    const rect = zoomableRef.current.getBoundingClientRect();
-
-    setTooltip({
-      open:true,
-      anchorEl: {
-          clientWidth: rect.width,
-          clientHeight: rect.height,
-          getBoundingClientRect: () => { return rect },
-        }
-    });
-*/
