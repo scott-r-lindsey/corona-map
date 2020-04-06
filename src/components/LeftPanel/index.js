@@ -5,6 +5,7 @@ import { useParams, useHistory } from "react-router-dom";
 import {getFormattedDate} from '../../lib/getMapValue.js';
 import Logo from '../Logo.js';
 import Info from './Info.js';
+import Text from './Text.js';
 import {getStateDataByName} from '../../lib/getMapValue.js';
 
 const LeftPanel = (props) => {
@@ -68,16 +69,19 @@ const LeftPanel = (props) => {
         <Info data={data} location={location} />
 
       </div>
-      { hasData ?
-        <LogChart location={location} data={data} stateData={stateData} /> :
-        <div className={"log-chart"}>
-          <div className={"no-data"}>
-            <p>
-              No data for period
-            </p>
+      <div className="scrollable-area">
+        { hasData ?
+          <LogChart location={location} data={data} stateData={stateData} /> :
+          <div className={"log-chart"}>
+            <div className={"no-data"}>
+              <p>
+                No data for period
+              </p>
+            </div>
           </div>
-        </div>
-      }
+        }
+        <Text />
+      </div>
     </>
   )
 }

@@ -102,7 +102,23 @@
                 border-color:red;
             }
         }
+    }
+
+    .scrollable-area{
+
+        &::-webkit-scrollbar{width:8px}
+        &::-webkit-scrollbar-track{background:#cccccc;border-radius:0px}
+        &::-webkit-scrollbar-thumb{background:#2e2e2e;border-radius:0px}
+
+        height:calc(100% - 200px);
+        overflow:hidden;
+        overflow-y: auto; 
+        .text-block{
+            color:white;
+            padding: 10px 15px;
+            background: linear-gradient(115deg, rgba(25,25,25,.5) 0%, rgba(60,46,44,.5) 19%, rgba(25,25,25,.5) 39%, rgba(61,43,39,.5) 66%, rgba(25,25,25,.5) 100%), radial-gradient(circle, rgba(25,25,25,.5) 0%, rgba(55,39,20,.5) 19%, rgba(25,25,25,.5) 39%, rgba(61,53,39,.5) 66%, rgba(25,25,25,.5) 100%);
 
 
+        }
     }
 }

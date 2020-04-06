@@ -27,7 +27,7 @@ function Main(props) {
   return (
     <>
       <div className={"d-left-column"}>
-        <LeftPanel location={location} data={trimmedData}/> :
+        <LeftPanel location={location} data={trimmedData}/>
       </div>
       <div className={"d-main-panel"}>
         <Scale {...{max, zeroColor, minColor, maxColor, colorScale}} />
