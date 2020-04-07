@@ -1,16 +1,96 @@
 
-.log-chart{
-    height:400px;
+.chart-legend{
+    position: relative;
+    height:40px;
+    margin-left:58px;
+    margin-right:38px;
 
-    .chart-tooltip{
-        background-color:white;
+    .tick-label{
+        position:absolute;
+        top:0;
+        color:white;
+        width:100px;
+        text-align:center;
         font-size:12px;
-        font-weight: normal;
-        border: 1px dotted #444;
-        border-radius: 2px;
-        padding:8px;
-    }
+        text-shadow: 1px 1px 1px #000;
+        padding-top:5px;
 
+        &.min{
+            left:-50px;
+        }
+        &.max{
+            right:-50px;
+        }
+    }
+    .middle{
+        padding-top:5px;
+        position:absolute;
+        left:50px;
+        right:50px;
+        color:white;
+        text-align:center;
+        font-size:14px;
+        text-shadow: 1px 1px 1px #000;
+
+        .dot{
+            margin:0 2px 0 10px;
+            border-radius:10px;
+            height:10px;
+            width:10px;
+            display:inline-block;
+        }
+
+
+    }
+}
+.log-chart{
+    height: 365px;
+    position: relative;
+
+    .chart-float{
+        position:absolute;
+        left:80px;
+        top: 30px;
+        padding: 10px;
+        border-radius:8px;
+        background-color: $primary;
+        text-shadow: 1px 1px 1px #000;
+        box-shadow: 2px 3px 8px 0px rgba(0,0,0,0.25);
+
+        strong{
+            margin: -10px -10px 0px -10px;
+            padding: 10px 15px 10px 15px;
+            display:block;
+            background-color:darken($primary, 6%);
+            border-top-left-radius:5px;
+            border-top-right-radius:5px;
+            font-style: oblique;
+            text-transform:uppercase;
+            font-size: 12px;
+            color: white;
+        }
+
+        table{
+            color: $primary;
+            font-size:14px;
+            white-space: nowrap;
+            margin: 10px -3px 0 -3px;
+            padding: 0 0 0 0;
+            color:white;
+            text-shadow: 1px 1px 1px #000;
+            font-size:12px;
+
+            .confirmed{
+                font-weight:bold;
+                color: $confirmedColor;
+            }
+            .deaths{
+                font-weight:bold;
+                color: $deathColor;
+            }
+        }
+
+    }
     .no-data{
         margin:20px 40px 10px 60px;
         height:300px;

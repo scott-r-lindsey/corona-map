@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { ResponsiveLine } from '@nivo/line'
-import ChartTooltip from './ChartTooltip.js';
+import ChartFloat from './ChartFloat.js';
+import ChartLegend from './ChartLegend.js';
 import moment from 'moment-es6';
 import logmidpoints from '../../lib/logmidpoints.js';
 import {confirmedColor, deathColor, logColor, logLabelColor} from '../../lib/colors.js';
@@ -8,6 +9,8 @@ import {confirmedColor, deathColor, logColor, logLabelColor} from '../../lib/col
 const LogChart = (props) => {
   const { data, stateData } = props;
   const chartDateFormat = 'MM/DD/YYYY';
+  const [hoverPoint, setHoverPoint] = useState(null);
+  const [showLog, setShowLog] = useState(true);
 
   const calcLog = (x, y, factor) => {
     let max = 1;
@@ -116,7 +119,9 @@ const LogChart = (props) => {
   }
 
   const CustomLine = ({ series, lineGenerator, xScale, yScale }) => {
-      return series.map(({ id, data, color }) => (
+      const s = showLog ? series : series.slice(3,5);
+
+      return s.map(({ id, data, color }) => (
           <path
               key={id}
               d={lineGenerator(
@@ -134,6 +139,8 @@ const LogChart = (props) => {
 
   const logIdent = ({series, lineGenerator, xScale, yScale }) => {
 
+    if (!showLog) {return null};
+
     const onePos = series[0].data[series[0].data.length -1].position;
     const twoPos = series[1].data[series[1].data.length -1].position;
     const threePos = series[2].data[series[2].data.length -1].position;
@@ -149,41 +156,42 @@ const LogChart = (props) => {
 
   return(
     <>
-        <div style={{height:'400px'}} className={"log-chart"}>
+        <div className={"log-chart"}
+          onMouseLeave={() => {setHoverPoint(null)}}
+        >
 
           <ResponsiveLine
             data={preppedStateData}
             enableGridX={true}
             enableGridY={false}
             enableArea={false}
+            enableCrossHair={false}
             areaOpacity={1}
+            crosshairType={'x'}
+            tooltip={({point}) => (null)}
+            animate={false}
 
-            tooltip={({point}) => (
-              <ChartTooltip
-                point={point}
-                data={stateData}
-                colors={{confirmed: confirmedColor, deaths: deathColor}}
-              />
-            )}
+            foo={showLog}
+            onMouseEnter={(point) => {setHoverPoint(point)}}
+            onMouseMove={(point) => {setHoverPoint(point)}}
 
-            layers={['grid', 'markers', 'axes', 'areas', CustomLine, logIdent, 'points', 'slices', 'mesh', 'legends']}
+            layers={['grid', 'markers', 'axes', 'areas', 'crosshair', CustomLine, logIdent, 'points', 'slices', 'mesh', 'legends']}
             colors={[ logColor, logColor, logColor, confirmedColor, deathColor ]}
 
-            margin={{ top: 20, right: 40, bottom: 50, left: 60 }}
+            margin={{ top: 20, right: 40, bottom: 5, left: 60 }}
             xScale={{ type: 'point' }}
             yScale={{ type: 'log', min: 1, max: chartMax}}
             axisTop={null}
             axisRight={null}
             axisBottom={{
               orient: 'bottom',
-              tickCount: 2,
+              tickCount: 0,
               tickSize: 5,
               tickPadding: 10,
-              tickRotation: 0,
               legendOffset: 36,
               legendPosition: 'middle',
               tickValues: [minDate, maxDate],
-            }}
+           }}
             axisLeft={{
               tickValues: [1,10,100,1000,10000,100000,1000000],
               orient: 'left',
@@ -197,8 +205,18 @@ const LogChart = (props) => {
             pointSize={0}
             useMesh={true}
           />
-
+          <ChartFloat
+            data={stateData}
+            point={hoverPoint}
+            colors={{confirmed: confirmedColor, deaths: deathColor}}
+          />
         </div>
+        <ChartLegend
+          min={minDate}
+          max={maxDate}
+          showLog={showLog}
+          setShowLog={setShowLog}
+        />
     </>
   )
 }
