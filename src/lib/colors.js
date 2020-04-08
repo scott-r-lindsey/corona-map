@@ -1,4 +1,7 @@
 
+export const primary = '#424242';
+export const secondary = '#FF5722';
+
 // map
 export const zeroColor = '#AAA67A';
 export const minColor = '#E2C065';

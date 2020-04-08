@@ -1,0 +1,227 @@
+
+.m-main-panel{
+    border-bottom:50px solid rgba(0,0,0,0);
+    background-image: linear-gradient(135deg, #bbd2d5 21.43%, #d3e2f0 21.43%, #d3e2f0 50%, #bbd2d5 50%, #bbd2d5 71.43%, #d3e2f0 71.43%, #d3e2f0 100%);
+    background-size: 9.90px 9.90px;
+
+    .menu-button{
+        position:absolute;
+        top:0px;
+        right:0px;
+        color:$secondary;
+        padding:11.5px;
+        border-left:1px solid #888;
+        border-radius:0;
+
+        svg{
+            height:35px;
+            width:35px;
+        }
+    }
+
+    .mobile-info{
+        padding-top:10px;
+        div.logo{
+            margin-left:10px;
+            margin-bottom:10px;
+            height:10.5vw;
+            .logo-text{
+                font-size:10vw;
+                line-height:12vw;
+            }
+            img{
+                height:10vw;
+                width:10vw;
+
+            }
+        }
+        .detail{
+            padding:5px 10px;
+            background: linear-gradient(115deg, rgba(25,25,25,.5) 0%, rgba(60,46,44,.5) 19%, rgba(25,25,25,.5) 39%, rgba(61,43,39,.5) 66%, rgba(25,25,25,.5) 100%), radial-gradient(circle, rgba(25,25,25,.5) 0%, rgba(55,39,20,.5) 19%, rgba(25,25,25,.5) 39%, rgba(61,53,39,.5) 66%, rgba(25,25,25,.5) 100%);
+
+            h1{
+                margin:0;
+                color:white;
+                font-size:8vw;
+                text-shadow: 1px 1px 1px #000;
+            }
+            em{
+                color:#888;
+                text-shadow: 1px 1px 1px #000;
+                text-transform:uppercase;
+                font-size:4.0vw;
+                span{
+                    color:white;
+                }
+            }
+
+            table{
+                padding-top:10px;
+                padding-bottom:10px;
+                width: 100%;
+                background-color:rgba(0,0,0,.2);
+
+                thead{
+                    font-style: oblique;
+                    text-transform:uppercase;
+                    font-size:20px;
+                    color:#eee;
+                    text-shadow: 2px 2px 2px #000;
+                }
+                td{
+                    text-align:center;
+                    text-shadow: 2px 2px 2px #000;
+                }
+                .data{
+                    .confirmed{
+                        font-size:8vw;
+                        color: $confirmedColor;
+                        font-weight:bold;
+                    }
+                    .deaths{
+                        font-size:8vw;
+                        color: $confirmedColor;
+                        color: $deathColor;
+                        font-weight:bold;
+                    }
+                    .increase{
+                        text-align:left;
+                        margin-top:5px;
+                        display:inline-block;
+                        color:#ddd;
+                        vertical-align: top;
+                        line-height:12px;
+                        opacity:.8;
+                        margin-left:5px;
+                        font-size:2vw;
+                        text-shadow: 1px 1px 1px #000;
+                    }
+                }
+
+            }
+            .more-info{
+                font-size:3.5vw;
+                span{
+                    text-transform:uppercase;
+                    color:#aaa;
+                }
+                .confirmed{
+                    color:white;
+                }
+                .deaths{
+                    color:white;
+                }
+            }
+        }
+    }
+
+    .map-shell{
+        width: 100%;
+        min-height: 100vw;
+        height:57vh;
+        position:relative;
+
+        .map-panel{
+
+            .rsm-geography{
+                &{
+                    outline: none;
+                }
+                &:hover{
+                    opacity:.8;
+                }
+            }
+        }
+        .map-scale{
+            position:absolute;
+            left: 10px;
+            top: 10px;
+            div{
+                color:white;
+                font-weight:bold;
+                display: inline-block;
+                padding: 5px 10px;
+                text-align: center;
+                font-size:3.8vw;
+            }
+        }
+
+        .map-axis-picker{
+            position:absolute;
+            right: 10px;
+            top: 10px;
+            background-color:white;
+
+            .MuiTabs-root{
+                min-height:0;
+                .MuiTabs-indicator{
+                    display:none;
+                }
+                .MuiTab-root{
+                    font-size:4.2vw;
+                    min-width:10vw;
+                    min-height:4vw;
+                    padding:0px 12px;
+                    &.Mui-selected{
+                        background-color: $deathColor;
+                        color:white;
+                    }
+                }
+            }
+        }
+
+
+        .map-slider{
+            position: absolute;
+            bottom: 10px;
+            left: 10%;
+            width: 80%;
+            height: 30px;
+            padding: 0 20px;
+            border-radius: 20px;
+            text-align: center;
+            background-color: rgba(255,255,255,.8);
+
+            .MuiSlider-root{
+                .MuiSlider-thumb{
+                    &{
+                        height:16px;
+                        width:16px;
+                        .date-indicator{
+                            position:absolute;
+                            width:94px;
+                            top:-50px;
+                            left: -47px;
+                            border-radius: 5px;
+                            padding:5px;
+                            background-color:darken($primary, 0%);
+                            color:white;
+                            text-shadow: 1px 1px 1px #000;
+
+                            &:after{
+                                content:'';
+                                position:absolute;
+                                bottom:-10px;
+                                left:calc(50% - 10px);
+                                width: 0;
+                                height: 0;
+                                border-style: solid;
+                                border-width: 10px 10px 0 10px;
+                                border-color: darken($primary, 0%) transparent transparent transparent;
+                        }
+                        }
+                    }
+                    &.MuiSlider-active{
+                        .date-indicator{
+                            opacity:1;
+                        }
+
+                    }
+                }
+                .MuiSlider-rail, .MuiSlider-track{
+                    height:6px;
+                }
+            }
+        }
+    }
+}

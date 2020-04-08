@@ -4,7 +4,8 @@
 @import './typography.scss';
 
 @import './logo.scss';
-@import './main-panel.scss';
+@import './d-main-panel.scss';
+@import './m-main-panel.scss';
 @import './left-sidebar.scss';
 @import './logchart.scss';
 
@@ -20,7 +21,6 @@ html, body, #root{
     position:absolute;
     overflow:hidden;
     top:0;
-    width: calc(100% - 728px);
     bottom:0;
 }
 .d-main-panel{
@@ -28,22 +28,34 @@ html, body, #root{
     top:0;
     right:0;
     bottom:90px;
-    width: 728px;
     overflow:hidden;
 }
 .d-main-footer{
     position:absolute;
     right:0;
     bottom:0px;
-    height:90px;
-    width:728px;
     background-color:blue;
     .bottom-ad{
-        width:728px;
-        height:90px;
         background-color:orange;
         float:right;
     }
 }
+.m-main-panel{
 
+}
 
+@media (pointer: coarse) {
+    .MuiSlider-root {
+        margin-top:-7px;
+    }
+}
+
+.mobile-ad{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    height:50px;
+    background-color:orange;
+    color:black;
+}

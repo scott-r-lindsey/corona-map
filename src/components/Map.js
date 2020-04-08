@@ -1,7 +1,7 @@
 
 import React, { useState, useLayoutEffect } from "react";
 
-import { ComposableMap, Geographies, Geography, ZoomableGroup } from "react-simple-maps";
+import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 import updateUrl from '../lib/mapUrl.js';
 import { useParams, useHistory } from "react-router-dom";
 import {zeroColor} from '../lib/colors.js';
@@ -12,7 +12,6 @@ const geoUrl = '/states-map.json';
 
 const MapChart = (props) => {
   const { when, axis, data, colorScale } = props;
-  const [position, setPosition] = useState({coordinates: [0,0], zoom:1 });
   const [mapDims, setMapDims] = useState({x: 800, y: 800, scale: 1000});
   const history = useHistory();
   const params = useParams();
@@ -44,6 +43,8 @@ const MapChart = (props) => {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => setMapSize(), 150);
   };
+
+  const touch = ("ontouchstart" in document.documentElement);
 
   window.addEventListener('resize', resizeListener);
 
@@ -84,19 +85,19 @@ const MapChart = (props) => {
   function handleStateClick(e, geography){
     history.push(updateUrl(params, {location: geography.properties.name.toLowerCase()}));
   }
-  function handleMoveEnd(position) {
-    setPosition(position);
-  }
 
   return (
     <>
       <div ref={zoomableRef} style={{height:'100%',width:'100%'}} className={"map-panel"}>
-        <MapTooltip
-          left={toolTipData.left}
-          top={toolTipData.top}
-          show={toolTipData.show}
-          data={toolTipData.data}
-        />
+        { touch ?
+          null :
+          <MapTooltip
+            left={toolTipData.left}
+            top={toolTipData.top}
+            show={toolTipData.show}
+            data={toolTipData.data}
+          />
+        }
         <ComposableMap
           projectionConfig={{
             scale: mapDims.scale,
@@ -106,37 +107,31 @@ const MapChart = (props) => {
           projection="geoAlbersUsa"
           style={{ width: mapDims.x, height: mapDims.y }}
         >
-          <ZoomableGroup
-            zoom={position.zoom}
-            center={position.coordinates}
-            onMoveEnd={handleMoveEnd}
-          >
-            <Geographies geography={geoUrl}>
-              {({ geographies }) =>
+          <Geographies geography={geoUrl}>
+            {({ geographies }) =>
 
-                geographies.map(geo => {
-                  const cur = data.states ? data.states[geo.id] : {}
-                  return (
-                    <Geography
-                      onClick={(e) => handleStateClick(e, geo)}
-                      onMouseEnter={(e) => handleMouseEnter(e, geo)}
-                      onMouseLeave={(e) => handleMouseLeave(e, geo)}
-                      onMouseMove={(e) => handleMouseMove(e, geo)}
-                      className={cur.name.toLowerCase() === location ? 'focused-state' : ''}
-                      key={geo.rsmKey}
-                      geography={geo}
-                      fill={
-                        ( cur.series[axis][days + offset] === 0) ?
-                          zeroColor :
-                          colorScale(cur.series[axis][days + offset])
-                        }
-                    />
-                  );
-                })
+              geographies.map(geo => {
+                const cur = data.states ? data.states[geo.id] : {}
+                return (
+                  <Geography
+                    onClick={(e) => handleStateClick(e, geo)}
+                    onMouseEnter={(e) => handleMouseEnter(e, geo)}
+                    onMouseLeave={(e) => handleMouseLeave(e, geo)}
+                    onMouseMove={(e) => handleMouseMove(e, geo)}
+                    className={cur.name.toLowerCase() === location ? 'focused-state' : ''}
+                    key={geo.rsmKey}
+                    geography={geo}
+                    fill={
+                      ( cur.series[axis][days + offset] === 0) ?
+                        zeroColor :
+                        colorScale(cur.series[axis][days + offset])
+                      }
+                  />
+                );
+              })
 
-              }
-            </Geographies>
-          </ZoomableGroup>
+            }
+          </Geographies>
         </ComposableMap>
       </div>
     </>

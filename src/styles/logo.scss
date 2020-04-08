@@ -22,11 +22,13 @@
             line-height:31px;
             text-shadow: 2px 2px 3px #661700;
         }
-        &:hover{
-            //animation: text-throb 1s infinite linear;
-            filter: saturate(3.2);
-            text-shadow: 2px 2px 4px #ec3600;
 
+        @media (any-hover: hover) {
+            &:hover{
+                animation: text-throb 1s infinite linear;
+                filter: saturate(3.2);
+                text-shadow: 2px 2px 4px #ec3600;
+            }
         }
     }
 }

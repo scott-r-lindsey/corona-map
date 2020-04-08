@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './styles/App.scss';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import Main from './components/Main.js';
+import Main from './components/index.js';
 import { home } from './lib/config.js';
+import { primary, secondary} from './lib/colors.js';
 
 import {
   Redirect,
@@ -16,8 +17,8 @@ const dataUrl = '/data/latestfull.json';
 
 const theme = createMuiTheme({
   palette: {
-    primary: { main: '#424242' },
-    secondary: { main: '#FF5722' }
+    primary: { main: primary },
+    secondary: { main: secondary }
   },
   status: {
     danger: 'orange',

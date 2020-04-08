@@ -2,6 +2,7 @@
 import React from "react";
 import {getDataValue, getFormattedDate, getStateDataByName} from '../../lib/getMapValue.js';
 import moment from 'moment-es6';
+import withWidth from '@material-ui/core/withWidth';
 
 const Info = (props) => {
 
@@ -64,5 +65,4 @@ const Info = (props) => {
 
 }
 
-export default Info;
-
+export default withWidth()(Info);
