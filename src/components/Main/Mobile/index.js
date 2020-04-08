@@ -11,13 +11,13 @@ import Map from '../../Map.js';
 import MapSlider from '../../MapSlider.js';
 import MobileAd from './MobileAd.js';
 import MobileInfo from './MobileInfo.js';
+import DrawerContent from './DrawerContent.js';
 
 
 const MobileMain = (props) => {
 
   const {data, axis, when, location, colorScale} = props;
   const [drawerOpen, setDrawerOpen] = useState(false);
-
 
   const handleMenuClick = () => {
     setDrawerOpen(drawerOpen ? false : true);
@@ -35,12 +35,13 @@ const MobileMain = (props) => {
 
     <>
       <Drawer
+        className={"m-right-drawer"}
         anchor={"right"}
         open={drawerOpen}
         onClose={handleMenuDrawerClose}
         onOpen={handleMenuDrawerOpen}
       >
-        <div>hello-this-is-some-text</div>
+        <DrawerContent />
       </Drawer>
       <div className={"m-main-panel"}>
         <IconButton

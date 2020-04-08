@@ -2,11 +2,10 @@ import React from "react";
 import LogChart from './LogChart.js';
 import updateUrl from '../../lib/mapUrl.js'
 import { useParams, useHistory } from "react-router-dom";
-import {getFormattedDate, capitalizeLocation} from '../../lib/getMapValue.js';
+import {getFormattedDate, capitalizeLocation, getStateDataByName} from '../../lib/getMapValue.js';
 import Logo from '../Logo.js';
 import Info from './Info.js';
 import Text from './Text.js';
-import {getStateDataByName} from '../../lib/getMapValue.js';
 
 const LeftPanel = (props) => {
 
