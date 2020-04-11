@@ -13,7 +13,6 @@ import MobileAd from './MobileAd.js';
 import MobileInfo from './MobileInfo.js';
 import DrawerContent from './DrawerContent.js';
 
-
 const MobileMain = (props) => {
 
   const {data, axis, when, location, colorScale} = props;

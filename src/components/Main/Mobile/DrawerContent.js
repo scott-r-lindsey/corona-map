@@ -1,6 +1,5 @@
 import React from "react";
 import Logo from '../../Logo.js';
-import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 

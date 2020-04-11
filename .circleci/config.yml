@@ -1,0 +1,117 @@
+version: 2
+
+node-image: &node-image
+    docker:
+        - image: circleci/node:10.12
+
+python-image: &python-image
+    docker:
+        - image: circleci/python:3.6.1
+
+jobs:
+    build:
+        <<: *node-image
+
+        steps:
+            - setup_remote_docker
+            - checkout
+
+            - run:
+                name: Create Workspace
+                command: |
+                  mkdir workspace
+
+            - run:
+                name: Install Yarn
+                command: |
+                  curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - &&
+                  echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list &&
+                  apt update && apt install yarn
+
+            - run:
+                name: Install project via Yarn
+                command: |
+                  yarn install
+
+            - run:
+                name: Build Project
+                command: |
+                  yarn build
+
+            - run:
+                name: Copy build to workspace
+                command: |
+                  cp -r build ./workspace/
+
+            - persist_to_workspace:
+                root: workspace
+                paths:
+                    - build
+
+    test:
+        <<: *node-image
+
+        steps:
+            - setup_remote_docker
+            - checkout
+
+            - run: |
+                echo "hello from test!"
+
+    deploy:
+        <<: *python-image
+
+        steps:
+            - setup_remote_docker
+
+            - attach_workspace:
+                at: workspace
+
+            - run:
+                name: Install AWS CLI
+                command: |
+                    sudo pip install awscli --upgrade
+
+            - run:
+                name: Sync to s3
+                command: |
+                  aws s3 sync ./workspace/build s3://corona-prod-react/
+
+
+workflows:
+    version: 2
+
+    commit_test:
+        jobs:
+            - build:
+                filters:
+                    branches:
+                        ignore: /^master$/
+            - test:
+                requires:
+                    - build
+
+
+
+    deploy_by_tag:
+        jobs:
+            - build:
+                filters:
+                    tags:
+                        only: /^[0-9]+\.[0-9]+\.[0-9]+$/
+                    branches:
+                        ignore: /.*/
+            - test:
+                requires:
+                    - build
+                filters:
+                    tags:
+                        only: /.*/
+
+            - deploy:
+                requires:
+                    - test
+                filters:
+                    tags:
+                        only: /.*/
+
