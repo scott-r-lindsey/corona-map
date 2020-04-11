@@ -15,7 +15,7 @@ import DrawerContent from './DrawerContent.js';
 
 const MobileMain = (props) => {
 
-  const {data, axis, when, location, colorScale} = props;
+  const {data, axis, when, colorScale} = props;
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const handleMenuClick = () => {
