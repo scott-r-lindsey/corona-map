@@ -17,6 +17,7 @@
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-fontawesome": "^1.7.1",
+    "react-ga": "^2.7.0",
     "react-grid-layout": "^0.18.2",
     "react-material-ui": "^0.0.1",
     "react-popper": "^2.0.0",

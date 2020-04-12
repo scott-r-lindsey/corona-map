@@ -4,6 +4,7 @@ import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Main from './components/index.js';
 import { home } from './lib/config.js';
 import { primary, secondary} from './lib/colors.js';
+import TrackedRoute from './components/TrackedRoute.js';
 
 import {
   Redirect,
@@ -27,6 +28,7 @@ const theme = createMuiTheme({
 
 function App() {
 
+
   const [data, setData] = useState(null);
 
   useEffect(() => {
@@ -43,12 +45,12 @@ function App() {
         <ThemeProvider theme={theme}>
           <Router>
             <Switch>
-              <Route path="/COVID-US/:when/:axis/:location">
+              <TrackedRoute path="/COVID-US/:when/:axis/:location">
                 <Main data={data}/>
-              </Route>
-              <Route exact path="/">
+              </TrackedRoute>
+              <TrackedRoute exact path="/">
                 <Redirect to={home}/>
-              </Route>
+              </TrackedRoute>
             </Switch>
           </Router>
         </ThemeProvider> :

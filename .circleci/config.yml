@@ -37,7 +37,7 @@ jobs:
             - run:
                 name: Build Project
                 command: |
-                  yarn build
+                  REACT_APP_STAGE=prod yarn build
 
             - run:
                 name: Copy build to workspace
