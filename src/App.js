@@ -10,7 +10,6 @@ import {
   Redirect,
   BrowserRouter as Router,
   Switch,
-  Route,
 } from "react-router-dom";
 
 const fetch = require('node-fetch');
