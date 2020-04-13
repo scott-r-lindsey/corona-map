@@ -9,13 +9,24 @@ const DrawerContent = (props) => {
     <div className={"drawer-content"}>
       <Logo />
 
-
       <MenuList>
-        <MenuItem>About</MenuItem>
-        <MenuItem>Privacy</MenuItem>
-        <MenuItem>Terms of Service</MenuItem>
+        <MenuItem>
+          <a href="/blog/2020/04/12/about/">About</a>
+        </MenuItem>
+        <MenuItem>
+          <a href="blog/privacy-policy/">Privacy Policy</a>
+        </MenuItem>
+        <MenuItem>
+          <a href="/blog/terms-of-service/">Terms of Service</a>
+        </MenuItem>
       </MenuList>
 
+
+      <div className={"footer"}>
+        Copyright &copy; 2020<br />
+        Scott Lindsey<br />
+        All Rights Reserved
+      </div>
 
     </div>
 

@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import Drawer from '@material-ui/core/SwipeableDrawer';
 import MenuIcon from '@material-ui/icons/Menu';
 import IconButton from '@material-ui/core/IconButton';
-
 import { zeroColor, minColor, maxColor} from '../../../lib/colors.js';
-import { getMaxValueForAxis } from '../../../lib/getMapValue.js';
+import { getMaxValueForAxis, getTrimmedData } from '../../../lib/getMapValue.js';
 import Scale from '../../Scale.js';
 import AxisPicker from '../../AxisPicker.js';
 import Map from '../../Map.js';
@@ -23,6 +22,8 @@ const MobileMain = (props) => {
   }
 
   const max = getMaxValueForAxis(data, axis);
+
+  const trimmedData = getTrimmedData(data, when);
 
   const handleMenuDrawerClose = () => {
     setDrawerOpen(false);
@@ -50,7 +51,7 @@ const MobileMain = (props) => {
         >
           <MenuIcon />
         </IconButton>
-        <MobileInfo data={data} />
+        <MobileInfo data={trimmedData} />
         <div className={"map-shell"}>
           <Scale {...{max, zeroColor, minColor, maxColor, colorScale}} />
           <AxisPicker />
