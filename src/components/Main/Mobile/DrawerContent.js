@@ -14,7 +14,7 @@ const DrawerContent = (props) => {
           <a href="/blog/2020/04/12/about/">About</a>
         </MenuItem>
         <MenuItem>
-          <a href="blog/privacy-policy/">Privacy Policy</a>
+          <a href="/blog/privacy-policy/">Privacy Policy</a>
         </MenuItem>
         <MenuItem>
           <a href="/blog/terms-of-service/">Terms of Service</a>
