@@ -6,6 +6,7 @@ import {getFormattedDate, capitalizeLocation, getStateDataByName} from '../../li
 import Logo from '../Logo.js';
 import Info from './Info.js';
 import Text from './Text.js';
+import CopyFooter from '../CopyFooter.js';
 
 const LeftPanel = (props) => {
 
@@ -78,6 +79,7 @@ const LeftPanel = (props) => {
           </div>
         }
         <Text />
+        <CopyFooter />
       </div>
     </>
   )

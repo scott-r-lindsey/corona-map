@@ -10,6 +10,7 @@ import Map from '../../Map.js';
 import MapSlider from '../../MapSlider.js';
 import MobileAd from './MobileAd.js';
 import MobileInfo from './MobileInfo.js';
+import Text from './Text.js';
 import DrawerContent from './DrawerContent.js';
 
 const MobileMain = (props) => {
@@ -58,6 +59,7 @@ const MobileMain = (props) => {
           <Map when={when} axis={axis} data={data} colorScale={colorScale} />
           <MapSlider data={data} />
         </div>
+        <Text />
       </div>
       <MobileAd />
     </>

@@ -23,9 +23,7 @@ const DrawerContent = (props) => {
 
 
       <div className={"footer"}>
-        Copyright &copy; 2020<br />
-        Scott Lindsey<br />
-        All Rights Reserved
+        Copyright &copy; Scott Lindsey
       </div>
 
     </div>
