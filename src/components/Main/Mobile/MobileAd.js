@@ -5,7 +5,9 @@ const MobileAd = (props) => {
   const {adWidth, adHeight, ad} = props;
 
   return (
-    <div className={"mobile-ad"} style={{color: 'white', height:adHeight+'px', width: adWidth+'px'}} dangerouslySetInnerHTML={{__html: ad }} />
+    <div className={"mobile-ad"} style={{color: 'white', height:adHeight+'px', width: adWidth+'px'}}>
+      { ad }
+    </div>
   );
 }
 

@@ -3,7 +3,7 @@ import Map from './Map.js';
 import { useParams } from "react-router-dom";
 import LeftPanel from './LeftPanel/';
 import MapSlider from './MapSlider.js';
-import BottomAd from './BottomAd.js';
+import AmazonAd from './AmazonAd.js';
 import BottomAdMd from './BottomAdMd.js';
 import AxisPicker from './AxisPicker.js';
 import { scaleLog } from "d3-scale";
@@ -32,7 +32,7 @@ const Main = (props) => {
   const small = /sm/.test(width);
 
   let mainWidth = '728';
-  let adHeight = '90';
+  let adHeight = '136';
 
   if ('sm' === width){
     mainWidth = '512';
@@ -55,7 +55,7 @@ const Main = (props) => {
                   width: `calc(100% - ${mainWidth}px)`,
                   bottom: adHeight,
                 }}>
-                <LeftPanel location={location} data={trimmedData}/>
+                <LeftPanel location={location} data={trimmedData} adHeight={adHeight} />
               </div>
               <div className={"d-main-panel"} style={{ width: `${mainWidth}px` }} >
                 <Scale {...{max, zeroColor, minColor, maxColor, colorScale}} />
@@ -67,16 +67,16 @@ const Main = (props) => {
             </> :
             <>
               <div className={"d-left-column"} style={ {width: `calc(100% - ${mainWidth}px)` }} >
-                <LeftPanel location={location} data={trimmedData}/>
+                <LeftPanel location={location} data={trimmedData} />
               </div>
-              <div className={"d-main-panel"} style={{ width: `${mainWidth}px` }} >
+              <div className={"d-main-panel"} style={{ width: `${mainWidth}px`, bottom: adHeight + 'px' }} >
                 <Scale {...{max, zeroColor, minColor, maxColor, colorScale}} />
                 <AxisPicker />
                 <Map when={when} axis={axis} data={data} colorScale={colorScale} />
                 <MapSlider data={data} />
               </div>
               <div className={'d-main-footer'} style={{ width: mainWidth + 'px', height: adHeight}}>
-                <BottomAd adWidth={mainWidth} adHeight={adHeight} ad={data.adCode} />
+                <AmazonAd adHeight={adHeight} ad={data.adCode} />
               </div>
             </>
           }

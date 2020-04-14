@@ -11,7 +11,7 @@ import CopyFooter from '../CopyFooter.js';
 const LeftPanel = (props) => {
 
   const { location } = useParams();
-  const { data } = props;
+  const { data, adHeight } = props;
   const history = useHistory();
   const params = useParams();
   const { when } = params;
@@ -44,6 +44,8 @@ const LeftPanel = (props) => {
     );
   }
 
+  const heightDiff = adHeight ? ((adHeight-0) + 270) + 'px' : '270px';
+
   return(
     <>
       <Logo />
@@ -67,7 +69,7 @@ const LeftPanel = (props) => {
         <Info data={data} location={location} />
 
       </div>
-      <div className="scrollable-area">
+      <div className="scrollable-area" style={{ height: 'calc(100% - ' + heightDiff }}>
         { hasData ?
           <LogChart location={location} data={data} stateData={stateData} /> :
           <div className={"log-chart"}>

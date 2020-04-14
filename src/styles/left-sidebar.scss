@@ -109,17 +109,11 @@
     .scrollable-area.partial{
     }
     .scrollable-area{
-        &.full{
-            height:calc(100% - 270px);
-        }
-        &.partial{
-        }
 
         &::-webkit-scrollbar{width:8px}
         &::-webkit-scrollbar-track{background:#cccccc;border-radius:0px}
         &::-webkit-scrollbar-thumb{background:#2e2e2e;border-radius:0px}
 
-        height:calc(100% - 270px);
         overflow:hidden;
         overflow-y: auto;
         .text-block{
