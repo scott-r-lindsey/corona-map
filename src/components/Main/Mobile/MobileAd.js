@@ -1,10 +1,9 @@
 import React, {useRef} from 'react';
-import AmazonAd from '../../AmazonAd.js';
 import CloseIcon from '@material-ui/icons/Close';
 
 const MobileAd = (props) => {
 
-  const {adWidth, adHeight, ad} = props;
+  const {adWidth, adHeight} = props;
   const adShellRef = useRef(null);
   const dismissRef = useRef(null);
 
@@ -19,7 +18,7 @@ const MobileAd = (props) => {
         <CloseIcon color={"primary"} />
       </div>
       <div className={"mobile-ad"} style={{color: 'white', height:adHeight+'px', width: adWidth+'px'}} ref={adShellRef}>
-        <AmazonAd adHeight={adHeight} ad={ad} />
+        { props.children }
       </div>
     </>
   );

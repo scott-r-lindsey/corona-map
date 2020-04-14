@@ -5,6 +5,7 @@ const fs = require('fs');
 const path = require('path');
 
 const { states, statesByAbbrev, statesByName } = require('./states');
+const searchVals = require('../data/search-ad-vals.json');
 
 const inputPath = '../data/COVID-19/csse_covid_19_data/csse_covid_19_daily_reports/';
 const outputPath = '../public/data/';
@@ -108,6 +109,7 @@ const appendZeros = () => {
   }
 
   stateData.adCode = fs.readFileSync('../data/ad-code.html', 'utf8');
+  stateData.searchVals = searchVals;
 
   fs.writeFileSync(outputPath + 'latestfull.json', JSON.stringify(stateData));
 

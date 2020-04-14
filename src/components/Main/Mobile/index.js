@@ -9,6 +9,7 @@ import AxisPicker from '../../AxisPicker.js';
 import Map from '../../Map.js';
 import MapSlider from '../../MapSlider.js';
 import MobileAd from './MobileAd.js';
+import AmznSearchAd from '../../Ad/AmznSearchAd.js';
 import MobileInfo from './MobileInfo.js';
 import Text from './Text.js';
 import DrawerContent from './DrawerContent.js';
@@ -61,7 +62,9 @@ const MobileMain = (props) => {
         </div>
         <Text />
       </div>
-      <MobileAd ad={data.adCode} adHeight={154} />
+      <MobileAd adHeight={154}>
+        <AmznSearchAd adHeight={154} amznAdVals={data.searchVals} />
+      </MobileAd>
     </>
   )
 }

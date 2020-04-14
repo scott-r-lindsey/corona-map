@@ -3,7 +3,7 @@ import Map from './Map.js';
 import { useParams } from "react-router-dom";
 import LeftPanel from './LeftPanel/';
 import MapSlider from './MapSlider.js';
-import AmazonAd from './AmazonAd.js';
+import AmznSearchAd from './Ad/AmznSearchAd.js';
 import BottomAdMd from './BottomAdMd.js';
 import AxisPicker from './AxisPicker.js';
 import { scaleLog } from "d3-scale";
@@ -76,7 +76,7 @@ const Main = (props) => {
                 <MapSlider data={data} />
               </div>
               <div className={'d-main-footer'} style={{ width: mainWidth + 'px', height: adHeight}}>
-                <AmazonAd adHeight={adHeight} ad={data.adCode} />
+                <AmznSearchAd adHeight={adHeight} amznAdVals={data.searchVals} />
               </div>
             </>
           }

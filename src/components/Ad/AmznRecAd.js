@@ -1,6 +1,6 @@
 import React, {useRef, useEffect} from 'react';
 
-const AmazonAd = (props) => {
+const AmazonRecAd = (props) => {
 
   // this is a bit of a hacky workaround -- dangerouslySetInnerHTML doesn't run scripts
   // and including an html parsing library seemed extreme
@@ -24,4 +24,4 @@ const AmazonAd = (props) => {
   );
 }
 
-export default AmazonAd;
+export default AmazonRecAd;
