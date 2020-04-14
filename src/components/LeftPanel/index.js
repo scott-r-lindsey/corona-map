@@ -72,13 +72,16 @@ const LeftPanel = (props) => {
       <div className="scrollable-area" style={{ height: 'calc(100% - ' + heightDiff }}>
         { hasData ?
           <LogChart location={location} data={data} stateData={stateData} /> :
-          <div className={"log-chart"}>
-            <div className={"no-data"}>
-              <p>
-                No data for period
-              </p>
+          <>
+            <div className={"log-chart"}>
+              <div className={"no-data"}>
+                <p>
+                  No data for period
+                </p>
+              </div>
             </div>
-          </div>
+            <div style={{ height: '20px' }} />
+          </>
         }
         <Text />
         <CopyFooter />
