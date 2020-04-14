@@ -14,6 +14,7 @@ const stateData = {
   states,
 };
 
+
 for (var stateId in stateData.states) {
   stateData.states[stateId] = {
     ...stateData.states[stateId],
@@ -104,9 +105,9 @@ const appendZeros = () => {
       }
     });
     i++;
-
   }
 
+  stateData.adCode = fs.readFileSync('../data/ad-code.html', 'utf8');
 
   fs.writeFileSync(outputPath + 'latestfull.json', JSON.stringify(stateData));
 

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './styles/App.scss';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import Main from './components/index.js';
 import { home } from './lib/config.js';
 import { primary, secondary} from './lib/colors.js';
 import TrackedRoute from './components/TrackedRoute.js';
+import RouteValidator from './components/RouteValidator.js';
 
 import {
   Redirect,
@@ -15,7 +15,16 @@ import {
 const fetch = require('node-fetch');
 const dataUrl = '/data/latestfull.json';
 
+const breakpoints = {
+  xs: 0,
+  sm: 680,
+  md: 1060,
+  lg: 1280,
+  xl: 1920,
+};
+
 const theme = createMuiTheme({
+  breakpoints: { values: breakpoints },
   palette: {
     primary: { main: primary },
     secondary: { main: secondary }
@@ -26,7 +35,6 @@ const theme = createMuiTheme({
 });
 
 function App() {
-
 
   const [data, setData] = useState(null);
 
@@ -45,7 +53,7 @@ function App() {
           <Router>
             <Switch>
               <TrackedRoute path="/COVID-US/:when/:axis/:location">
-                <Main data={data}/>
+                <RouteValidator data={data}/>
               </TrackedRoute>
               <TrackedRoute exact path="/">
                 <Redirect to={home}/>

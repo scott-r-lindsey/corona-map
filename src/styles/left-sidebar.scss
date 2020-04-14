@@ -104,7 +104,16 @@
         }
     }
 
+    .scrollable-area.full{
+    }
+    .scrollable-area.partial{
+    }
     .scrollable-area{
+        &.full{
+            height:calc(100% - 270px);
+        }
+        &.partial{
+        }
 
         &::-webkit-scrollbar{width:8px}
         &::-webkit-scrollbar-track{background:#cccccc;border-radius:0px}

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import LeftPanel from './LeftPanel/';
 import MapSlider from './MapSlider.js';
 import BottomAd from './BottomAd.js';
+import BottomAdMd from './BottomAdMd.js';
 import AxisPicker from './AxisPicker.js';
 import { scaleLog } from "d3-scale";
 import Scale from './Scale.js';
@@ -14,8 +15,7 @@ import PropTypes from "prop-types";
 
 import MobileMain from './Main/Mobile/index.js';
 
-
-function Main(props) {
+const Main = (props) => {
 
   const params = useParams();
   const { when, axis, location } = params;
@@ -29,6 +29,7 @@ function Main(props) {
 
   const trimmedData = getTrimmedData(data, when);
   const mobile = /xs/.test(width);
+  const small = /sm/.test(width);
 
   let mainWidth = '728';
   let adHeight = '90';
@@ -48,18 +49,37 @@ function Main(props) {
           colorScale={colorScale}
         /> :
         <>
-          <div className={"d-left-column"} style={ {width: `calc(100% - ${mainWidth}px` }} >
-            <LeftPanel location={location} data={trimmedData}/>
-          </div>
-          <div className={"d-main-panel"} style={{ width: `${mainWidth}px` }} >
-            <Scale {...{max, zeroColor, minColor, maxColor, colorScale}} />
-            <AxisPicker />
-            <Map when={when} axis={axis} data={data} colorScale={colorScale} />
-            <MapSlider data={data} />
-          </div>
-          <div className={'d-main-footer'} style={{ width: mainWidth, height: adHeight}}>
-            <BottomAd adWidth={mainWidth} adHeight={adHeight} />
-          </div>
+          { small ?
+            <>
+              <div className={"d-left-column"} style={{
+                  width: `calc(100% - ${mainWidth}px)`,
+                  bottom: adHeight,
+                }}>
+                <LeftPanel location={location} data={trimmedData}/>
+              </div>
+              <div className={"d-main-panel"} style={{ width: `${mainWidth}px` }} >
+                <Scale {...{max, zeroColor, minColor, maxColor, colorScale}} />
+                <AxisPicker />
+                <Map when={when} axis={axis} data={data} colorScale={colorScale} />
+                <MapSlider data={data} />
+              </div>
+              <BottomAdMd adWidth={mainWidth} adHeight={adHeight} ad={data.adCode} />
+            </> :
+            <>
+              <div className={"d-left-column"} style={ {width: `calc(100% - ${mainWidth}px)` }} >
+                <LeftPanel location={location} data={trimmedData}/>
+              </div>
+              <div className={"d-main-panel"} style={{ width: `${mainWidth}px` }} >
+                <Scale {...{max, zeroColor, minColor, maxColor, colorScale}} />
+                <AxisPicker />
+                <Map when={when} axis={axis} data={data} colorScale={colorScale} />
+                <MapSlider data={data} />
+              </div>
+              <div className={'d-main-footer'} style={{ width: mainWidth + 'px', height: adHeight}}>
+                <BottomAd adWidth={mainWidth} adHeight={adHeight} ad={data.adCode} />
+              </div>
+            </>
+          }
         </>
       }
     </>
