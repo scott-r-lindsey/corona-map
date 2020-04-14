@@ -24,8 +24,9 @@ const MobileMain = (props) => {
   }
 
   const max = getMaxValueForAxis(data, axis);
-
   const trimmedData = getTrimmedData(data, when);
+
+  console.log(data);
 
   const handleMenuDrawerClose = () => {
     setDrawerOpen(false);

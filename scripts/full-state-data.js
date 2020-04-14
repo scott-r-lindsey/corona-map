@@ -64,6 +64,7 @@ const appendZeros = () => {
   let i=0;
   for (let filename of csvs) {
     console.log(filename);
+
     stateData.dates.push(Date.parse(path.basename(filename, '.csv')));
 
     appendZeros();
@@ -85,7 +86,7 @@ const appendZeros = () => {
           }
         }
       }
-      // earlier data 
+      // earlier data
       else{
         if ('US' == d['Country/Region']){
 
@@ -105,6 +106,12 @@ const appendZeros = () => {
         }
       }
     });
+
+    // remove weird NE outlier
+    if ('02-22-2020.csv' === filename){
+      stateData.states[31].series.confirmed[i-1] = 0;
+    }
+
     i++;
   }
 

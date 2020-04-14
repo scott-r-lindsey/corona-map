@@ -33,7 +33,6 @@ const AmznSearchAd = (props) => {
     }
     else{
       divRef.current.innerHTML = '';
-      console.log('skipped add write');
       postscribe('#bottom-ad', html);
     }
 
