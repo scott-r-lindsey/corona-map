@@ -61,7 +61,7 @@ const MobileMain = (props) => {
         </div>
         <Text />
       </div>
-      <MobileAd ad={data.adCode} />
+      <MobileAd ad={data.adCode} adHeight={154} />
     </>
   )
 }
