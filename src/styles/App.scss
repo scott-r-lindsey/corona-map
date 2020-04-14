@@ -57,6 +57,18 @@ html, body, #root{
     }
 }
 
+.mobile-ad-dismiss{
+    position:fixed;
+    bottom:154px;
+    right:0;
+    height:30px;
+    width:30px;
+    background-color:white;
+
+    .MuiSvgIcon-root{
+        font-size:30px;
+    }
+}
 .mobile-ad{
     background-size:contain;
     background-color:white;
@@ -70,16 +82,4 @@ html, body, #root{
     right:0;
     height:50px;
     color:black;
-    .mobile-ad-dismiss{
-        position:fixed;
-        bottom:154px;
-        right:0;
-        height:30px;
-        width:30px;
-        background-color:white;
-
-        .MuiSvgIcon-root{
-            font-size:30px;
-        }
-    }
 }
