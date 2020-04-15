@@ -13,6 +13,7 @@ const MapTooltip = (props) => {
     top: top -15,
     display: show ? 'block' : 'none',
   };
+  const roundFour = (val) => Math.trunc(val * 1000)/1000;
 
   return (
     <>
@@ -25,7 +26,7 @@ const MapTooltip = (props) => {
                 <tbody>
                   <tr>
                     <td>
-                      Confirmed:
+                      Total Cases:
                     </td>
                     <td className={"confirmed"}>
                       {data.axis ? data.axis.confirmed : '' }
@@ -33,10 +34,37 @@ const MapTooltip = (props) => {
                   </tr>
                   <tr>
                     <td>
-                      Deaths:
+                      Total Deaths:
                     </td>
                     <td className={"deaths"}>
                       {data.axis ? data.axis.deaths : '' }<br />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan={2}>
+                        <hr />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Cases/1000:
+                    </td>
+                    <td className={"confirmed"}>
+                      {data.axis ? roundFour(data.axis.confirmedPercap) : '' }
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Deaths/1000:
+                    </td>
+                    <td className={"deaths"}>
+                      {data.axis ? roundFour(data.axis.deathsPercap) : '' }<br />
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td colSpan={2}>
+                      <span className={"pop"}>Pop. { data.pop.toLocaleString() }</span>
                     </td>
                   </tr>
                 </tbody>

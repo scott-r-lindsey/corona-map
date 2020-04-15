@@ -198,7 +198,7 @@
 
     .map-shell{
         width: 100%;
-        min-height: 100vw;
+        min-height: 110vw;
         height:57vh;
         position:relative;
 
@@ -234,13 +234,15 @@
 
         .map-scale{
             position:absolute;
-            left: 10px;
+            display:flex;
+            right: 10px;
             top: 10px;
             div{
                 color:white;
+                text-shadow: 0px 0px 3px #000;
                 font-weight:bold;
                 display: inline-block;
-                padding: 5px 10px;
+                padding: 5px 8px;
                 text-align: center;
                 font-size:3.8vw;
             }
@@ -248,8 +250,8 @@
 
         .map-axis-picker{
             position:absolute;
-            right: 10px;
-            top: 10px;
+            right: 100px;
+            top: 40px;
             background-color:white;
 
             .MuiTabs-root{
@@ -269,6 +271,31 @@
                 }
             }
         }
+        .map-quant-picker{
+            position:absolute;
+            right: 10px;
+            top: 40px;
+            background-color:white;
+
+            .MuiTabs-root{
+                min-height:0;
+                .MuiTabs-indicator{
+                    display:none;
+                }
+                .MuiTab-root{
+                    font-size:4.2vw;
+                    min-width:10vw;
+                    min-height:4vw;
+                    padding:0px 12px;
+                    &.Mui-selected{
+                        background-color: $deathColor;
+                        color:white;
+                    }
+                }
+            }
+        }
+
+
 
         .map-slider{
             position: absolute;

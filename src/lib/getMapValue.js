@@ -23,6 +23,9 @@ export const getDate = (data, when) => {
 export const getFormattedDate = (data, when, format) => {
   return moment(getDate(data, when)).format(format);
 }
+export const getPop = (data, location) => {
+  return getStateDataByName(data, location)['pop'];
+}
 export const getMaxValueForAxis = (data, axis) => {
 
   const days = data.dates.length;
@@ -38,12 +41,13 @@ export const getLocationDataForDay = (data, when, location) => {
 
   return {
     location: location,
+    pop: getPop(data, location),
     date: getDate(data, when),
     axis: {
       confirmed: getDataValue(data, when, location, 'confirmed'),
       deaths: getDataValue(data, when, location, 'deaths'),
-      recovered: getDataValue(data, when, location, 'recovered'),
-      active: getDataValue(data, when, location, 'active'),
+      confirmedPercap: getDataValue(data, when, location, 'confirmed-percap'),
+      deathsPercap: getDataValue(data, when, location, 'deaths-percap'),
     }
   };
 }
@@ -78,7 +82,6 @@ export const parseWhen = (when) => {
   // now
   // all
   // x-x/getMaxValueForAxis
-
 }
 export const capitalizeLocation = (location) => {
   return location.split(' ')
@@ -97,3 +100,32 @@ export const abbreviateNumber = (num, fixed) => {
       e = d + ['', 'K', 'M', 'B', 'T'][k];
   return e;
 }
+
+export const embellishData = (data) => {
+
+  const axes = ['confirmed', 'deaths'];
+
+  for (const stateId in data.states) {
+    axes.forEach(axis => {
+      // total
+      data.states[stateId].series[`${axis}-total`] = data.states[stateId].series[axis];
+      data.states[stateId].series[`${axis}-change`] = [];
+
+      // percap
+      let pop = data.states[stateId].pop;
+      data.states[stateId].series[`${axis}-percap`] =
+        data.states[stateId].series[axis].map(count => (count / pop) *1000);
+
+      // change
+      data.states[stateId].series[`${axis}-change`] =
+        data.states[stateId].series[axis].map((count, index) => {
+          return (index === 0 ? 0 :
+            count - data.states[stateId].series[axis][index -1]);
+        }
+      );
+    });
+  }
+
+  return data;
+}
+

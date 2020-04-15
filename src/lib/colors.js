@@ -4,8 +4,8 @@ export const secondary = '#FF5722';
 
 // map
 export const zeroColor = '#AAA67A';
-export const minColor = '#E2C065';
-export const maxColor = '#CC0000';
+export const minColor = '#FFF700';
+export const maxColor = '#A70024';
 
 // shared
 export const confirmedColor = '#DD9850';

@@ -6,6 +6,7 @@ import { zeroColor, minColor, maxColor} from '../../../lib/colors.js';
 import { getMaxValueForAxis, getTrimmedData } from '../../../lib/getMapValue.js';
 import Scale from '../../Scale.js';
 import AxisPicker from '../../AxisPicker.js';
+import QuantPicker from '../../QuantPicker.js';
 import Map from '../../Map.js';
 import MapSlider from '../../MapSlider.js';
 import MobileAd from './MobileAd.js';
@@ -13,20 +14,20 @@ import AmznSearchAd from '../../Ad/AmznSearchAd.js';
 import MobileInfo from './MobileInfo.js';
 import Text from './Text.js';
 import DrawerContent from './DrawerContent.js';
+import { useParams } from "react-router-dom";
 
 const MobileMain = (props) => {
 
   const {data, axis, when, colorScale} = props;
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const {quant} = useParams();
 
   const handleMenuClick = () => {
     setDrawerOpen(drawerOpen ? false : true);
   }
 
-  const max = getMaxValueForAxis(data, axis);
+  const max = getMaxValueForAxis(data, `${axis}-${quant}`);
   const trimmedData = getTrimmedData(data, when);
-
-  console.log(data);
 
   const handleMenuDrawerClose = () => {
     setDrawerOpen(false);
@@ -57,6 +58,7 @@ const MobileMain = (props) => {
         <MobileInfo data={trimmedData} />
         <div className={"map-shell"}>
           <Scale {...{max, zeroColor, minColor, maxColor, colorScale}} />
+          <QuantPicker />
           <AxisPicker />
           <Map when={when} axis={axis} data={data} colorScale={colorScale} />
           <MapSlider data={data} />

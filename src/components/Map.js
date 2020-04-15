@@ -1,6 +1,4 @@
-
 import React, { useState, useLayoutEffect } from "react";
-
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 import updateUrl from '../lib/mapUrl.js';
 import { useParams, useHistory } from "react-router-dom";
@@ -26,7 +24,7 @@ const MapChart = (props) => {
     if (zoomableRef.current) {
       setMapDims({
         x: zoomableRef.current.clientWidth,
-        y: zoomableRef.current.clientHeight,
+        y: zoomableRef.current.clientHeight+10,
         scale: 1000 * (zoomableRef.current.clientWidth / 800)
       });
     }

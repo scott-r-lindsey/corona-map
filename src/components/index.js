@@ -6,6 +6,7 @@ import MapSlider from './MapSlider.js';
 import AmznSearchAd from './Ad/AmznSearchAd.js';
 import BottomAdMd from './BottomAdMd.js';
 import AxisPicker from './AxisPicker.js';
+import QuantPicker from './QuantPicker.js';
 import { scaleLog } from "d3-scale";
 import Scale from './Scale.js';
 import { zeroColor, minColor, maxColor} from '../lib/colors.js';
@@ -18,13 +19,24 @@ import MobileMain from './Main/Mobile/index.js';
 const Main = (props) => {
 
   const params = useParams();
-  const { when, axis, location } = params;
+  const { when, axis, location, quant } = params;
   const { data, width } = props;
 
-  const max = getMaxValueForAxis(data, axis);
+  let min;
+  const max = getMaxValueForAxis(data, `${axis}-${quant}`);
+
+  if ('total' === quant){
+    min = 1;
+  }
+  else if ('percap' === quant){
+    min = .00001;
+  }
+  else{
+
+  }
 
   const colorScale = scaleLog()
-    .domain([1, max])
+    .domain([min, max])
     .range([ minColor, maxColor ]);
 
   const trimmedData = getTrimmedData(data, when);
@@ -58,7 +70,8 @@ const Main = (props) => {
                 <LeftPanel location={location} data={trimmedData} adHeight={adHeight} />
               </div>
               <div className={"d-main-panel"} style={{ width: `${mainWidth}px` }} >
-                <Scale {...{max, zeroColor, minColor, maxColor, colorScale}} />
+                <Scale {...{min, max, zeroColor, minColor, maxColor, colorScale}} />
+                <QuantPicker />
                 <AxisPicker />
                 <Map when={when} axis={axis} data={data} colorScale={colorScale} />
                 <MapSlider data={data} />
@@ -71,8 +84,9 @@ const Main = (props) => {
               </div>
               <div className={"d-main-panel"} style={{ width: `${mainWidth}px`, bottom: adHeight + 'px' }} >
                 <Scale {...{max, zeroColor, minColor, maxColor, colorScale}} />
+                <QuantPicker />
                 <AxisPicker />
-                <Map when={when} axis={axis} data={data} colorScale={colorScale} />
+                <Map when={when} axis={`${axis}-${quant}`} data={data} colorScale={colorScale} />
                 <MapSlider data={data} />
               </div>
               <div className={'d-main-footer'} style={{ width: mainWidth + 'px', height: adHeight}}>

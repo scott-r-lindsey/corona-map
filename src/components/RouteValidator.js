@@ -7,7 +7,7 @@ const RouteValidator = (props) => {
 
   const params = useParams();
   const { data } = props;
-  const { location, when, axis } = params;
+  const { location, when, axis, quant } = params;
 
   const whenValidator = (w) => {
     return (w === 'now' || w.match(/^-[\d]+$/));
@@ -18,6 +18,7 @@ const RouteValidator = (props) => {
 
   let valid =
     ['deaths', 'confirmed'].includes(axis) &&
+    ['total', 'percap', 'change'].includes(quant) &&
     stateNames.includes(location) &&
     whenValidator(when);
 

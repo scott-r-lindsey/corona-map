@@ -5,6 +5,7 @@ import { home } from './lib/config.js';
 import { primary, secondary} from './lib/colors.js';
 import TrackedRoute from './components/TrackedRoute.js';
 import RouteValidator from './components/RouteValidator.js';
+import { embellishData } from './lib/getMapValue.js';
 
 import {
   Redirect,
@@ -42,7 +43,9 @@ function App() {
     (async () => {
       await fetch(dataUrl, {method: 'GET'})
         .then(res => res.json())
-        .then((data) => { setData(data, []) })
+        .then((data) => {
+            setData(embellishData(data), [])
+        })
     })();
   }, []);
 
@@ -52,10 +55,10 @@ function App() {
         <ThemeProvider theme={theme}>
           <Router>
             <Switch>
-              <TrackedRoute path="/COVID-US/:when/:axis/:location">
+              <TrackedRoute path="/COVID-US/:when/:axis/:quant/:location">
                 <RouteValidator data={data}/>
               </TrackedRoute>
-              <TrackedRoute exact path="/">
+              <TrackedRoute path="/">
                 <Redirect to={home}/>
               </TrackedRoute>
             </Switch>

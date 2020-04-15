@@ -111,9 +111,17 @@
                     span{
                         color: #aaa;
                     }
-
                 }
-
+                .pop{
+                    display:inline-block;
+                    margin-top:10px;
+                    color:#ddd;
+                    font-style:italic;
+                    font-size:13px;
+                }
+                hr{
+                    border:1px solid #666;
+                }
             }
         }
     }
@@ -123,6 +131,7 @@
         top: 20px;
         div{
             color:white;
+            text-shadow: 0px 0px 3px #000;
             font-weight:bold;
             display: inline-block;
             padding: 5px 0px;
@@ -132,6 +141,27 @@
         }
     }
     .map-axis-picker{
+        position:absolute;
+        right: 130px;
+        top: 20px;
+        background-color:white;
+
+        .MuiTabs-root{
+            .MuiTabs-indicator{
+                display:none;
+            }
+            .MuiTab-root{
+                min-width:100px;
+                min-height:30px;
+                padding:0px 12px;
+                &.Mui-selected{
+                    background-color: $deathColor;
+                    color:white;
+                }
+            }
+        }
+    }
+    .map-quant-picker{
         position:absolute;
         right: 20px;
         top: 20px;
