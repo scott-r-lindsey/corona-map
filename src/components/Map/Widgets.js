@@ -6,7 +6,7 @@ import { zeroColor, minColor, maxColor} from '../../lib/colors.js';
 
 const Widgets = (props) => {
 
-  const {max, zeroColor, colorScale, width} = props;
+  const {max, colorScale} = props;
 
   return (
     <div className={"map-widget-shell"}>

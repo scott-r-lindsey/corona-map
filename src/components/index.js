@@ -79,7 +79,7 @@ const Main = (props) => {
                 <LeftPanel location={location} data={trimmedData} />
               </div>
               <div className={"d-main-panel"} style={{ width: `${mainWidth}px`, bottom: adHeight + 'px' }} >
-                <MapWidgets {...{max, zeroColor, minColor, maxColor, colorScale}} />
+                <MapWidgets {...{max, colorScale}} />
                 <Map when={when} axis={`${axis}-${quant}`} data={data} colorScale={colorScale} />
                 <MapSlider data={data} />
               </div>

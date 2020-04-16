@@ -236,7 +236,9 @@
 
             .map-scale{
                 margin: 10px 10px 0 5px;
-                font-size:3.8vw;
+                div{
+                    font-size:4.2vw;
+                }
             }
             .map-picker{
                 margin: 10px 10px 0 0;
