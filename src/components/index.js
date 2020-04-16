@@ -5,10 +5,8 @@ import LeftPanel from './LeftPanel/';
 import MapSlider from './MapSlider.js';
 import AmznSearchAd from './Ad/AmznSearchAd.js';
 import BottomAdMd from './BottomAdMd.js';
-import AxisPicker from './AxisPicker.js';
-import QuantPicker from './QuantPicker.js';
+import MapWidgets from './Map/Widgets';
 import { scaleLog } from "d3-scale";
-import Scale from './Scale.js';
 import { zeroColor, minColor, maxColor} from '../lib/colors.js';
 import { getMaxValueForAxis, getTrimmedData } from '../lib/getMapValue.js';
 import withWidth from '@material-ui/core/withWidth';
@@ -70,9 +68,7 @@ const Main = (props) => {
                 <LeftPanel location={location} data={trimmedData} adHeight={adHeight} />
               </div>
               <div className={"d-main-panel"} style={{ width: `${mainWidth}px` }} >
-                <Scale {...{min, max, zeroColor, minColor, maxColor, colorScale}} />
-                <QuantPicker />
-                <AxisPicker />
+                <MapWidgets {...{max, zeroColor, minColor, maxColor, colorScale}} />
                 <Map when={when} axis={axis} data={data} colorScale={colorScale} />
                 <MapSlider data={data} />
               </div>
@@ -83,9 +79,7 @@ const Main = (props) => {
                 <LeftPanel location={location} data={trimmedData} />
               </div>
               <div className={"d-main-panel"} style={{ width: `${mainWidth}px`, bottom: adHeight + 'px' }} >
-                <Scale {...{max, zeroColor, minColor, maxColor, colorScale}} />
-                <QuantPicker />
-                <AxisPicker />
+                <MapWidgets {...{max, zeroColor, minColor, maxColor, colorScale}} />
                 <Map when={when} axis={`${axis}-${quant}`} data={data} colorScale={colorScale} />
                 <MapSlider data={data} />
               </div>

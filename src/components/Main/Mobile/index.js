@@ -4,9 +4,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import IconButton from '@material-ui/core/IconButton';
 import { zeroColor, minColor, maxColor} from '../../../lib/colors.js';
 import { getMaxValueForAxis, getTrimmedData } from '../../../lib/getMapValue.js';
-import Scale from '../../Scale.js';
-import AxisPicker from '../../AxisPicker.js';
-import QuantPicker from '../../QuantPicker.js';
 import Map from '../../Map.js';
 import MapSlider from '../../MapSlider.js';
 import MobileAd from './MobileAd.js';
@@ -15,6 +12,7 @@ import MobileInfo from './MobileInfo.js';
 import Text from './Text.js';
 import DrawerContent from './DrawerContent.js';
 import { useParams } from "react-router-dom";
+import MapWidgets from '../../Map/Widgets';
 
 const MobileMain = (props) => {
 
@@ -57,10 +55,8 @@ const MobileMain = (props) => {
         </IconButton>
         <MobileInfo data={trimmedData} />
         <div className={"map-shell"}>
-          <Scale {...{max, zeroColor, minColor, maxColor, colorScale}} />
-          <QuantPicker />
-          <AxisPicker />
-          <Map when={when} axis={axis} data={data} colorScale={colorScale} />
+          <MapWidgets {...{max, zeroColor, minColor, maxColor, colorScale}} />
+          <Map when={when} axis={`${axis}-${quant}`} data={data} colorScale={colorScale} />
           <MapSlider data={data} />
         </div>
         <Text />

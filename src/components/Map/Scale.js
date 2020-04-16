@@ -1,7 +1,7 @@
 import React from 'react';
-import logmidpoints from '../lib/logmidpoints.js';
+import logmidpoints from '../../lib/logmidpoints.js';
 import withWidth from '@material-ui/core/withWidth';
-import {abbreviateNumber} from '../lib/getMapValue.js';
+import {abbreviateNumber} from '../../lib/getMapValue.js';
 import { useParams } from "react-router-dom";
 
 function Scale(props) {
@@ -9,7 +9,7 @@ function Scale(props) {
   const {max, zeroColor, colorScale, width} = props;
 
   const mobile = /xs/.test(width);
-  const points = mobile ? 4 : 4;
+  const points = mobile ? 3 : 4;
   const {quant} = useParams();
 
   const round = (i) => quant === 'total' ? Math.round(i) : i;

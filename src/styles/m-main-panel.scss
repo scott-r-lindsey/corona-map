@@ -231,71 +231,29 @@
             }
         }
 
+        .map-widget-shell{
+            padding:0px;
 
-        .map-scale{
-            position:absolute;
-            display:flex;
-            right: 10px;
-            top: 10px;
-            div{
-                color:white;
-                text-shadow: 0px 0px 3px #000;
-                font-weight:bold;
-                display: inline-block;
-                padding: 5px 8px;
-                text-align: center;
+            .map-scale{
+                margin: 10px 10px 0 5px;
                 font-size:3.8vw;
             }
-        }
+            .map-picker{
+                margin: 10px 10px 0 0;
 
-        .map-axis-picker{
-            position:absolute;
-            right: 100px;
-            top: 40px;
-            background-color:white;
-
-            .MuiTabs-root{
-                min-height:0;
-                .MuiTabs-indicator{
-                    display:none;
-                }
-                .MuiTab-root{
-                    font-size:4.2vw;
-                    min-width:10vw;
-                    min-height:4vw;
-                    padding:0px 12px;
-                    &.Mui-selected{
-                        background-color: $deathColor;
-                        color:white;
+                .MuiTabs-root{
+                    min-height:0;
+                    .MuiTabs-indicator{
+                        display:none;
+                    }
+                    .MuiTab-root{
+                        font-size:4.2vw;
+                        min-width:10vw;
+                        min-height:4vw;
                     }
                 }
             }
         }
-        .map-quant-picker{
-            position:absolute;
-            right: 10px;
-            top: 40px;
-            background-color:white;
-
-            .MuiTabs-root{
-                min-height:0;
-                .MuiTabs-indicator{
-                    display:none;
-                }
-                .MuiTab-root{
-                    font-size:4.2vw;
-                    min-width:10vw;
-                    min-height:4vw;
-                    padding:0px 12px;
-                    &.Mui-selected{
-                        background-color: $deathColor;
-                        color:white;
-                    }
-                }
-            }
-        }
-
-
 
         .map-slider{
             position: absolute;

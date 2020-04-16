@@ -1,37 +1,31 @@
 import React from 'react'
 import { useParams, useHistory } from "react-router-dom";
 
-import updateUrl from '../lib/mapUrl.js';
+import updateUrl from '../../lib/mapUrl.js';
 
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
-const QuantPicker = (props) => {
+const AxisPicker = (props) => {
 
   const params = useParams();
   const history = useHistory();
 
-  const { quant } = params;
+  const { axis } = params;
 
-  const quants = [
+  const axes = [
     {
-      name: 'total',
-      display:'total',
+      name: 'confirmed',
+      display:'cases',
     },
     {
-      name: 'percap',
-      display:'per/cap',
+      name: 'deaths',
+      display:'deaths',
     },
-/*
-    {
-      name: 'change',
-      display:'change',
-    },
-*/
   ];
 
   const handleChange = (event, newValue) => {
-    history.push(updateUrl(params, {quant: newValue}));
+    history.push(updateUrl(params, {axis: newValue}));
   };
 
   function a11yProps(index) {
@@ -42,16 +36,16 @@ const QuantPicker = (props) => {
   }
 
   return (
-    <div className={"map-quant-picker"}>
+    <div className={"map-axis-picker map-picker"}>
 
       <Tabs
         orientation="vertical"
         onChange={handleChange}
-        aria-label="Choose Map Quant"
-        value={quant}
+        aria-label="Choose Map Axis"
+        value={axis}
       >
         {
-          quants.map((val, index) => {
+          axes.map((val, index) => {
             return (
               <Tab key={val.name} value={val.name} label={val.display} {...a11yProps(index)} />
             )
@@ -64,4 +58,4 @@ const QuantPicker = (props) => {
 
 }
 
-export default QuantPicker;
+export default AxisPicker;
