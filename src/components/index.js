@@ -69,7 +69,7 @@ const Main = (props) => {
               </div>
               <div className={"d-main-panel"} style={{ width: `${mainWidth}px` }} >
                 <MapWidgets {...{max, zeroColor, minColor, maxColor, colorScale}} />
-                <Map when={when} axis={axis} data={data} colorScale={colorScale} />
+                <Map when={when} axis={`${axis}-${quant}`} data={data} colorScale={colorScale} />
                 <MapSlider data={data} />
               </div>
               <BottomAdMd adWidth={mainWidth} adHeight={adHeight} ad={data.adCode} />
