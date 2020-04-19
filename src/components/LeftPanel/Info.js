@@ -35,16 +35,16 @@ const Info = (props) => {
       <tbody>
         <tr className={"data"}>
           <td className={"confirmed"}>
-            { getDataValue(data, 'now', location, 'confirmed') }
+            { getDataValue(data, 'now', location, 'confirmed').toLocaleString() }
             <span className={"increase"}>
-             (+{ axisDifference('confirmed')} <br />
+             (+{ axisDifference('confirmed').toLocaleString()} <br />
               on {lastDateInfo()} )
             </span>
           </td>
           <td className={"deaths"}>
-            { getDataValue(data, 'now', location, 'deaths') }
+            { getDataValue(data, 'now', location, 'deaths').toLocaleString() }
             <span className={"increase"}>
-             (+{ axisDifference('deaths')} <br />
+             (+{ axisDifference('deaths').toLocaleString()} <br />
               on {lastDateInfo()} )
             </span>
           </td>

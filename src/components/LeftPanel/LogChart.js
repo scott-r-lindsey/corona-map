@@ -3,7 +3,7 @@ import { ResponsiveLine } from '@nivo/line'
 import ChartFloat from './ChartFloat.js';
 import ChartLegend from './ChartLegend.js';
 import moment from 'moment-es6';
-import logmidpoints from '../../lib/logmidpoints.js';
+import { logmidpoints } from '../../lib/util.js';
 import {confirmedColor, deathColor, logColor, logLabelColor} from '../../lib/colors.js';
 
 const LogChart = (props) => {

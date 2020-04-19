@@ -19,7 +19,7 @@ const ChartFloat = (props) => {
                   Confirmed:
                 </td>
                 <td className={"confirmed"}>
-                  { data.series.confirmed[point.data.pos] }
+                  { data.series.confirmed[point.data.pos].toLocaleString() }
                 </td>
               </tr>
               <tr>
@@ -27,7 +27,7 @@ const ChartFloat = (props) => {
                   Deaths:
                 </td>
                 <td className={"deaths"}>
-                  { data.series.deaths[point.data.pos] }
+                  { data.series.deaths[point.data.pos].toLocaleString() }
                 </td>
               </tr>
             </tbody>

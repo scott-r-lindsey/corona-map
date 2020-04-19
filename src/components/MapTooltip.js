@@ -29,7 +29,7 @@ const MapTooltip = (props) => {
                       Total Cases:
                     </td>
                     <td className={"confirmed"}>
-                      {data.axis ? data.axis.confirmed : '' }
+                      {data.axis ? data.axis.confirmed.toLocaleString() : '' }
                     </td>
                   </tr>
                   <tr>
@@ -37,7 +37,7 @@ const MapTooltip = (props) => {
                       Total Deaths:
                     </td>
                     <td className={"deaths"}>
-                      {data.axis ? data.axis.deaths : '' }<br />
+                      {data.axis ? data.axis.deaths.toLocaleString() : '' }<br />
                     </td>
                   </tr>
                   <tr>

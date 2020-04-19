@@ -1,4 +1,4 @@
-const logmidpoints = (min, max, steps) => {
+export const logmidpoints = (min, max, steps) => {
   const points = [];
   const logmax = Math.log(max) *.9; //  fudge factor for fun
   const logmin = Math.log(min);
@@ -9,4 +9,3 @@ const logmidpoints = (min, max, steps) => {
   return points;
 }
 
-export default logmidpoints;
