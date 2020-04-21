@@ -41,17 +41,6 @@ const appendZeros = () => {
   };
 }
 
-  function stringToHex(str) {
-
-  //converting string into buffer
-   let bufStr = Buffer.from(str, 'utf8');
-
-  //with buffer, you can convert it into hex with following code
-   return bufStr.toString('hex');
-
-   }
-
-
 (async () => {
 
   const files = fs.readdirSync(inputPath);

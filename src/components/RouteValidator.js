@@ -1,7 +1,12 @@
 import React from 'react';
 import Main from './index.js';
 import { home } from '../lib/config.js';
-import { useParams, Redirect } from "react-router-dom";
+import { useParams, Redirect, useHistory } from "react-router-dom";
+import updateUrl from '../lib/mapUrl.js';
+
+const validModes  = ['COVID-COUNTY', 'COVID-US'];
+const validAxes   = ['deaths', 'confirmed'];
+const validQuants = ['total', 'percap', 'change'];
 
 const RouteValidator = (props) => {
 
@@ -9,37 +14,66 @@ const RouteValidator = (props) => {
   const { data } = props;
   const { mode, location, when, axis, quant } = params;
 
-  const whenValidator = (w) => {
-    return (w === 'now' || w.match(/^-[\d]+$/));
+  // validate mode
+  if (!validModes.includes(mode)){
+    return (
+        <Redirect to={home}/>
+    );
   }
+
+
+  // validate axes
+  if (!validAxes.includes(axis)){
+    return (
+        <Redirect to={home}/>
+    );
+  }
+
+  // validate quant
+  if (!validQuants.includes(quant)){
+    return (
+        <Redirect to={home}/>
+    );
+  }
+
+  const modeData = mode === 'COVID-COUNTY' ?
+    data.county :
+    data.state;
 
   const locationNames =
     mode === 'COVID-COUNTY' ?
       Object.entries(data.county.location).map((s) => (s[1].name.toLowerCase())) :
       Object.entries(data.state.location).map((s) => (s[1].name.toLowerCase()));
 
-  let valid =
-    ['COVID-COUNTY', 'COVID-US'].includes(mode) &&
-    ['deaths', 'confirmed'].includes(axis) &&
-    ['total', 'percap', 'change'].includes(quant) &&
-    locationNames.includes(location) &&
-    whenValidator(when);
+  const updates = {};
 
-  valid = true;
+  // validate location
+  if (!locationNames.includes(location)) {
+    updates.location = 'united states';
+  }
 
-  //console.log(data.county);
+  // validate when
+  if (!(when === 'now' || when.match(/^-[\d]+$/))){
+    updates.when = 'now';
+  }
+  if (when.match(/^-[\d]+$/)){
+    if (modeData.dates.length < (-1 * when)){
+      updates.when = 'now';
+    }
+  }
 
-  const modeData = mode === 'COVID-COUNTY' ?
-    data.county :
-    data.state;
+  // ....
+
+  if (Object.keys(updates).length){
+    const url = updateUrl(params, updates);
+
+    return (
+        <Redirect to={url}/>
+    );
+  }
 
   return (
-    <>
-      { valid ?
-        <Main data={modeData}/> :
-        <Redirect to={home}/>
-      }
-    </>
+    <Main data={modeData}/>
   );
 
 }

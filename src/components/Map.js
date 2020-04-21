@@ -25,7 +25,7 @@ const MapChart = (props) => {
     if (zoomableRef.current) {
       setMapDims({
         x: zoomableRef.current.clientWidth,
-        y: zoomableRef.current.clientHeight+10,
+        y: zoomableRef.current.clientHeight+40,
         scale: 1000 * (zoomableRef.current.clientWidth / 800)
       });
     }

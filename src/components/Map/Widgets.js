@@ -2,6 +2,7 @@ import React from 'react';
 import Scale from './Scale';
 import QuantPicker from './QuantPicker';
 import AxisPicker from './AxisPicker';
+import MapPicker from './MapPicker';
 import { zeroColor, minColor, maxColor} from '../../lib/colors.js';
 
 const Widgets = (props) => {
@@ -15,6 +16,7 @@ const Widgets = (props) => {
         <div style={{display:'inline-block'}}>
           <QuantPicker />
           <AxisPicker />
+          <MapPicker />
         </div>
       </div>
     </div>

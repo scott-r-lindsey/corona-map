@@ -67,7 +67,18 @@ function App() {
             </Switch>
           </Router>
         </ThemeProvider> :
-        <div>Loading...</div>
+        <div style={{
+          backgroundColor: primary,
+          position:'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          display: 'flex',
+          justifyContent: 'center',
+        }}>
+          <div className="loading-animation"><div></div><div></div><div></div></div>
+        </div>
       }
     </>
   );
