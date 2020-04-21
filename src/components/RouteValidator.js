@@ -7,25 +7,36 @@ const RouteValidator = (props) => {
 
   const params = useParams();
   const { data } = props;
-  const { location, when, axis, quant } = params;
+  const { mode, location, when, axis, quant } = params;
 
   const whenValidator = (w) => {
     return (w === 'now' || w.match(/^-[\d]+$/));
   }
 
-  const stateNames =
-    Object.entries(data.states).map((s) => (s[1].name.toLowerCase()));
+  const locationNames =
+    mode === 'COVID-COUNTY' ?
+      Object.entries(data.county.location).map((s) => (s[1].name.toLowerCase())) :
+      Object.entries(data.state.location).map((s) => (s[1].name.toLowerCase()));
 
   let valid =
+    ['COVID-COUNTY', 'COVID-US'].includes(mode) &&
     ['deaths', 'confirmed'].includes(axis) &&
     ['total', 'percap', 'change'].includes(quant) &&
-    stateNames.includes(location) &&
+    locationNames.includes(location) &&
     whenValidator(when);
+
+  valid = true;
+
+  //console.log(data.county);
+
+  const modeData = mode === 'COVID-COUNTY' ?
+    data.county :
+    data.state;
 
   return (
     <>
       { valid ?
-        <Main data={data}/> :
+        <Main data={modeData}/> :
         <Redirect to={home}/>
       }
     </>

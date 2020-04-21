@@ -14,7 +14,7 @@ git pull
 
 #parse data
 cd $__here
-nodejs full-state-data.js
+nodejs ./tabulate-full.js
 
 # upload to s3
 aws s3 sync $__root/public/data s3://corona-prod-react/data

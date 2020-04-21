@@ -14,7 +14,8 @@ import {
 } from "react-router-dom";
 
 const fetch = require('node-fetch');
-const dataUrl = '/data/latestfull.json';
+
+const dataUrl = '/data/full.json';
 
 const breakpoints = {
   xs: 0,
@@ -44,8 +45,10 @@ function App() {
       await fetch(dataUrl, {method: 'GET'})
         .then(res => res.json())
         .then((data) => {
-            setData(embellishData(data), [])
-        })
+            embellishData(data.state);
+            embellishData(data.county);
+            setData(data, [])
+        });
     })();
   }, []);
 
@@ -55,7 +58,7 @@ function App() {
         <ThemeProvider theme={theme}>
           <Router>
             <Switch>
-              <TrackedRoute path="/COVID-US/:when/:axis/:quant/:location">
+              <TrackedRoute path="/:mode/:when/:axis/:quant/:location">
                 <RouteValidator data={data}/>
               </TrackedRoute>
               <TrackedRoute path="/">

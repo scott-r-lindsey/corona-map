@@ -4,16 +4,17 @@ import updateUrl from '../lib/mapUrl.js';
 import { useParams, useHistory } from "react-router-dom";
 import {zeroColor} from '../lib/colors.js';
 import MapTooltip from './MapTooltip.js';
-import { getLocationDataForDay } from '../lib/getMapValue.js';
+import { getLocationDataForDayById } from '../lib/getMapValue.js';
 
-const geoUrl = '/states-map.json';
+const stateMapUrl = '/states-map.json';
+const countyMapUrl = '/counties-10m.json';
 
 const MapChart = (props) => {
   const { when, axis, data, colorScale } = props;
   const [mapDims, setMapDims] = useState({x: 800, y: 800, scale: 1000});
   const history = useHistory();
   const params = useParams();
-  const {location} = params;
+  const {mode, location} = params;
   const offset = (when === 'now') ? -1 : when -1;
   const days = data.dates.length;
 
@@ -52,8 +53,8 @@ const MapChart = (props) => {
     const el = zoomableRef.current;
     const rect = el.getBoundingClientRect();
 
-    const toolTipData = getLocationDataForDay(
-      data, when, geography.properties.name.toLowerCase());
+    const toolTipData = getLocationDataForDayById(
+      data, when, geography.id);
 
     setToolTipData({
       left: e.clientX - rect.left,
@@ -66,8 +67,8 @@ const MapChart = (props) => {
     const el = zoomableRef.current;
     const rect = el.getBoundingClientRect();
 
-    const toolTipData = getLocationDataForDay(
-      data, when, geography.properties.name.toLowerCase());
+    const toolTipData = getLocationDataForDayById(
+      data, when, geography.id);
 
     setToolTipData({
       left: e.clientX - rect.left,
@@ -81,7 +82,7 @@ const MapChart = (props) => {
   }
 
   function handleStateClick(e, geography){
-    history.push(updateUrl(params, {location: geography.properties.name.toLowerCase()}));
+    history.push(updateUrl(params, {location: data.location[geography.id].name.toLowerCase()}));
   }
 
   return (
@@ -105,11 +106,25 @@ const MapChart = (props) => {
           projection="geoAlbersUsa"
           style={{ width: mapDims.x, height: mapDims.y }}
         >
-          <Geographies geography={geoUrl}>
+          <Geographies geography={mode === 'COVID-COUNTY' ? countyMapUrl : stateMapUrl }>
             {({ geographies }) =>
 
               geographies.map(geo => {
-                const cur = data.states ? data.states[geo.id] : {}
+
+                let cur;
+
+                if (data.location[geo.id]){
+                  cur = data.location[geo.id];
+                }
+                else if (data.location[geo.id.padEnd(5,'0')]){
+                  cur = data.location[geo.id.padEnd(5,'0')];
+                }
+                else{
+                  // skip odd locations
+                  return null;
+                }
+
+                //console.log(geo.id);
                 return (
                   <Geography
                     onClick={(e) => handleStateClick(e, geo)}

@@ -61,6 +61,7 @@ const states = {
 
 const statesByName = { }
 const statesByAbbrev = { }
+const abbrevByFips = { }
 
 Object.keys(states).map(function(key, index) {
   statesByName[states[key].name] = key;
@@ -68,7 +69,12 @@ Object.keys(states).map(function(key, index) {
 Object.keys(states).map(function(key, index) {
   statesByAbbrev[states[key].abbrev] = key
 });
+Object.keys(states).map(function(key, index) {
+  abbrevByFips[key] = states[key].abbrev;
+});
+
 
 exports.states = states;
 exports.statesByName = statesByName;
 exports.statesByAbbrev = statesByAbbrev;
+exports.abbrevByFips = abbrevByFips;

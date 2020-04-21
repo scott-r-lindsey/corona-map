@@ -1,9 +1,9 @@
-const updateUrl = (current, changes, domain = 'COVID-US') => {
+const updateUrl = (current, changes ) => {
 
   const update = {...current, ...changes};
-  const { when, axis, quant, location } = update;
+  const { mode, when, axis, quant, location } = update;
 
-  return `/${domain}/${when}/${axis}/${quant}/${location}`;
+  return `/${mode}/${when}/${axis}/${quant}/${location}`;
 }
 
 export default updateUrl;

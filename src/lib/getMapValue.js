@@ -5,13 +5,19 @@ export const deepClone = (parent) => {
   return JSON.parse(JSON.stringify(parent))
 }
 export const getStateDataByName = (data, location) => {
-  return Object.entries(data.states).filter(
+  return Object.entries(data.location).filter(
     item => item[1].name.toLowerCase() === location
   )[0][1];
 }
 export const getDataValue = (data, when, location, axis, addl = 0) => {
   const offset = (data.dates.length +addl) - -(when === 'now' ? -1: when );
   const stateData = getStateDataByName(data, location);
+
+  return stateData.series[axis][offset];
+}
+export const getDataValueById = (data, when, id, axis, addl = 0) => {
+  const offset = (data.dates.length +addl) - -(when === 'now' ? -1: when );
+  const stateData = data.location[id];
 
   return stateData.series[axis][offset];
 }
@@ -31,7 +37,7 @@ export const getMaxValueForAxis = (data, axis) => {
   const days = data.dates.length;
 
   return Math.max(
-    ...Object.entries(data.states)
+    ...Object.entries(data.location)
     .filter(o => !o[1].rollup)
     .map(
       o => o[1].series[axis][days-1]
@@ -51,6 +57,19 @@ export const getLocationDataForDay = (data, when, location) => {
     }
   };
 }
+export const getLocationDataForDayById = (data, when, id) => {
+  return {
+    location: data.location[id].name.toLowerCase(),
+    pop: data.location[id].pop,
+    date: getDate(data, when),
+    axis:{
+      confirmed: getDataValueById(data, when, id, 'confirmed'),
+      deaths: getDataValueById(data, when, id, 'deaths'),
+      confirmedPercap: getDataValueById(data, when, id, 'confirmed-percap'),
+      deathsPercap: getDataValueById(data, when, id, 'deaths-percap'),
+    }
+  };
+}
 export const getTrimmedData = (data, when) => {
 
   const max = (data.dates.length-1) - -(when === 'now' ? 0: when );
@@ -64,7 +83,7 @@ export const getTrimmedData = (data, when) => {
   trimmed.dates = data.dates.filter(trimArray);
 
   // eslint-disable-next-line no-unused-vars
-  for (let [id, state] of Object.entries(trimmed.states)){
+  for (let [id, state] of Object.entries(trimmed.location)){
     for (let [axis, values] of Object.entries(state.series)){
       state.series[axis] = values.filter(trimArray);
     }
@@ -84,9 +103,14 @@ export const parseWhen = (when) => {
   // x-x/getMaxValueForAxis
 }
 export const capitalizeLocation = (location) => {
-  return location.split(' ')
+  let prov =  location.split(' ')
     .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
     .join(' ') + (location === 'united states' ? ' of America' : '');
+
+  if (prov.match(/, ..$/)){
+    prov = prov.replace(/.$/, c => c.toUpperCase());
+  }
+  return prov;
 }
 
 export const abbreviateNumber = (num, fixed) => {
@@ -105,22 +129,22 @@ export const embellishData = (data) => {
 
   const axes = ['confirmed', 'deaths'];
 
-  for (const stateId in data.states) {
+  for (const locationId in data.location) {
     axes.forEach(axis => {
       // total
-      data.states[stateId].series[`${axis}-total`] = data.states[stateId].series[axis];
-      data.states[stateId].series[`${axis}-change`] = [];
+      data.location[locationId].series[`${axis}-total`] = data.location[locationId].series[axis];
+      data.location[locationId].series[`${axis}-change`] = [];
 
       // percap
-      let pop = data.states[stateId].pop;
-      data.states[stateId].series[`${axis}-percap`] =
-        data.states[stateId].series[axis].map(count => (count / pop) *1000);
+      let pop = data.location[locationId].pop;
+      data.location[locationId].series[`${axis}-percap`] =
+        data.location[locationId].series[axis].map(count => (count / pop) *1000);
 
       // change
-      data.states[stateId].series[`${axis}-change`] =
-        data.states[stateId].series[axis].map((count, index) => {
+      data.location[locationId].series[`${axis}-change`] =
+        data.location[locationId].series[axis].map((count, index) => {
           return (index === 0 ? 0 :
-            count - data.states[stateId].series[axis][index -1]);
+            count - data.location[locationId].series[axis][index -1]);
         }
       );
     });
@@ -128,4 +152,3 @@ export const embellishData = (data) => {
 
   return data;
 }
-
