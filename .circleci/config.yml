@@ -78,6 +78,13 @@ jobs:
                 command: |
                   aws s3 sync ./workspace/build s3://corona-prod-react/
 
+            - run:
+                name: Invalidate old paths
+                command: |
+                  aws cloudfront create-invalidation \
+                    --distribution-id $PROD_DISTRIBUTION \
+                    --paths "/COVID-US/* /COVID-COUNTY/*"
+
 
 workflows:
     version: 2
