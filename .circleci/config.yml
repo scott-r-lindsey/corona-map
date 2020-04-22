@@ -83,7 +83,7 @@ jobs:
                 command: |
                   aws cloudfront create-invalidation \
                     --distribution-id $PROD_DISTRIBUTION \
-                    --paths "/COVID-US/* /COVID-COUNTY/*"
+                    --paths "/COVID-US/*" "/COVID-COUNTY/*"
 
 
 workflows:
