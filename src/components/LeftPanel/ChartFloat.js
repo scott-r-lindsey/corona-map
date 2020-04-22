@@ -1,9 +1,11 @@
 import React from "react";
-import moment from 'moment-es6'; 
+import moment from 'moment-es6';
+import PropTypes from "prop-types";
+import exact from 'prop-types-exact';
 
 const ChartFloat = (props) => {
 
-  const {point, data } = props;
+  const {point, data} = props;
 
   return (
     <>
@@ -37,6 +39,11 @@ const ChartFloat = (props) => {
       }
     </>
   );
-
 }
 export default ChartFloat;
+
+
+ChartFloat.propTypes = exact({
+  data: PropTypes.object.isRequired,
+  point: PropTypes.object,
+});

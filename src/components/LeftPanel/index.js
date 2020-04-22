@@ -2,19 +2,25 @@ import React from "react";
 import LogChart from './LogChart.js';
 import updateUrl from '../../lib/mapUrl.js'
 import { useParams, useHistory } from "react-router-dom";
-import {getFormattedDate, capitalizeLocation, getStateDataByName} from '../../lib/getMapValue.js';
+import {
+  getFormattedDate,
+  capitalizeLocation,
+  getStateDataByName
+} from '../../lib/getMapValue.js';
 import Logo from '../Logo.js';
 import Info from './Info.js';
 import Text from './Text.js';
 import CopyFooter from '../CopyFooter.js';
+import PropTypes from "prop-types";
+import exact from 'prop-types-exact';
 
 const LeftPanel = (props) => {
 
-  const { location } = useParams();
-  const { data, adHeight } = props;
-  const history = useHistory();
   const params = useParams();
-  const { when } = params;
+  const { location, when } = params;
+  const { data, adHeight } = props;
+
+  const history = useHistory();
   const backToUsUrl = updateUrl(params, {location: 'united states'});
   const stateData = getStateDataByName(data, location);
 
@@ -71,7 +77,7 @@ const LeftPanel = (props) => {
       </div>
       <div className="scrollable-area" style={{ height: 'calc(100% - ' + heightDiff }}>
         { hasData ?
-          <LogChart location={location} data={data} stateData={stateData} /> :
+          <LogChart data={data} stateData={stateData} /> :
           <>
             <div className={"log-chart"}>
               <div className={"no-data"}>
@@ -91,4 +97,9 @@ const LeftPanel = (props) => {
 }
 
 export default LeftPanel;
+
+LeftPanel.propTypes = exact({
+  data: PropTypes.object.isRequired,
+  adHeight: PropTypes.number.isRequired,
+});
 

@@ -3,7 +3,7 @@ import Logo from '../../Logo.js';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 
-const DrawerContent = (props) => {
+const DrawerContent = () => {
 
   return (
     <div className={"drawer-content"}>

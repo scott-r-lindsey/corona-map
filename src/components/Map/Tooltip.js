@@ -1,7 +1,9 @@
 
 import React from "react";
-import {capitalizeLocation} from '../lib/getMapValue.js';
+import {capitalizeLocation} from '../../lib/getMapValue.js';
 import moment from 'moment-es6';
+import PropTypes from "prop-types";
+import exact from 'prop-types-exact';
 
 const MapTooltip = (props) => {
 
@@ -85,3 +87,9 @@ const MapTooltip = (props) => {
 
 export default MapTooltip;
 
+MapTooltip.propTypes = exact({
+  data: PropTypes.object.isRequired,
+  left: PropTypes.number.isRequired,
+  top: PropTypes.number.isRequired,
+  show: PropTypes.bool.isRequired,
+});

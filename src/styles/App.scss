@@ -128,6 +128,40 @@ html, body, #root{
   }
 }
 
+.veil{
+    opacity: .5;
+    background-color: white;
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+}
+
+.map-search-text{
+    position:absolute;
+    top:20px;
+    left:20px;
+    background-color:white;
+    z-index:1000;
+}
+.map-search{
+    position:absolute;
+    top:20px;
+    left:20px;
+
+    button{
+        min-width:10px;
+        border-radius:3px;
+        padding:4px 5px;
+        background-color:$deathColor;
+        color:white;
+        &:hover{
+            background-color:lighten($deathColor, 10);
+            color:white;
+        }
+    }
+}
 
 .map-widget-shell{
     position:absolute;
@@ -135,6 +169,10 @@ html, body, #root{
     right:0;
     padding: 10px;
     text-align:right;
+    pointer-events: none;
+    div *{
+        pointer-events: auto;
+    }
 
     .map-scale{
         vertical-align:top;

@@ -1,6 +1,6 @@
 import React from "react";
 
-const CopyFooter = (props) => {
+const CopyFooter = () => {
 
   return (
     <div className={"footer"}>

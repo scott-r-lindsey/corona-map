@@ -5,12 +5,14 @@ import ChartLegend from './ChartLegend.js';
 import moment from 'moment-es6';
 import { logmidpoints } from '../../lib/util.js';
 import {confirmedColor, deathColor, logColor, logLabelColor} from '../../lib/colors.js';
+import PropTypes from "prop-types";
+import exact from 'prop-types-exact';
 
 const LogChart = (props) => {
   const { data, stateData } = props;
   const chartDateFormat = 'MM/DD/YYYY';
   const [hoverPoint, setHoverPoint] = useState(null);
-  const [showLog, setShowLog] = useState(true);
+  const [showLog] = useState(true);
 
   const calcLog = (x, y, factor) => {
     let max = 1;
@@ -208,17 +210,19 @@ const LogChart = (props) => {
           <ChartFloat
             data={stateData}
             point={hoverPoint}
-            colors={{confirmed: confirmedColor, deaths: deathColor}}
           />
         </div>
         <ChartLegend
           min={minDate}
           max={maxDate}
-          showLog={showLog}
-          setShowLog={setShowLog}
         />
     </>
   )
 }
 
 export default LogChart;
+
+LogChart.propTypes = exact({
+  data: PropTypes.object.isRequired,
+  stateData: PropTypes.object.isRequired,
+});

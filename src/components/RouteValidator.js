@@ -1,8 +1,10 @@
 import React from 'react';
 import Main from './index.js';
 import { home } from '../lib/config.js';
-import { useParams, Redirect, useHistory } from "react-router-dom";
+import { useParams, Redirect } from "react-router-dom";
 import updateUrl from '../lib/mapUrl.js';
+import PropTypes from "prop-types";
+import exact from 'prop-types-exact';
 
 const validModes  = ['COVID-COUNTY', 'COVID-US'];
 const validAxes   = ['deaths', 'confirmed'];
@@ -20,7 +22,6 @@ const RouteValidator = (props) => {
         <Redirect to={home}/>
     );
   }
-
 
   // validate axes
   if (!validAxes.includes(axis)){
@@ -62,8 +63,7 @@ const RouteValidator = (props) => {
     }
   }
 
-  // ....
-
+  // redirect if appropriate
   if (Object.keys(updates).length){
     const url = updateUrl(params, updates);
 
@@ -79,3 +79,8 @@ const RouteValidator = (props) => {
 }
 
 export default RouteValidator;
+
+
+RouteValidator.propTypes = exact({
+  data: PropTypes.object.isRequired,
+});

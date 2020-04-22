@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import Drawer from '@material-ui/core/SwipeableDrawer';
 import MenuIcon from '@material-ui/icons/Menu';
 import IconButton from '@material-ui/core/IconButton';
-import { zeroColor, minColor, maxColor} from '../../../lib/colors.js';
 import { getMaxValueForAxis, getTrimmedData } from '../../../lib/getMapValue.js';
-import Map from '../../Map.js';
-import MapSlider from '../../MapSlider.js';
+import Map from '../../Map/';
+import MapSlider from '../../Map/Slider.js';
 import MobileAd from './MobileAd.js';
 import AmznSearchAd from '../../Ad/AmznSearchAd.js';
 import MobileInfo from './MobileInfo.js';
@@ -13,6 +12,8 @@ import Text from './Text.js';
 import DrawerContent from './DrawerContent.js';
 import { useParams } from "react-router-dom";
 import MapWidgets from '../../Map/Widgets';
+import PropTypes from "prop-types";
+import exact from 'prop-types-exact';
 
 const MobileMain = (props) => {
 
@@ -34,7 +35,6 @@ const MobileMain = (props) => {
   }
 
   return (
-
     <>
       <Drawer
         className={"m-right-drawer"}
@@ -55,7 +55,10 @@ const MobileMain = (props) => {
         </IconButton>
         <MobileInfo data={trimmedData} />
         <div className={"map-shell"}>
-          <MapWidgets {...{max, zeroColor, minColor, maxColor, colorScale}} />
+          <MapWidgets
+            {...{max, colorScale}}
+            data={trimmedData}
+          />
           <Map when={when} axis={`${axis}-${quant}`} data={data} colorScale={colorScale} />
           <MapSlider data={data} />
         </div>
@@ -69,3 +72,10 @@ const MobileMain = (props) => {
 }
 
 export default MobileMain;
+
+MobileMain.propTypes = exact({
+  data: PropTypes.object.isRequired,
+  axis: PropTypes.string.isRequired,
+  when: PropTypes.string.isRequired,
+  colorScale: PropTypes.func.isRequired,
+});

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import CopyFooter from '../../CopyFooter.js';
 
-const Text = (props) => {
+const Text = () => {
 
   return (
     <>

@@ -3,24 +3,36 @@ import Scale from './Scale';
 import QuantPicker from './QuantPicker';
 import AxisPicker from './AxisPicker';
 import MapPicker from './MapPicker';
-import { zeroColor, minColor, maxColor} from '../../lib/colors.js';
+import { zeroColor } from '../../lib/colors.js';
+import Search from './Search';
+import PropTypes from "prop-types";
+import exact from 'prop-types-exact';
 
 const Widgets = (props) => {
 
-  const {max, colorScale} = props;
+  const {data, max, colorScale} = props;
 
   return (
-    <div className={"map-widget-shell"}>
-      <div style={{float:'left', display:'inline-block'}}>
-        <Scale {...{max, zeroColor, minColor, maxColor, colorScale}} />
-        <div style={{display:'inline-block'}}>
-          <QuantPicker />
-          <AxisPicker />
-          <MapPicker />
+    <>
+      <Search data={data} />
+      <div className={"map-widget-shell"}>
+        <div style={{float:'left', display:'inline-block'}}>
+          <Scale {...{max, zeroColor, colorScale}} />
+          <div style={{display:'inline-block'}}>
+            <QuantPicker />
+            <AxisPicker />
+            <MapPicker />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
 export default Widgets;
+
+Widgets.propTypes = exact({
+  max: PropTypes.number.isRequired,
+  colorScale: PropTypes.func.isRequired,
+  data: PropTypes.object.isRequired,
+});

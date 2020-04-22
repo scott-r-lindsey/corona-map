@@ -1,5 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 import postscribe from 'postscribe';
+import PropTypes from "prop-types";
+import exact from 'prop-types-exact';
 
 const AmznSearchAd = (props) => {
 
@@ -45,6 +47,16 @@ const AmznSearchAd = (props) => {
 }
 
 export default AmznSearchAd;
+
+AmznSearchAd.propTypes = exact({
+  amznAdVals: PropTypes.object.isRequired,
+  adHeight: PropTypes.number.isRequired,
+});
+
+
+
+
+
 
 
 /*

@@ -1,6 +1,27 @@
 
 import moment from 'moment-es6';
 
+export const getLocationFips = (data) => {
+  // mat ui autocomplete fodder
+  const locations = [];
+
+  for (let [fips, location] of Object.entries(data.location)){
+    locations.push(
+      {
+        title: location.name,
+        fips: fips
+      }
+    );
+  }
+
+  const filtered = locations.filter(
+    (value) => !value.fips.match(/^\d\d000$/)
+  );
+
+  filtered.sort((a,b) => (a.fips > b.fips) ? 1 : -1)
+
+  return filtered;
+}
 export const deepClone = (parent) => {
   return JSON.parse(JSON.stringify(parent))
 }

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import Slider from '@material-ui/core/Slider';
-import updateUrl from '../lib/mapUrl.js';
+import MatSlider from '@material-ui/core/Slider';
+import updateUrl from '../../lib/mapUrl.js';
 import { useParams, useHistory } from "react-router-dom";
 import moment from 'moment-es6';
+import PropTypes from "prop-types";
+import exact from 'prop-types-exact';
 
-const MapSlider  = (props) => {
+const Slider  = (props) => {
 
   const {data} = props;
   const params = useParams();
@@ -47,7 +49,7 @@ const MapSlider  = (props) => {
   return (
 
     <div className={"map-slider"}>
-      <Slider
+      <MatSlider
         ThumbComponent={SliderThumbComponent}
         min={1}
         color={'secondary'}
@@ -62,4 +64,8 @@ const MapSlider  = (props) => {
   );
 }
 
-export default MapSlider;
+export default Slider;
+
+Slider.propTypes = exact({
+  data: PropTypes.object.isRequired,
+});

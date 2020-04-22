@@ -3,8 +3,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import { home } from '../lib/config.js';
 
-
-const Logo = (props) => {
+const Logo = () => {
 
   return (
     <div className={"logo"}>
@@ -19,5 +18,3 @@ const Logo = (props) => {
 }
 
 export default Logo;
-
-

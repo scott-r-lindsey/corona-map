@@ -1,10 +1,12 @@
 import React, { useState, useLayoutEffect } from "react";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
-import updateUrl from '../lib/mapUrl.js';
+import updateUrl from '../../lib/mapUrl.js';
 import { useParams, useHistory } from "react-router-dom";
-import {zeroColor} from '../lib/colors.js';
-import MapTooltip from './MapTooltip.js';
-import { getLocationDataForDayById } from '../lib/getMapValue.js';
+import {zeroColor} from '../../lib/colors.js';
+import MapTooltip from './Tooltip';
+import { getLocationDataForDayById } from '../../lib/getMapValue.js';
+import PropTypes from "prop-types";
+import exact from 'prop-types-exact';
 
 const stateMapUrl = '/states-map.json';
 const countyMapUrl = '/counties-10m.json';
@@ -152,3 +154,10 @@ const MapChart = (props) => {
 };
 
 export default MapChart;
+
+MapChart.propTypes = exact({
+  when: PropTypes.string.isRequired,
+  axis: PropTypes.string.isRequired,
+  data: PropTypes.object.isRequired,
+  colorScale: PropTypes.func.isRequired,
+});

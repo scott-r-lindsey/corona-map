@@ -1,10 +1,12 @@
 import React from "react";
+import PropTypes from "prop-types";
+import exact from 'prop-types-exact';
 
 import {confirmedColor, deathColor, logColor} from '../../lib/colors.js'
 
 const ChartLegend = (props) => {
 
-  const {min, max } = props;
+  const {min, max} = props;
 
   return (
     <div className={"chart-legend"}>
@@ -28,3 +30,8 @@ const ChartLegend = (props) => {
 
 }
 export default ChartLegend;
+
+ChartLegend.propTypes = exact({
+  min: PropTypes.string.isRequired,
+  max: PropTypes.string.isRequired,
+});

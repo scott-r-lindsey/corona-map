@@ -2,7 +2,8 @@
 import React from "react";
 import {getDataValue, getFormattedDate, getStateDataByName} from '../../lib/getMapValue.js';
 import moment from 'moment-es6';
-import withWidth from '@material-ui/core/withWidth';
+import PropTypes from "prop-types";
+import exact from 'prop-types-exact';
 
 const Info = (props) => {
 
@@ -59,10 +60,12 @@ const Info = (props) => {
         </tr>
       </tbody>
     </table>
-
-
   );
-
 }
 
-export default withWidth()(Info);
+export default Info;
+
+Info.propTypes = exact({
+  data: PropTypes.object.isRequired,
+  location: PropTypes.string.isRequired,
+});

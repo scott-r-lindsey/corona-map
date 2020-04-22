@@ -3,8 +3,10 @@ import { logmidpoints } from '../../lib/util.js';
 import withWidth from '@material-ui/core/withWidth';
 import {abbreviateNumber} from '../../lib/getMapValue.js';
 import { useParams } from "react-router-dom";
+import PropTypes from "prop-types";
+import exact from 'prop-types-exact';
 
-function Scale(props) {
+const Scale = (props) => {
 
   const {max, zeroColor, colorScale, width} = props;
 
@@ -69,3 +71,10 @@ function Scale(props) {
 }
 
 export default withWidth()(Scale);
+
+Scale.propTypes = exact({
+  max: PropTypes.number.isRequired,
+  zeroColor: PropTypes.string.isRequired,
+  colorScale: PropTypes.func.isRequired,
+  width: PropTypes.string.isRequired,
+});

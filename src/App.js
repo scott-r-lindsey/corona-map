@@ -6,7 +6,8 @@ import { primary, secondary} from './lib/colors.js';
 import TrackedRoute from './components/TrackedRoute.js';
 import RouteValidator from './components/RouteValidator.js';
 import { embellishData } from './lib/getMapValue.js';
-
+import Veil from './components/Veil';
+import VeilContext from './context/Veil';
 import {
   Redirect,
   BrowserRouter as Router,
@@ -14,7 +15,6 @@ import {
 } from "react-router-dom";
 
 const fetch = require('node-fetch');
-
 const dataUrl = '/data/full.json';
 
 const breakpoints = {
@@ -39,6 +39,7 @@ const theme = createMuiTheme({
 function App() {
 
   const [data, setData] = useState(null);
+  const [veil, setVeil] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -56,16 +57,19 @@ function App() {
     <>
       { data ?
         <ThemeProvider theme={theme}>
-          <Router>
-            <Switch>
-              <TrackedRoute path="/:mode/:when/:axis/:quant/:location">
-                <RouteValidator data={data}/>
-              </TrackedRoute>
-              <TrackedRoute path="/">
-                <Redirect to={home}/>
-              </TrackedRoute>
-            </Switch>
-          </Router>
+          <VeilContext.Provider value={{veil, setVeil}}>
+            <Router>
+              <Switch>
+                <TrackedRoute path="/:mode/:when/:axis/:quant/:location">
+                  <RouteValidator data={data}/>
+                </TrackedRoute>
+                <TrackedRoute path="/">
+                  <Redirect to={home}/>
+                </TrackedRoute>
+              </Switch>
+            </Router>
+            <Veil/>
+          </VeilContext.Provider>
         </ThemeProvider> :
         <div style={{
           backgroundColor: primary,

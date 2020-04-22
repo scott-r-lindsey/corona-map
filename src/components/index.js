@@ -1,23 +1,24 @@
 import React from 'react';
-import Map from './Map.js';
+import Map from './Map/';
 import { useParams } from "react-router-dom";
 import LeftPanel from './LeftPanel/';
-import MapSlider from './MapSlider.js';
+import MapSlider from './Map/Slider.js';
 import AmznSearchAd from './Ad/AmznSearchAd.js';
 import BottomAdMd from './BottomAdMd.js';
 import MapWidgets from './Map/Widgets';
 import { scaleLog } from "d3-scale";
-import { zeroColor, minColor, maxColor} from '../lib/colors.js';
+import { minColor, maxColor} from '../lib/colors.js';
 import { getMaxValueForAxis, getTrimmedData } from '../lib/getMapValue.js';
 import withWidth from '@material-ui/core/withWidth';
 import PropTypes from "prop-types";
+import exact from 'prop-types-exact';
 
 import MobileMain from './Main/Mobile/index.js';
 
 const Main = (props) => {
 
   const params = useParams();
-  const { when, axis, location, quant } = params;
+  const { when, axis, quant } = params;
   const { data, width } = props;
 
   let min;
@@ -41,11 +42,11 @@ const Main = (props) => {
   const mobile = /xs/.test(width);
   const small = /sm/.test(width);
 
-  let mainWidth = '728';
-  let adHeight = '136';
+  let mainWidth = 728;
+  let adHeight = 136;
 
   if ('sm' === width){
-    mainWidth = '512';
+    mainWidth = 512;
   }
 
   return (
@@ -55,7 +56,6 @@ const Main = (props) => {
           data={data}
           axis={axis}
           when={when}
-          location={location}
           colorScale={colorScale}
         /> :
         <>
@@ -63,28 +63,73 @@ const Main = (props) => {
             <>
               <div className={"d-left-column"} style={{
                   width: `calc(100% - ${mainWidth}px)`,
-                  bottom: adHeight,
+                  bottom: '17px',
                 }}>
-                <LeftPanel location={location} data={trimmedData} adHeight={adHeight} />
+                <LeftPanel
+                  data={trimmedData}
+                  adHeight={adHeight}
+                />
               </div>
-              <div className={"d-main-panel"} style={{ width: `${mainWidth}px` }} >
-                <MapWidgets {...{max, zeroColor, minColor, maxColor, colorScale}} />
-                <Map when={when} axis={`${axis}-${quant}`} data={data} colorScale={colorScale} />
+              <div
+                className={"d-main-panel"}
+                style={{ width: `${mainWidth}px` }}
+              >
+                <MapWidgets
+                  {...{max, colorScale}}
+                  data={trimmedData}
+                />
+                <Map
+                  when={when}
+                  axis={`${axis}-${quant}`}
+                  data={data}
+                  colorScale={colorScale}
+                />
                 <MapSlider data={data} />
               </div>
-              <BottomAdMd adWidth={mainWidth} adHeight={adHeight} ad={data.adCode} />
-            </> :
+              <BottomAdMd adHeight={adHeight} >
+                <AmznSearchAd
+                  adHeight={adHeight}
+                  amznAdVals={data.searchVals}
+                />
+              </BottomAdMd>
+            </>
+
+            :
+
             <>
-              <div className={"d-left-column"} style={ {width: `calc(100% - ${mainWidth}px)` }} >
-                <LeftPanel location={location} data={trimmedData} />
+              <div
+                className={"d-left-column"}
+                style={ {width: `calc(100% - ${mainWidth}px)` }}
+              >
+                <LeftPanel
+                  data={trimmedData}
+                  adHeight={0}
+                />
               </div>
-              <div className={"d-main-panel"} style={{ width: `${mainWidth}px`, bottom: adHeight + 'px' }} >
-                <MapWidgets {...{max, colorScale}} />
-                <Map when={when} axis={`${axis}-${quant}`} data={data} colorScale={colorScale} />
+              <div
+                className={"d-main-panel"}
+                style={{ width: `${mainWidth}px`, bottom: adHeight + 'px' }}
+                >
+                <MapWidgets
+                  {...{max, colorScale}}
+                  data={trimmedData}
+                />
+                <Map
+                  when={when}
+                  axis={`${axis}-${quant}`}
+                  data={data}
+                  colorScale={colorScale}
+                />
                 <MapSlider data={data} />
               </div>
-              <div className={'d-main-footer'} style={{ width: mainWidth + 'px', height: adHeight}}>
-                <AmznSearchAd adHeight={adHeight} amznAdVals={data.searchVals} />
+              <div
+                className={'d-main-footer'}
+                style={{ width: mainWidth + 'px', height: adHeight}}
+              >
+                <AmznSearchAd
+                  adHeight={adHeight}
+                  amznAdVals={data.searchVals}
+                />
               </div>
             </>
           }
@@ -95,11 +140,10 @@ const Main = (props) => {
   );
 }
 
-Main.propTypes = {
-  width: PropTypes.string.isRequired,
-};
-
 export default withWidth()(Main);
 
-
+Main.propTypes = exact({
+  data: PropTypes.object.isRequired,
+  width: PropTypes.string.isRequired,
+});
 
