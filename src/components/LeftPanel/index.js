@@ -1,16 +1,16 @@
 import React from "react";
-import LogChart from './LogChart.js';
-import updateUrl from '../../lib/mapUrl.js'
+import LogChart from './LogChart';
+import updateUrl from '../../lib/mapUrl'
 import { useParams, useHistory } from "react-router-dom";
 import {
   getFormattedDate,
   capitalizeLocation,
   getStateDataByName
-} from '../../lib/getMapValue.js';
-import Logo from '../Logo.js';
-import Info from './Info.js';
-import Text from './Text.js';
-import CopyFooter from '../CopyFooter.js';
+} from '../../lib/getMapValue';
+import Logo from '../Logo';
+import Info from './Info';
+import Text from './Text';
+import CopyFooter from '../CopyFooter';
 import PropTypes from "prop-types";
 import exact from 'prop-types-exact';
 
@@ -90,7 +90,7 @@ const LeftPanel = (props) => {
           </>
         }
         <Text />
-        <CopyFooter />
+        <CopyFooter foo="bar" />
       </div>
     </>
   )

@@ -1,6 +1,8 @@
-import React from "react";
+import * as React from "react";
 
-const CopyFooter = () => {
+interface IProps { }
+
+const CopyFooter: React.FC<IProps> = () => {
 
   return (
     <div className={"footer"}>

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { ResponsiveLine } from '@nivo/line'
-import ChartFloat from './ChartFloat.js';
-import ChartLegend from './ChartLegend.js';
+import ChartFloat from './ChartFloat';
+import ChartLegend from './ChartLegend';
 import moment from 'moment-es6';
-import { logmidpoints } from '../../lib/util.js';
-import {confirmedColor, deathColor, logColor, logLabelColor} from '../../lib/colors.js';
+import { logmidpoints } from '../../lib/util';
+import {confirmedColor, deathColor, logColor, logLabelColor} from '../../lib/colors';
 import PropTypes from "prop-types";
 import exact from 'prop-types-exact';
 

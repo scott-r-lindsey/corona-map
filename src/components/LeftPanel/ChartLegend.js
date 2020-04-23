@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import exact from 'prop-types-exact';
 
-import {confirmedColor, deathColor, logColor} from '../../lib/colors.js'
+import {confirmedColor, deathColor, logColor} from '../../lib/colors'
 
 const ChartLegend = (props) => {
 

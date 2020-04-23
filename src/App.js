@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import './styles/App.scss';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { home } from './lib/config.js';
-import { primary, secondary} from './lib/colors.js';
-import TrackedRoute from './components/TrackedRoute.js';
-import RouteValidator from './components/RouteValidator.js';
-import { embellishData } from './lib/getMapValue.js';
+import { primary, secondary} from './lib/colors';
+import TrackedRoute from './components/TrackedRoute';
+import RouteValidator from './components/RouteValidator';
+import { embellishData } from './lib/getMapValue';
 import Veil from './components/Veil';
 import VeilContext from './context/Veil';
 import {
