@@ -16,4 +16,3 @@ const CopyFooter: React.FC<IProps> = () => {
 }
 
 export default CopyFooter;
-

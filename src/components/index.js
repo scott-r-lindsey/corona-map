@@ -86,7 +86,7 @@ const Main = (props) => {
                 />
                 <MapSlider data={data} />
               </div>
-              <BottomAdMd adHeight={adHeight} >
+              <BottomAdMd adHeight={"100"} >
                 <AmznSearchAd
                   adHeight={adHeight}
                   amznAdVals={data.searchVals}

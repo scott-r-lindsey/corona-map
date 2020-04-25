@@ -31,25 +31,23 @@ const theme = createMuiTheme({
     primary: { main: primary },
     secondary: { main: secondary }
   },
-  status: {
-    danger: 'orange',
-  },
 });
 
-function App() {
+
+function App(props) {
 
   const [data, setData] = useState(null);
   const [veil, setVeil] = useState(false);
 
   useEffect(() => {
     (async () => {
-      await fetch(dataUrl, {method: 'GET'})
-        .then(res => res.json())
-        .then((data) => {
-            embellishData(data.state);
-            embellishData(data.county);
-            setData(data, [])
-        });
+
+      const response = await fetch(dataUrl, {method: 'GET'});
+      const result = await response.json();
+      embellishData(result.state);
+      embellishData(result.county);
+      setData(result)
+
     })();
   }, []);
 
