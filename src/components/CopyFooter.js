@@ -1,8 +1,6 @@
-import * as React from "react";
+import React from "react";
 
-interface IProps { }
-
-const CopyFooter: React.FC<IProps> = () => {
+const CopyFooter = () => {
 
   return (
     <div className={"footer"}>
@@ -16,3 +14,4 @@ const CopyFooter: React.FC<IProps> = () => {
 }
 
 export default CopyFooter;
+

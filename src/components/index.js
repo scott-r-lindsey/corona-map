@@ -2,18 +2,18 @@ import React from 'react';
 import Map from './Map/';
 import { useParams } from "react-router-dom";
 import LeftPanel from './LeftPanel/';
-import MapSlider from './Map/Slider';
-import AmznSearchAd from './Ad/AmznSearchAd';
-import BottomAdMd from './BottomAdMd';
+import MapSlider from './Map/Slider.js';
+import AmznSearchAd from './Ad/AmznSearchAd.js';
+import BottomAdMd from './BottomAdMd.js';
 import MapWidgets from './Map/Widgets';
 import { scaleLog } from "d3-scale";
-import { minColor, maxColor} from '../lib/colors';
-import { getMaxValueForAxis, getTrimmedData } from '../lib/getMapValue';
+import { minColor, maxColor} from '../lib/colors.js';
+import { getMaxValueForAxis, getTrimmedData } from '../lib/getMapValue.js';
 import withWidth from '@material-ui/core/withWidth';
 import PropTypes from "prop-types";
 import exact from 'prop-types-exact';
 
-import MobileMain from './Main/Mobile/';
+import MobileMain from './Main/Mobile/index.js';
 
 const Main = (props) => {
 
@@ -86,7 +86,7 @@ const Main = (props) => {
                 />
                 <MapSlider data={data} />
               </div>
-              <BottomAdMd adHeight={"100"} >
+              <BottomAdMd adHeight={adHeight} >
                 <AmznSearchAd
                   adHeight={adHeight}
                   amznAdVals={data.searchVals}

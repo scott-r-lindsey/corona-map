@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import MatSlider from '@material-ui/core/Slider';
-import updateUrl from '../../lib/mapUrl';
+import updateUrl from '../../lib/mapUrl.js';
 import { useParams, useHistory } from "react-router-dom";
 import moment from 'moment-es6';
 import PropTypes from "prop-types";

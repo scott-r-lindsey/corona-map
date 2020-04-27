@@ -8,7 +8,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { getLocationFips } from '../../lib/getMapValue';
 import PropTypes from 'prop-types';
 import exact from 'prop-types-exact';
-import updateUrl from '../../lib/mapUrl';
+import updateUrl from '../../lib/mapUrl.js';
 
 const Search = (props) => {
 

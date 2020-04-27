@@ -1,10 +1,10 @@
 import React, { useState, useLayoutEffect } from "react";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
-import updateUrl from '../../lib/mapUrl';
+import updateUrl from '../../lib/mapUrl.js';
 import { useParams, useHistory } from "react-router-dom";
-import {zeroColor} from '../../lib/colors';
+import {zeroColor} from '../../lib/colors.js';
 import MapTooltip from './Tooltip';
-import { getLocationDataForDayById } from '../../lib/getMapValue';
+import { getLocationDataForDayById } from '../../lib/getMapValue.js';
 import PropTypes from "prop-types";
 import exact from 'prop-types-exact';
 

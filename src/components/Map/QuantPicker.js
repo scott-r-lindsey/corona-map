@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams, useHistory } from "react-router-dom";
-import updateUrl from '../../lib/mapUrl';
+import updateUrl from '../../lib/mapUrl.js';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 

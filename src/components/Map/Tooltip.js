@@ -1,6 +1,6 @@
 
 import React from "react";
-import {capitalizeLocation} from '../../lib/getMapValue';
+import {capitalizeLocation} from '../../lib/getMapValue.js';
 import moment from 'moment-es6';
 import PropTypes from "prop-types";
 import exact from 'prop-types-exact';

@@ -1,10 +1,9 @@
 import React from 'react';
+
 import { Link } from "react-router-dom";
-import { home } from '../lib/config';
+import { home } from '../lib/config.js';
 
-interface IProps { }
-
-const Logo: React.FC<IProps> = () => {
+const Logo = () => {
 
   return (
     <div className={"logo"}>

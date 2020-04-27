@@ -1,7 +1,7 @@
 import React from 'react';
-import { logmidpoints } from '../../lib/util';
+import { logmidpoints } from '../../lib/util.js';
 import withWidth from '@material-ui/core/withWidth';
-import {abbreviateNumber} from '../../lib/getMapValue';
+import {abbreviateNumber} from '../../lib/getMapValue.js';
 import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import exact from 'prop-types-exact';

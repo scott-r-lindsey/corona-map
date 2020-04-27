@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import './styles/App.scss';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { home } from './lib/config.js';
-import { primary, secondary} from './lib/colors';
-import TrackedRoute from './components/TrackedRoute';
-import RouteValidator from './components/RouteValidator';
-import { embellishData } from './lib/getMapValue';
+import { primary, secondary} from './lib/colors.js';
+import TrackedRoute from './components/TrackedRoute.js';
+import RouteValidator from './components/RouteValidator.js';
+import { embellishData } from './lib/getMapValue.js';
 import Veil from './components/Veil';
 import VeilContext from './context/Veil';
 import {
@@ -31,23 +31,25 @@ const theme = createMuiTheme({
     primary: { main: primary },
     secondary: { main: secondary }
   },
+  status: {
+    danger: 'orange',
+  },
 });
 
-
-function App(props) {
+function App() {
 
   const [data, setData] = useState(null);
   const [veil, setVeil] = useState(false);
 
   useEffect(() => {
     (async () => {
-
-      const response = await fetch(dataUrl, {method: 'GET'});
-      const result = await response.json();
-      embellishData(result.state);
-      embellishData(result.county);
-      setData(result)
-
+      await fetch(dataUrl, {method: 'GET'})
+        .then(res => res.json())
+        .then((data) => {
+            embellishData(data.state);
+            embellishData(data.county);
+            setData(data, [])
+        });
     })();
   }, []);
 

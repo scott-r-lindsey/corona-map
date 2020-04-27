@@ -1,8 +1,8 @@
 import React from 'react';
-import Main from './index';
-import { home } from '../lib/config';
+import Main from './index.js';
+import { home } from '../lib/config.js';
 import { useParams, Redirect } from "react-router-dom";
-import updateUrl from '../lib/mapUrl';
+import updateUrl from '../lib/mapUrl.js';
 import PropTypes from "prop-types";
 import exact from 'prop-types-exact';
 

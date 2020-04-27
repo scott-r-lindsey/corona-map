@@ -3,7 +3,7 @@ import Scale from './Scale';
 import QuantPicker from './QuantPicker';
 import AxisPicker from './AxisPicker';
 import MapPicker from './MapPicker';
-import { zeroColor } from '../../lib/colors';
+import { zeroColor } from '../../lib/colors.js';
 import Search from './Search';
 import PropTypes from "prop-types";
 import exact from 'prop-types-exact';

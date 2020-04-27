@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import CopyFooter from '../../CopyFooter';
+import CopyFooter from '../../CopyFooter.js';
 
 const Text = () => {
 
