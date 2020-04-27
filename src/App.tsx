@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './styles/App.scss';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import { home } from './lib/config.js';
+import { home } from './lib/config';
 import { primary, secondary} from './lib/colors';
 import TrackedRoute from './components/TrackedRoute';
 import RouteValidator from './components/RouteValidator';
@@ -34,7 +34,7 @@ const theme = createMuiTheme({
 });
 
 
-function App(props) {
+function App() {
 
   const [data, setData] = useState(null);
   const [veil, setVeil] = useState(false);
