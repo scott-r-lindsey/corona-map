@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'typeface-roboto';
-import env from './env.js';
+import env from './env';
 import ReactGA from 'react-ga'
 
 ReactGA.initialize(env.GA_ACCOUNT) // Add your ID

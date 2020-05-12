@@ -1,6 +1,6 @@
 
 import React from "react";
-import {getDataValue, getFormattedDate, getStateDataByName} from '../../lib/getMapValue.js';
+import {getDataValue, getFormattedDate, getStateDataByName} from '../../lib/getMapValue';
 import moment from 'moment-es6';
 import PropTypes from "prop-types";
 import exact from 'prop-types-exact';

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Link } from "react-router-dom";
-import { home } from '../lib/config.js';
+import { home } from '../lib/config';
 
 const Logo = () => {
 

@@ -1,9 +1,9 @@
 import React from "react";
-import Logo from '../../Logo.js';
-import { primary } from '../../../lib/colors.js';
+import Logo from '../../Logo';
+import { primary } from '../../../lib/colors';
 import { useParams } from "react-router-dom";
-import {getFormattedDate, capitalizeLocation} from '../../../lib/getMapValue.js';
-import Info from '../../LeftPanel/Info.js';
+import {getFormattedDate, capitalizeLocation} from '../../../lib/getMapValue';
+import Info from '../../LeftPanel/Info';
 
 const MobileInfo = (props) => {
 

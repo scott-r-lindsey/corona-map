@@ -14,6 +14,8 @@ git pull
 
 #parse data
 cd $__here
+nodejs ./tabulate-state-series-data.js
+nodejs ./tabulate-county-series-data.js
 nodejs ./tabulate-full.js
 
 # upload to s3

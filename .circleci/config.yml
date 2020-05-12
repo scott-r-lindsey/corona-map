@@ -42,22 +42,40 @@ jobs:
             - run:
                 name: Copy build to workspace
                 command: |
-                  cp -r build ./workspace/
+                  cp -r node_modules fixture build data public src package.json yarn.lock ./workspace/
 
             - persist_to_workspace:
                 root: workspace
                 paths:
                     - build
+                    - data
+                    - fixture
+                    - node_modules
+                    - package.json
+                    - public
+                    - src
+                    - yarn.lock
 
     test:
         <<: *node-image
 
         steps:
             - setup_remote_docker
-            - checkout
+
+            - attach_workspace:
+                at: workspace
+
+            - run:
+                name: Install Yarn
+                command: |
+                  curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - &&
+                  sudo apt install apt-transport-https &&
+                  echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list &&
+                  sudo apt update && sudo apt install yarn
 
             - run: |
-                echo "hello from test!"
+                cd workspace &&
+                CI=true yarn test-once
 
     deploy:
         <<: *python-image

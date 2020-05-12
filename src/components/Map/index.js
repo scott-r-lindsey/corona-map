@@ -1,10 +1,10 @@
 import React, { useState, useLayoutEffect } from "react";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
-import updateUrl from '../../lib/mapUrl.js';
+import updateUrl from '../../lib/mapUrl';
 import { useParams, useHistory } from "react-router-dom";
-import {zeroColor} from '../../lib/colors.js';
+import {zeroColor} from '../../lib/colors';
 import MapTooltip from './Tooltip';
-import { getLocationDataForDayById } from '../../lib/getMapValue.js';
+import { getLocationDataForDayById } from '../../lib/getMapValue';
 import PropTypes from "prop-types";
 import exact from 'prop-types-exact';
 
@@ -82,9 +82,13 @@ const MapChart = (props) => {
   function handleMouseLeave(e, geography){
     setToolTipData({left: 0, top:0, data: {}, show:false});
   }
-
   function handleStateClick(e, geography){
-    history.push(updateUrl(params, {location: data.location[geography.id].name.toLowerCase()}));
+    history.push(
+      updateUrl(
+        params,
+        { location: data.location[geography.id].name.toLowerCase() }
+      )
+    );
   }
 
   return (
@@ -126,7 +130,6 @@ const MapChart = (props) => {
                   return null;
                 }
 
-                //console.log(geo.id);
                 return (
                   <Geography
                     onClick={(e) => handleStateClick(e, geo)}
