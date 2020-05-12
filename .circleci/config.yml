@@ -42,7 +42,7 @@ jobs:
             - run:
                 name: Copy build to workspace
                 command: |
-                  cp -r build data public script src package.json yarn.lock ./workspace/
+                  cp -r build data public src package.json yarn.lock ./workspace/
 
             - persist_to_workspace:
                 root: workspace
@@ -50,7 +50,6 @@ jobs:
                     - build
                     - data
                     - public
-                    - script
                     - src
                     - package.json
                     - yarn.lock
