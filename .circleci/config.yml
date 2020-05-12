@@ -42,22 +42,35 @@ jobs:
             - run:
                 name: Copy build to workspace
                 command: |
-                  cp -r build ./workspace/
+                  rm -rf .git &&
+                  cp -r . ./workspace/project
 
             - persist_to_workspace:
                 root: workspace
                 paths:
-                    - build
+                    - project
 
     test:
         <<: *node-image
 
         steps:
             - setup_remote_docker
-            - checkout
+
+            - attach_workspace:
+                at: workspace
+
+            - run:
+                name: Install Yarn
+                command: |
+                  curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - &&
+                  sudo apt install apt-transport-https &&
+                  echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list &&
+                  sudo apt update && sudo apt install yarn
 
             - run: |
-                echo "hello from test!"
+                cd workspace/project &&
+                CI=true yarn test-once
+
 
     deploy:
         <<: *python-image
@@ -76,7 +89,7 @@ jobs:
             - run:
                 name: Sync to s3
                 command: |
-                  aws s3 sync ./workspace/build s3://corona-prod-react/
+                  aws s3 sync ./workspace/project/build s3://corona-prod-react/
 
             - run:
                 name: Invalidate old paths

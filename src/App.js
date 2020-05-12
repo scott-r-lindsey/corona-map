@@ -48,7 +48,7 @@ function App() {
         .then((data) => {
             embellishData(data.state);
             embellishData(data.county);
-            setData(data, [])
+            setData(data, []);
         });
     })();
   }, []);

@@ -80,7 +80,6 @@ const RouteValidator = (props) => {
 
 export default RouteValidator;
 
-
 RouteValidator.propTypes = exact({
   data: PropTypes.object.isRequired,
 });

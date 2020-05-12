@@ -14,28 +14,34 @@ const AmznSearchAd = (props) => {
 
   useEffect(() => {
 
-    const html = `
-      <script type="text/javascript">
-        amzn_assoc_placement = "adunit0";
-        amzn_assoc_tracking_id = "${amznAdVals.tracking_id}";
-        amzn_assoc_ad_mode = "search";
-        amzn_assoc_ad_type = "smart";
-        amzn_assoc_marketplace = "amazon";
-        amzn_assoc_region = "US";
-        amzn_assoc_default_search_phrase = "${searchTerm}";
-        amzn_assoc_default_category = "All";
-        amzn_assoc_linkid = "${amznAdVals.linkid}";
-        amzn_assoc_design = "in_content";
-      </script>
-      <script src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US"></script>
-`;
+    // disable the ad during tests
+    if (!global.test) {
 
-    if (!divRef.current.innerHTML){
-      postscribe('#bottom-ad', html);
+      const html = `
+        <script type="text/javascript">
+          amzn_assoc_placement = "adunit0";
+          amzn_assoc_tracking_id = "${amznAdVals.tracking_id}";
+          amzn_assoc_ad_mode = "search";
+          amzn_assoc_ad_type = "smart";
+          amzn_assoc_marketplace = "amazon";
+          amzn_assoc_region = "US";
+          amzn_assoc_default_search_phrase = "${searchTerm}";
+          amzn_assoc_default_category = "All";
+          amzn_assoc_linkid = "${amznAdVals.linkid}";
+          amzn_assoc_design = "in_content";
+        </script>
+        <script src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US"></script>`;
+
+      if (!divRef.current.innerHTML){
+        postscribe('#bottom-ad', html);
+      }
+      else{
+        divRef.current.innerHTML = '';
+        postscribe('#bottom-ad', html);
+      }
     }
     else{
-      divRef.current.innerHTML = '';
-      postscribe('#bottom-ad', html);
+      // console.log('ads were skipped');
     }
 
   });

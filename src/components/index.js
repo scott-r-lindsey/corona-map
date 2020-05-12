@@ -18,6 +18,7 @@ import MobileMain from './Main/Mobile/index';
 const Main = (props) => {
 
   const params = useParams();
+
   const { when, axis, quant } = params;
   const { data, width } = props;
 
@@ -144,6 +145,6 @@ export default withWidth()(Main);
 
 Main.propTypes = exact({
   data: PropTypes.object.isRequired,
-  width: PropTypes.string.isRequired,
+  width: PropTypes.string,
 });
 

@@ -7,10 +7,15 @@ import exact from 'prop-types-exact';
 const TrackedRoute = (props) => {
 
   useEffect(() => {
-    const page = props.location.pathname;
 
-    ReactGA.set({page});
-    ReactGA.pageview(page);
+    // disable the analytics during tests
+    if (!global.test) {
+
+      const page = props.location.pathname;
+
+      ReactGA.set({page});
+      ReactGA.pageview(page);
+    }
 
   }, [props.location.pathname]);
 
