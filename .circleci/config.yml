@@ -42,13 +42,18 @@ jobs:
             - run:
                 name: Copy build to workspace
                 command: |
-                  rm -rf .git &&
-                  cp -r . ./workspace/project
+                  cp -r build data public script src package.json yarn.lock ./workspace/
 
             - persist_to_workspace:
                 root: workspace
                 paths:
-                    - project
+                    - build
+                    - data
+                    - public
+                    - script
+                    - src
+                    - package.json
+                    - yarn.lock
 
     test:
         <<: *node-image
@@ -68,9 +73,8 @@ jobs:
                   sudo apt update && sudo apt install yarn
 
             - run: |
-                cd workspace/project &&
+                cd workspace &&
                 CI=true yarn test-once
-
 
     deploy:
         <<: *python-image
@@ -89,7 +93,7 @@ jobs:
             - run:
                 name: Sync to s3
                 command: |
-                  aws s3 sync ./workspace/project/build s3://corona-prod-react/
+                  aws s3 sync ./workspace/build s3://corona-prod-react/
 
             - run:
                 name: Invalidate old paths
