@@ -12,7 +12,18 @@ const full = {
   county
 };
 
-full.county.location['00'] = full.state.location['00'];
+
+// copy and fix US data for county context
+const USData = JSON.parse(JSON.stringify(full.state.location['00']));
+
+for (let[axes, values] of Object.entries(USData.series)){
+  USData.series[axes] = values.slice(county.dates.length *-1);
+}
+full.county.location['00'] = USData;
+
+
+
+
 
 full.county.adCode = fs.readFileSync('../data/ad-code.html', 'utf8');
 full.county.searchVals = searchVals;
