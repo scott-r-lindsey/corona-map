@@ -26,27 +26,32 @@ export const deepClone = (parent) => {
   return JSON.parse(JSON.stringify(parent))
 }
 export const getStateDataByName = (data, location) => {
+
   return Object.entries(data.location).filter(
     item => item[1].name.toLowerCase() === location
   )[0][1];
 }
+
 export const getDataValue = (data, when, location, axis, addl = 0) => {
-  const offset = (data.dates.length +addl) - -(when === 'now' ? -1: when );
+
+  const [, max] = parseWhen(data, when, addl);
   const stateData = getStateDataByName(data, location);
-
-  return stateData.series[axis][offset];
+  return stateData.series[axis][max];
 }
+
 export const getDataValueById = (data, when, id, axis, addl = 0) => {
-  const offset = (data.dates.length +addl) - -(when === 'now' ? -1: when );
+
+  const [, max] = parseWhen(data, when, addl);
   const stateData = data.location[id];
-
-  return stateData.series[axis][offset];
+  return stateData.series[axis][max];
 }
+
 export const getDate = (data, when) => {
-  const offset = (data.dates.length-1) - -(when === 'now' ? 0: when );
 
-  return data.dates[offset];
+  const [, max] = parseWhen(data, when);
+  return data.dates[max];
 }
+
 export const getFormattedDate = (data, when, format) => {
   return moment(getDate(data, when)).format(format);
 }
@@ -64,6 +69,7 @@ export const getMaxValueForAxis = (data, axis) => {
       o => o[1].series[axis][days-1]
     ), 0);
 }
+
 export const getLocationDataForDay = (data, when, location) => {
 
   return {
@@ -78,6 +84,7 @@ export const getLocationDataForDay = (data, when, location) => {
     }
   };
 }
+
 export const getLocationDataForDayById = (data, when, id) => {
   return {
     location: data.location[id].name.toLowerCase(),
@@ -91,13 +98,21 @@ export const getLocationDataForDayById = (data, when, id) => {
     }
   };
 }
-export const getTrimmedData = (data, when) => {
 
-  const max = (data.dates.length-1) - -(when === 'now' ? 0: when );
-  const min = 0;
+export const getTrimmedData = (sourceData, when) => {
+
+  const data = deepClone(sourceData);
+  const [min, max] = parseWhen(data, when);
+
+  if (min >= max){
+    return {
+      ...data,
+      raw: data
+    };
+  }
 
   const trimArray = (item, index) => {
-    return  ((index > min) && (index <= max))
+    return  ((index >= min) && (index <= max))
   }
 
   const trimmed = deepClone(data);
@@ -113,16 +128,28 @@ export const getTrimmedData = (data, when) => {
   trimmed.raw = data;
 
   return trimmed;
-
- // console.log(ret);
-
 }
 
-export const parseWhen = (when) => {
-  // now
-  // all
-  // x-x/getMaxValueForAxis
+// returns initial min pos, max pos
+export const parseWhen = (data, when, addl = 0) => {
+
+  let found;
+
+  if (when.startsWith('-')){
+    return [0 + addl, data.dates.length - -(when) -1 + addl];
+  }
+  // eslint-disable-next-line no-cond-assign
+  else if (found = when.match(/^(\d+)-(\d+)$/)){
+    return [
+      Number.parseInt(found[1]) + addl,
+      Number.parseInt(found[2]) + addl
+    ];
+  }
+
+  // "now"
+  return [0, data.dates.length-1];
 }
+
 export const capitalizeLocation = (location) => {
   let prov =  location.split(' ')
     .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
