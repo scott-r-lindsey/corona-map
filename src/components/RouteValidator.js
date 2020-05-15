@@ -54,7 +54,12 @@ const RouteValidator = (props) => {
   }
 
   // validate when
-  if (!(when === 'now' || when.match(/^-[\d]+$/))){
+  if (! (
+      when === 'now' ||
+      when.match(/^-[\d]+$/) ||
+      when.match(/^([\d]+)-([\d]+)$/)
+    )){
+
     updates.when = 'now';
   }
   if (when.match(/^-[\d]+$/)){

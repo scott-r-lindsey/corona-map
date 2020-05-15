@@ -4,7 +4,7 @@ import updateUrl from '../../lib/mapUrl';
 import { useParams, useHistory } from "react-router-dom";
 import {zeroColor} from '../../lib/colors';
 import MapTooltip from './Tooltip';
-import { getLocationDataForDayById } from '../../lib/getMapValue';
+import { getLocationDataForDayById, parseWhen } from '../../lib/getMapValue';
 import PropTypes from "prop-types";
 import exact from 'prop-types-exact';
 
@@ -17,7 +17,10 @@ const MapChart = (props) => {
   const history = useHistory();
   const params = useParams();
   const {mode, location} = params;
-  const offset = (when === 'now') ? -1 : when -1;
+
+  const [, max] = parseWhen(data, when);
+  const offset = max - data.dates.length;
+
   const days = data.dates.length;
 
   const zoomableRef = React.createRef();
