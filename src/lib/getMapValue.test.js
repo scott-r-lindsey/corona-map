@@ -57,6 +57,12 @@ describe('getDataValue', () => {
     expect(ret).toEqual(100);
   });
 
+  it('fetches a date value for "now" -1', () => {
+    const ret = getDataValue(data, 'now', 'fooyork', 'confirmed', -1);
+    expect(data).toEqual(dataBak);
+    expect(ret).toEqual(90);
+  });
+
   it('fetches a date value for "-2"', () => {
     const ret = getDataValue(data, '-2', 'fooyork', 'confirmed');
     expect(data).toEqual(dataBak);
@@ -170,6 +176,12 @@ describe('parseWhen', () => {
     const ret = parseWhen(data, 'now');
     expect(data).toEqual(dataBak);
     expect(ret).toEqual([0,9]);
+  });
+
+  it('parses "now" -1', () => {
+    const ret = parseWhen(data, 'now', -1);
+    expect(data).toEqual(dataBak);
+    expect(ret).toEqual([-1,8]);
   });
 
   it('parses "foo"', () => {

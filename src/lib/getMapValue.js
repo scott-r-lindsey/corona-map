@@ -147,7 +147,7 @@ export const parseWhen = (data, when, addl = 0) => {
   }
 
   // "now"
-  return [0, data.dates.length-1];
+  return [0 + addl, data.dates.length-1 + addl];
 }
 
 export const capitalizeLocation = (location) => {
