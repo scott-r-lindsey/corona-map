@@ -48,7 +48,8 @@
     "test-once": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
     "lint": "./node_modules/.bin/eslint --fix ./src/**/*.js src/*.js ./src/**/*.jsx src/*.jsx",
-    "validate": "npm-run-all --parallel lint test-once"
+    "validate": "npm-run-all --parallel lint test-once",
+    "precommit": "npm run validate"
   },
   "eslintConfig": {
     "extends": [
