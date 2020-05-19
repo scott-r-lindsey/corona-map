@@ -51,6 +51,11 @@
     "validate": "npm-run-all --parallel lint test-once",
     "precommit": "npm run validate"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn run validate"
+    }
+  },
   "eslintConfig": {
     "extends": [
       "airbnb",

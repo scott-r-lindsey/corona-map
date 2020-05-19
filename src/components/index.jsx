@@ -56,6 +56,7 @@ const Main = (props) => {
             colorScale={colorScale}
           />
         )
+
         : (
           <>
             { small
