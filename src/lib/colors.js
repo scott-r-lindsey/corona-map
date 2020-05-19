@@ -9,9 +9,8 @@ export const maxColor = '#A70024';
 
 // shared
 export const confirmedColor = '#DD9850';
-export const deathColor= '#D12715';
+export const deathColor = '#D12715';
 
 // log chart
 export const logColor = '#222222';
 export const logLabelColor = '#aaaaaa';
-

@@ -4,31 +4,29 @@ import {
   parseWhen,
   getDate,
   getDataValue,
-  getDataValueById
-} from './getMapValue.js';
+  getDataValueById,
+} from './getMapValue';
 
 const data = {
-  dates: [1,2,3,4,5,6,7,8,9,10],
+  dates: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
   location: {
-    '212': {
+    212: {
       name: 'fooyork',
       series: {
-        confirmed: [10,20,30,40,50,60,70,80,90,100],
-        deaths: [2,4,6,8,10,12,14,16,18,20]
-      }
-    }
-  }
+        confirmed: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+        deaths: [2, 4, 6, 8, 10, 12, 14, 16, 18, 20],
+      },
+    },
+  },
 };
 
-const clone = (parent) => {
-  return JSON.parse(JSON.stringify(parent))
-}
+const clone = (parent) => JSON.parse(JSON.stringify(parent));
 const dataBak = clone(data);
 
 // ----------------------------------------------------------------------------
 
 
-//export const getDataValue = (data, when, location, axis, addl = 0) => {
+// export const getDataValue = (data, when, location, axis, addl = 0) => {
 
 describe('getDataValueById', () => {
   it('fetches a date value for "now"', () => {
@@ -97,37 +95,33 @@ describe('getDate', () => {
 });
 
 describe('getTrimmedData', () => {
-
   it('parses "now"', () => {
-
     const ret = getTrimmedData(data, 'now');
 
     expect(data).toEqual(dataBak);
     expect(ret).toEqual({
       ...data,
-      ...{raw: data}
+      ...{ raw: data },
     });
   });
 
   it('parses but ignores 2-2', () => {
-
     const ret = getTrimmedData(data, '2-2');
 
     expect(data).toEqual(dataBak);
     expect(ret).toEqual({
       ...data,
-      ...{raw: data}
+      ...{ raw: data },
     });
   });
 
   it('parses but ignores 3-2', () => {
-
     const ret = getTrimmedData(data, '3-2');
 
     expect(data).toEqual(dataBak);
     expect(ret).toEqual({
       ...data,
-      ...{raw: data}
+      ...{ raw: data },
     });
   });
 
@@ -137,13 +131,13 @@ describe('getTrimmedData', () => {
     expect(data).toEqual(dataBak);
     expect(ret).toEqual({
       raw: data,
-      dates: [ 1, 2 ],
+      dates: [1, 2],
       location: {
-        '212': {
+        212: {
           name: 'fooyork',
           series: {
-            confirmed: [10,20],
-            deaths: [2,4],
+            confirmed: [10, 20],
+            deaths: [2, 4],
           },
         },
       },
@@ -156,13 +150,13 @@ describe('getTrimmedData', () => {
     expect(data).toEqual(dataBak);
     expect(ret).toEqual({
       raw: data,
-      dates: [ 3, 4, 5 ],
+      dates: [3, 4, 5],
       location: {
-        '212': {
+        212: {
           name: 'fooyork',
           series: {
-            confirmed: [30,40,50],
-            deaths: [6,8,10],
+            confirmed: [30, 40, 50],
+            deaths: [6, 8, 10],
           },
         },
       },
@@ -171,49 +165,45 @@ describe('getTrimmedData', () => {
 });
 
 describe('parseWhen', () => {
-
   it('parses "now"', () => {
     const ret = parseWhen(data, 'now');
     expect(data).toEqual(dataBak);
-    expect(ret).toEqual([0,9]);
+    expect(ret).toEqual([0, 9]);
   });
 
   it('parses "now" -1', () => {
     const ret = parseWhen(data, 'now', -1);
     expect(data).toEqual(dataBak);
-    expect(ret).toEqual([-1,8]);
+    expect(ret).toEqual([-1, 8]);
   });
 
   it('parses "foo"', () => {
     const ret = parseWhen(data, 'now');
     expect(data).toEqual(dataBak);
-    expect(ret).toEqual([0,9]);
+    expect(ret).toEqual([0, 9]);
   });
 
   it('parses -2', () => {
     const ret = parseWhen(data, '-2');
     expect(data).toEqual(dataBak);
-    expect(ret).toEqual([0,7]);
+    expect(ret).toEqual([0, 7]);
   });
 
   it('parses -2, with addl -1', () => {
     const ret = parseWhen(data, '-2', -1);
     expect(data).toEqual(dataBak);
-    expect(ret).toEqual([-1,6]);
+    expect(ret).toEqual([-1, 6]);
   });
 
   it('parses 1-2', () => {
     const ret = parseWhen(data, '1-2');
     expect(data).toEqual(dataBak);
-    expect(ret).toEqual([1,2]);
+    expect(ret).toEqual([1, 2]);
   });
 
   it('parses 2-3, with addl -1', () => {
     const ret = parseWhen(data, '2-3', -1);
     expect(data).toEqual(dataBak);
-    expect(ret).toEqual([1,2]);
+    expect(ret).toEqual([1, 2]);
   });
-
-
 });
-
