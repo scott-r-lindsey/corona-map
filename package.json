@@ -20,6 +20,7 @@
     "eslint-plugin-react-hooks": "^3.0.0",
     "fetch-mock-jest": "^1.2.7",
     "husky": "^4.2.5",
+    "jest": "^29.7.0",
     "moment-es6": "^1.0.0",
     "node-fetch": "^2.6.0",
     "node-sass": "^4.13.1",
