@@ -1,48 +1,31 @@
 # App.jsx Documentation
 
-This file is the main entry point for the React application. It sets up themes, routes, fetches data, and provides context to the rest of the application.
+## Overview
+`App.jsx` is the main component file for the Corona Map application. This file sets up the primary structure and behavior of the application, including theme configuration, data fetching, and routing. It leverages React for the frontend framework, Material-UI for styling, and React Router for navigation.
 
 ## Imports
-
-```javascript
-import React, { useState, useEffect } from 'react';
-import './styles/App.scss';
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import { Redirect, BrowserRouter as Router, Switch } from 'react-router-dom';
-import { home } from './lib/config';
-import { primary, secondary } from './lib/colors';
-import TrackedRoute from './components/TrackedRoute';
-import RouteValidator from './components/RouteValidator';
-import { embellishData } from './lib/getMapValue';
-import Veil from './components/Veil';
-import VeilContext from './context/Veil';
-const fetch = require('node-fetch');
-```
-
-### Explanation:
-
-- **React Imports**: Import hooks (`useState` and `useEffect`) from React.
-- **Styles**: Import the main SCSS stylesheet for the application.
-- **Material-UI**: Import `ThemeProvider` and `createMuiTheme` to set up theming with Material-UI.
-- **React Router**: Import components for routing (`Redirect`, `Router`, `Switch`).
-- **Configuration Imports**: Import configurations like `home` route and color schemes.
-- **Components**: Import custom components (`TrackedRoute`, `RouteValidator`, `Veil`).
-- **Utility Functions**: Import `embellishData` function for data processing.
-- **Context**: Import `VeilContext` for providing veil state.
-- **Fetch**: Use `node-fetch` for making HTTP requests.
+- **React, { useState, useEffect }**: Core React library and hooks for managing component state and lifecycle.
+- **'./styles/App.scss'**: Custom SCSS styles for the application.
+- **{ ThemeProvider, createMuiTheme } from '@material-ui/core/styles'**: Material-UI components for theming.
+- **{ Redirect, BrowserRouter as Router, Switch } from 'react-router-dom'**: React Router components for navigation and routing.
+- **{ home } from './lib/config'**: Configuration file containing the home route.
+- **{ primary, secondary } from './lib/colors'**: Color definitions used in the theme.
+- **TrackedRoute**: Custom component for tracking routes.
+- **RouteValidator**: Component for validating routes based on data.
+- **{ embellishData } from './lib/getMapValue'**: Function to enhance the fetched data.
+- **Veil**: Component representing a loading or veil screen.
+- **VeilContext**: Context for managing the state of the veil.
+- **node-fetch**: Library for fetching data from the server.
 
 ## Constants
 
-### Data URL
-
+### dataUrl
 ```javascript
 const dataUrl = '/data/full.json';
 ```
+Defines the URL from which to fetch the data.
 
-URL endpoint for fetching the full data set.
-
-### Breakpoints
-
+### breakpoints
 ```javascript
 const breakpoints = {
   xs: 0,
@@ -52,11 +35,9 @@ const breakpoints = {
   xl: 1920,
 };
 ```
+Defines the breakpoints for responsive design.
 
-Defines the breakpoint values for responsive design.
-
-### Theme
-
+### theme
 ```javascript
 const theme = createMuiTheme({
   breakpoints: { values: breakpoints },
@@ -69,23 +50,16 @@ const theme = createMuiTheme({
   },
 });
 ```
+Creates a custom Material-UI theme using the defined breakpoints and color palette.
 
-Creates a Material-UI theme using custom breakpoints and color palette.
-
-## Main Function: `App`
+## App Component
+The `App` component is the root component of the application.
 
 ### State Variables
+- **data**: Holds the fetched data from the server.
+- **veil**: Manages the visibility of the veil component.
 
-```javascript
-const [data, setData] = useState(null);
-const [veil, setVeil] = useState(false);
-```
-
-- **`data`**: State variable to hold the fetched data.
-- **`veil`**: State variable to manage the visibility of the `Veil` component.
-
-### Data Fetching: useEffect Hook
-
+### useEffect Hook
 ```javascript
 useEffect(() => {
   (async () => {
@@ -99,75 +73,63 @@ useEffect(() => {
   })();
 }, []);
 ```
+Fetches the data from the server on component mount, processes it using `embellishData`, and sets it into the state.
 
-- **`useEffect`**: Runs only once on component mount to fetch data.
-- **`fetch`**: Fetches data from `dataUrl`.
-- **`embellishData`**: Enhances the fetched data.
-- **`setData`**: Stores the fetched and processed data in state.
+### Conditional Rendering
+The component conditionally renders based on whether the `data` state is populated.
 
-### Return Statement: JSX
-
+#### Data Loaded
+When `data` is successfully loaded:
 ```javascript
-return (
-  <>
-    { data
-      ? (
-        <ThemeProvider theme={theme}>
-          <VeilContext.Provider value={{ veil, setVeil }}>
-            <Router>
-              <Switch>
-                <TrackedRoute path="/:mode/:when/:axis/:quant/:location">
-                  <RouteValidator data={data} />
-                </TrackedRoute>
-                <TrackedRoute path="/">
-                  <Redirect to={home} />
-                </TrackedRoute>
-              </Switch>
-            </Router>
-            <Veil />
-          </VeilContext.Provider>
-        </ThemeProvider>
-      )
-      : (
-        <div style={{
-          backgroundColor: primary,
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          display: 'flex',
-          justifyContent: 'center',
-        }}
-        >
-          <div className="loading-animation">
-            <div />
-            <div />
-            <div />
-          </div>
-        </div>
-      )}
-  </>
-);
+<ThemeProvider theme={theme}>
+  <VeilContext.Provider value={{ veil, setVeil }}>
+    <Router>
+      <Switch>
+        <TrackedRoute path="/:mode/:when/:axis/:quant/:location">
+          <RouteValidator data={data} />
+        </TrackedRoute>
+        <TrackedRoute path="/">
+          <Redirect to={home} />
+        </TrackedRoute>
+      </Switch>
+    </Router>
+    <Veil />
+  </VeilContext.Provider>
+</ThemeProvider>
 ```
+- **ThemeProvider**: Provides the custom Material-UI theme to the entire application.
+- **VeilContext.Provider**: Provides the veil state context to the entire application.
+- **Router**: Wraps the routing logic.
+- **Switch**: Switches between different routes.
+  - **TrackedRoute**: Custom route component for tracking.
+    - **RouteValidator**: Validates the route based on the data.
+    - **Redirect**: Redirects to the home route if the path is "/".
 
-- **Conditional Rendering**: Checks if `data` is available.
-  - **If `data` is available**:
-    - **`ThemeProvider`**: Applies the theme to the entire application.
-    - **`VeilContext.Provider`**: Provides `veil` state to child components.
-    - **`Router` and `Switch`**: Sets up routes using `TrackedRoute` and `RouteValidator`.
-    - **`Veil`**: Renders the `Veil` component.
-  - **If `data` is not available**:
-    - Displays a loading animation with a background color.
+#### Data Not Loaded
+When `data` is still being fetched:
+```javascript
+<div style={{
+  backgroundColor: primary,
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  display: 'flex',
+  justifyContent: 'center',
+}}
+>
+  <div className="loading-animation">
+    <div />
+    <div />
+    <div />
+  </div>
+</div>
+```
+Displays a loading animation with a background color matching the primary theme color.
 
 ## Export
-
 ```javascript
 export default App;
 ```
-
-Exports the `App` component as the default export.
-
-## Summary
-
-This file initializes the main app component, sets up Material-UI theming, manages state for data and veil, fetches data on mount, and sets up routing. It also handles conditional rendering based on whether data has been fetched, showing either the main app or a loading animation.
+Exports the `App` component as the default export of the file.
